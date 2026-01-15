@@ -1,11 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="zh-TW">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Digital Hedge | 數位對沖 - AI 智能萃取實驗室</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+TC:wght@300;400;500;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,9 +24,8 @@
         -webkit-font-smoothing: antialiased;
       }
       .font-display {
-        font-family: 'Cinzel', serif; /* 用於標題，增加一點精品牌質感 */
+        font-family: 'Cinzel', serif;
       }
-      /* 玻璃壺質感卡片 */
       .card-coffee {
         background: rgba(255, 255, 255, 0.6);
         backdrop-filter: blur(12px);
@@ -42,7 +39,6 @@
         box-shadow: 0 12px 40px -8px rgba(212, 163, 115, 0.2);
         transform: translateY(-4px);
       }
-      /* 按鈕液態感 */
       .btn-liquid {
         background: var(--color-amber);
         color: #fff;
@@ -53,18 +49,9 @@
         box-shadow: 0 0 15px rgba(212, 163, 115, 0.4);
       }
     </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react/": "https://esm.sh/react@^18.3.1/",
-    "react": "https://esm.sh/react@^18.3.1",
-    "react-dom/": "https://esm.sh/react-dom@^18.3.1/",
-    "@google/genai": "https://esm.sh/@google/genai@^0.0.2"
-  }
-}
-</script>
-</head>
+  </head>
   <body>
     <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
   </body>
 </html>

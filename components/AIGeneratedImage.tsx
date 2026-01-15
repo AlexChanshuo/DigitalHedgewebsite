@@ -1,15 +1,11 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 // ==========================================
 // [設定] 請在此處填入您的 GitHub 資訊
 // ==========================================
-// 1. 您的 GitHub 帳號名稱
-const GITHUB_USERNAME = "YOUR_GITHUB_USERNAME"; 
-// 2. 您存放圖片的倉庫名稱
+const GITHUB_USERNAME = "AlexChanshuo"; 
 const GITHUB_REPO = "digital-hedge-assets";
-// 3. 分支名稱 (通常是 main 或 master)
 const GITHUB_BRANCH = "main";
 // ==========================================
 
@@ -17,7 +13,7 @@ interface AIGeneratedImageProps {
   prompt: string;
   className?: string;
   aspectRatio?: "1:1" | "3:4" | "4:3" | "9:16" | "16:9";
-  staticImage?: string; // 這裡只需要傳入檔名，例如 "hero.png"
+  staticImage?: string;
 }
 
 const AIGeneratedImage: React.FC<AIGeneratedImageProps> = ({ prompt, className, aspectRatio = "1:1", staticImage }) => {
@@ -27,43 +23,38 @@ const AIGeneratedImage: React.FC<AIGeneratedImageProps> = ({ prompt, className, 
   const [isHovered, setIsHovered] = useState(false);
   const [usingAI, setUsingAI] = useState(false);
 
-  // 建構 GitHub Raw 連結
   const getGitHubUrl = (filename: string) => {
-    // 移除路徑中的 assets/ 前綴，確保只保留檔名
     const cleanFilename = filename.replace(/^assets\//, '');
     return `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_REPO}/${GITHUB_BRANCH}/${cleanFilename}`;
   };
 
   const generateImage = useCallback(async (forceRegenerate = false) => {
-    // 如果是強制重繪，或是沒有 staticImage，才使用 AI
     try {
       setUsingAI(true);
       setLoading(true);
       setError(false);
       
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-      const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash-image',
-        contents: {
-          parts: [{ text: prompt }],
-        },
-        config: {
-          imageConfig: {
-            aspectRatio: aspectRatio,
-          },
-        },
-      });
-
-      let foundImage = false;
-      for (const part of response.candidates[0].content.parts) {
-        if (part.inlineData) {
-          const base64Image = `data:image/png;base64,${part.inlineData.data}`;
-          setImageUrl(base64Image);
-          foundImage = true;
-          break;
-        }
+      const apiKey = process.env.API_KEY || process.env.GEMINI_API_KEY;
+      if (!apiKey) {
+        console.error("No API key found");
+        setError(true);
+        setLoading(false);
+        return;
       }
-      if (!foundImage) setError(true);
+
+      const genAI = new GoogleGenerativeAI(apiKey);
+      const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp" });
+      
+      const result = await model.generateContent([
+        `Generate an image: ${prompt}. Aspect ratio: ${aspectRatio}`
+      ]);
+      
+      const response = await result.response;
+      const text = response.text();
+      
+      console.log("AI Response:", text);
+      setError(true);
+      
     } catch (err) {
       console.error("Image generation failed:", err);
       setError(true);
@@ -77,32 +68,30 @@ const AIGeneratedImage: React.FC<AIGeneratedImageProps> = ({ prompt, className, 
       setLoading(true);
       const githubUrl = getGitHubUrl(staticImage);
       
-      // 嘗試載入 GitHub 圖片
       const img = new Image();
       img.src = githubUrl;
       img.onload = () => {
-        // 成功載入 GitHub 圖片
         console.log(`Loaded from GitHub: ${githubUrl}`);
         setImageUrl(githubUrl);
         setLoading(false);
         setUsingAI(false);
       };
       img.onerror = () => {
-        // GitHub 載入失敗 (可能是還沒上傳，或檔名錯誤)，轉為 AI 生成
-        console.warn(`GitHub asset not found: ${githubUrl}. Falling back to AI.`);
-        generateImage(); 
+        console.warn(`GitHub asset not found: ${githubUrl}. Showing placeholder.`);
+        setError(true);
+        setLoading(false);
       };
     } else {
-      generateImage();
+      setError(true);
+      setLoading(false);
     }
-  }, [staticImage, generateImage]);
+  }, [staticImage]);
 
   const handleDownload = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (!imageUrl) return;
     const link = document.createElement('a');
     link.href = imageUrl;
-    // 如果是 GitHub 圖片，下載時嘗試保持原檔名
     const downloadName = staticImage ? staticImage.replace(/^assets\//, '') : `ai-generated-${Date.now()}.png`;
     link.download = downloadName;
     document.body.appendChild(link);
@@ -112,7 +101,6 @@ const AIGeneratedImage: React.FC<AIGeneratedImageProps> = ({ prompt, className, 
 
   const handleRegenerate = (e: React.MouseEvent) => {
     e.stopPropagation();
-    // 強制使用 AI 重繪
     generateImage(true);
   };
 
@@ -134,14 +122,13 @@ const AIGeneratedImage: React.FC<AIGeneratedImageProps> = ({ prompt, className, 
 
   if (error || !imageUrl) {
     return (
-      <div className={`flex flex-col items-center justify-center bg-[#FAF9F6] border border-red-500/20 rounded-2xl p-4 text-center ${className}`}>
-        <span className="text-[#2C2420]/50 text-xs mb-2">Image Missing</span>
-        <button 
-          onClick={handleRegenerate}
-          className="px-3 py-1 bg-white border border-[#E0E0E0] hover:border-[#D4A373] text-xs text-[#2C2420] rounded-md transition-colors"
-        >
-          Generate with AI
-        </button>
+      <div className={`flex flex-col items-center justify-center bg-gradient-to-br from-[#FAF9F6] to-[#E8E4DF] border border-[#E0E0E0] rounded-2xl ${className}`}>
+        <div className="text-[#D4A373] mb-4">
+          <svg className="w-16 h-16 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+        </div>
+        <span className="text-[#2C2420]/40 text-xs uppercase tracking-widest">Image Placeholder</span>
       </div>
     );
   }
@@ -156,24 +143,12 @@ const AIGeneratedImage: React.FC<AIGeneratedImageProps> = ({ prompt, className, 
         src={imageUrl} 
         alt={prompt} 
         className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110" 
-        // 只有 AI 生成的圖片才加 sepia 濾鏡，如果是自己上傳的圖通常希望保持原色
         style={{ filter: usingAI ? 'sepia(0.2)' : 'none' }}
       />
       
-      {/* 只有 hover 時顯示琥珀色濾鏡 */}
       <div className="absolute inset-0 bg-[#D4A373] opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none mix-blend-overlay"></div>
       
-      {/* Control Overlay */}
       <div className={`absolute top-4 right-4 flex space-x-2 transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
-        <button 
-          onClick={handleRegenerate}
-          title="Force AI Regenerate"
-          className="p-2 bg-white/90 backdrop-blur-md hover:bg-[#D4A373] hover:text-white text-[#2C2420] rounded-full transition-all border border-[#E0E0E0] shadow-sm"
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-          </svg>
-        </button>
         <button 
           onClick={handleDownload}
           title="Save Image"
