@@ -1,0 +1,193 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ==========================================
+// 使用者系統
+// ==========================================
+
+enum UserRole {
+  MASTER      // 最高管理員
+  ADMIN       // 管理員
+  EDITOR      // 編輯者
+  USER        // 一般使用者
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+  PENDING_PASSWORD_CHANGE  // 需要更改密碼
+}
+
+model User {
+  id                String      @id @default(cuid())
+  email             String      @unique
+  passwordHash      String
+  name              String?
+  avatar            String?
+  role              UserRole    @default(USER)
+  status            UserStatus  @default(ACTIVE)
+  
+  // 安全相關
+  failedLoginAttempts Int       @default(0)
+  lockedUntil       DateTime?
+  lastLoginAt       DateTime?
+  lastLoginIp       String?
+  mustChangePassword Boolean    @default(false)
+  
+  // 密碼重設
+  resetToken        String?
+  resetTokenExpiry  DateTime?
+  
+  // 時間戳記
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+  
+  // 關聯
+  posts             Post[]
+  sessions          Session[]
+  activityLogs      ActivityLog[]
+  
+  @@index([email])
+  @@index([role])
+  @@index([resetToken])
+}
+
+model Session {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  refreshToken  String   @unique
+  userAgent     String?
+  ipAddress     String?
+  expiresAt     DateTime
+  
+  createdAt     DateTime @default(now())
+  
+  @@index([userId])
+  @@index([refreshToken])
+}
+
+model ActivityLog {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  action      String   // LOGIN, LOGOUT, CREATE_POST, etc.
+  details     Json?
+  ipAddress   String?
+  userAgent   String?
+  
+  createdAt   DateTime @default(now())
+  
+  @@index([userId])
+  @@index([action])
+  @@index([createdAt])
+}
+
+// ==========================================
+// 部落格系統
+// ==========================================
+
+enum PostStatus {
+  DRAFT         // 草稿
+  PUBLISHED     // 已發布
+  SCHEDULED     // 排程發布
+  ARCHIVED      // 已封存
+}
+
+model Category {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  slug        String   @unique
+  description String?
+  order       Int      @default(0)
+  
+  // SEO
+  metaTitle       String?
+  metaDescription String?
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  posts       Post[]
+  
+  @@index([slug])
+}
+
+model Tag {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  slug        String   @unique
+  color       String?  // HEX color for UI
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  posts       PostTag[]
+  
+  @@index([slug])
+}
+
+model Post {
+  id          String     @id @default(cuid())
+  
+  // 基本內容
+  title       String
+  slug        String     @unique
+  excerpt     String?    // 摘要
+  content     String     // Markdown
+  coverImage  String?
+  
+  // 狀態
+  status      PostStatus @default(DRAFT)
+  publishedAt DateTime?
+  scheduledAt DateTime?
+  
+  // SEO 優化
+  metaTitle       String?
+  metaDescription String?
+  metaKeywords    String?
+  canonicalUrl    String?
+  
+  // AI SEO (結構化資料)
+  structuredData  Json?    // JSON-LD schema
+  
+  // 統計
+  viewCount   Int        @default(0)
+  
+  // 關聯
+  authorId    String
+  author      User       @relation(fields: [authorId], references: [id])
+  categoryId  String
+  category    Category   @relation(fields: [categoryId], references: [id])
+  tags        PostTag[]
+  
+  // 時間戳記
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  
+  @@index([slug])
+  @@index([status])
+  @@index([publishedAt])
+  @@index([categoryId])
+  @@index([authorId])
+}
+
+model PostTag {
+  postId    String
+  post      Post    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  tagId     String
+  tag       Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  
+  @@id([postId, tagId])
+}
