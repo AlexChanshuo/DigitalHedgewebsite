@@ -46,7 +46,7 @@ const VoiceOfChoice: React.FC<{ onBack: () => void }> = ({ onBack }) => {
             <div className="sticky top-40 aspect-square rounded-[3rem] overflow-hidden shadow-2xl border border-[#E0E0E0] bg-white">
                <AIGeneratedImage 
                  prompt="Data visualization of a phone survey map, glowing lines connecting specific regions, automated report generation on a smartphone screen showing LINE app interface, clean amber and charcoal infographic style" 
-                 staticImage="assets/page-voice-main.png"
+                 staticImage="page-voice-main.png"
                  className="w-full h-full"
                  aspectRatio="1:1"
                />

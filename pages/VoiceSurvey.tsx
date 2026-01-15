@@ -33,7 +33,7 @@ const VoiceSurvey: React.FC<{ onBack: () => void }> = ({ onBack }) => {
           <div className="w-full lg:w-[500px] rounded-[2rem] overflow-hidden shadow-2xl border border-[#E0E0E0] bg-white">
              <AIGeneratedImage 
                prompt="Visual concept of a CEO speaking into a microphone, and the voice turning into digital waves reaching thousands of people on a map, amber and charcoal color scheme, connecting brand with customers"
-               staticImage="assets/page-survey-main.png"
+               staticImage="page-survey-main.png"
                className="w-full h-[400px]"
                aspectRatio="1:1"
              />

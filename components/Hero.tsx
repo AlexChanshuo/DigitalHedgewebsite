@@ -60,7 +60,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
               {/* Prompt: 強調科技感、實驗室漏斗、數據流轉化為人 */}
               <AIGeneratedImage 
                 prompt="High-tech glass laboratory equipment extracting data, glowing streams of blue and amber binary code pouring into a futuristic filter, refining into a crystal clear AI digital human silhouette, minimalist scientific illustration, warm amber and charcoal colors, clean white background, isometric view, cinematic lighting" 
-                staticImage="assets/hero-extraction.png" 
+                staticImage="hero-extraction.png" 
                 className="w-full h-full object-contain drop-shadow-2xl"
                 aspectRatio="1:1"
               />

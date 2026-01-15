@@ -16,7 +16,7 @@ const ServiceValue: React.FC = () => {
                       <div className="h-56 rounded-xl overflow-hidden relative">
                         <AIGeneratedImage 
                           prompt="Digital sound waves transforming into data points, minimalist line art, amber and charcoal" 
-                          staticImage="assets/svc-voice.png"
+                          staticImage="svc-voice.png"
                           className="w-full h-full object-cover mix-blend-multiply opacity-90"
                           aspectRatio="3:4"
                         />
@@ -31,7 +31,7 @@ const ServiceValue: React.FC = () => {
                       <div className="h-40 rounded-xl overflow-hidden relative">
                         <AIGeneratedImage 
                           prompt="Glass server blocks filled with glowing data particles, lab style" 
-                          staticImage="assets/svc-memory.png"
+                          staticImage="svc-memory.png"
                           className="w-full h-full object-cover mix-blend-multiply opacity-90"
                           aspectRatio="1:1"
                         />
@@ -48,7 +48,7 @@ const ServiceValue: React.FC = () => {
                       <div className="h-40 rounded-xl overflow-hidden relative">
                         <AIGeneratedImage 
                           prompt="Precise alignment of digital structures, tactical execution metaphor, clean lines" 
-                          staticImage="assets/svc-tactic.png"
+                          staticImage="svc-tactic.png"
                           className="w-full h-full object-cover mix-blend-multiply opacity-90"
                           aspectRatio="1:1"
                         />
@@ -63,7 +63,7 @@ const ServiceValue: React.FC = () => {
                       <div className="h-56 rounded-xl overflow-hidden relative">
                         <AIGeneratedImage 
                           prompt="A glowing data insight point, high contrast, clean scientific style" 
-                          staticImage="assets/svc-insight.png"
+                          staticImage="svc-insight.png"
                           className="w-full h-full object-cover mix-blend-multiply opacity-90"
                           aspectRatio="3:4"
                         />

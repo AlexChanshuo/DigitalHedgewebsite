@@ -38,7 +38,7 @@ const Vision: React.FC = () => {
              <div className="bg-white p-3 rounded-[2rem] border border-[#E0E0E0] shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-700">
                 <AIGeneratedImage 
                    prompt="Abstract visualization of a high-tech data filter, glowing digital mesh separating noise from pure golden data streams, charcoal and amber color palette, elegant scientific style"
-                   staticImage="assets/vision-filter.png"
+                   staticImage="vision-filter.png"
                    className="rounded-[1.5rem] w-full aspect-square"
                    aspectRatio="1:1"
                 />
