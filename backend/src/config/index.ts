@@ -2,7 +2,7 @@
 
 export const config = {
   // Server
-  port: parseInt(process.env.PORT || '3001'),
+  port: parseInt(process.env.PORT || '8080'),
   nodeEnv: process.env.NODE_ENV || 'development',
   
   // Database

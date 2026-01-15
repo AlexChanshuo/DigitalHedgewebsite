@@ -1,0 +1,5 @@
+{
+  "build_type": "node",
+  "start_command": "npm start",
+  "serverless": false
+}
