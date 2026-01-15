@@ -1,4 +1,3 @@
-
 import React from 'react';
 import AIGeneratedImage from './AIGeneratedImage';
 
@@ -53,19 +52,16 @@ const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
 
         {/* Right Column: Visual */}
         <div className="relative h-[650px] hidden lg:block animate-in slide-in-from-right duration-1000 delay-200">
-           {/* 背景裝飾：琥珀色數據流動感 */}
            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-[#D4A373]/10 to-transparent rounded-full blur-3xl -z-10"></div>
            
            <div className="relative w-full h-full">
-              {/* Prompt: 強調科技感、實驗室漏斗、數據流轉化為人 */}
               <AIGeneratedImage 
-                prompt="High-tech glass laboratory equipment extracting data, glowing streams of blue and amber binary code pouring into a futuristic filter, refining into a crystal clear AI digital human silhouette, minimalist scientific illustration, warm amber and charcoal colors, clean white background, isometric view, cinematic lighting" 
-                staticImage="hero-extraction.png" 
-                className="w-full h-full object-contain drop-shadow-2xl"
+                prompt="AI Extraction visualization" 
+                staticImage="Precision-AIExtraction.png" 
+                className="w-full h-full object-contain drop-shadow-2xl rounded-3xl"
                 aspectRatio="1:1"
               />
               
-              {/* Floating UI Elements: Tech Specs */}
               <div className="absolute bottom-20 left-10 bg-white/40 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-white/50 animate-[float_8s_ease-in-out_infinite]">
                  <div className="flex items-center space-x-3 mb-2">
                     <div className="w-8 h-8 rounded-full bg-[#2C2420] flex items-center justify-center text-[#D4A373]">

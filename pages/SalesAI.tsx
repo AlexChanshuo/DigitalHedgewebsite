@@ -1,4 +1,3 @@
-
 import React from 'react';
 import AIGeneratedImage from '../components/AIGeneratedImage';
 
@@ -32,8 +31,8 @@ const SalesAI: React.FC<{ onBack: () => void }> = ({ onBack }) => {
           </div>
           <div className="w-full lg:w-[500px] rounded-[2rem] overflow-hidden shadow-2xl border border-[#E0E0E0] bg-white">
              <AIGeneratedImage 
-               prompt="Futuristic dashboard interface showing a calendar being automatically filled by AI, voice waveform visualizer, list of successful client calls, clean amber and charcoal business aesthetic"
-               staticImage="page-sales-main.png"
+               prompt="Voice AI Sales Agent"
+               staticImage="VoiceAISalesAgent.png"
                className="w-full h-[350px]"
                aspectRatio="4:3"
              />

@@ -1,13 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { GoogleGenerativeAI } from "@google/generative-ai";
-
-// ==========================================
-// [設定] 請在此處填入您的 GitHub 資訊
-// ==========================================
-const GITHUB_USERNAME = "AlexChanshuo"; 
-const GITHUB_REPO = "digital-hedge-assets";
-const GITHUB_BRANCH = "main";
-// ==========================================
+import React, { useState, useEffect } from 'react';
 
 interface AIGeneratedImageProps {
   prompt: string;
@@ -21,63 +12,23 @@ const AIGeneratedImage: React.FC<AIGeneratedImageProps> = ({ prompt, className, 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [usingAI, setUsingAI] = useState(false);
-
-  const getGitHubUrl = (filename: string) => {
-    const cleanFilename = filename.replace(/^assets\//, '');
-    return `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_REPO}/${GITHUB_BRANCH}/${cleanFilename}`;
-  };
-
-  const generateImage = useCallback(async (forceRegenerate = false) => {
-    try {
-      setUsingAI(true);
-      setLoading(true);
-      setError(false);
-      
-      const apiKey = process.env.API_KEY || process.env.GEMINI_API_KEY;
-      if (!apiKey) {
-        console.error("No API key found");
-        setError(true);
-        setLoading(false);
-        return;
-      }
-
-      const genAI = new GoogleGenerativeAI(apiKey);
-      const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp" });
-      
-      const result = await model.generateContent([
-        `Generate an image: ${prompt}. Aspect ratio: ${aspectRatio}`
-      ]);
-      
-      const response = await result.response;
-      const text = response.text();
-      
-      console.log("AI Response:", text);
-      setError(true);
-      
-    } catch (err) {
-      console.error("Image generation failed:", err);
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
-  }, [prompt, aspectRatio]);
 
   useEffect(() => {
     if (staticImage) {
       setLoading(true);
-      const githubUrl = getGitHubUrl(staticImage);
+      // Images in public folder are served at root
+      const publicUrl = `/${staticImage}`;
       
       const img = new Image();
-      img.src = githubUrl;
+      img.src = publicUrl;
       img.onload = () => {
-        console.log(`Loaded from GitHub: ${githubUrl}`);
-        setImageUrl(githubUrl);
+        console.log(`Loaded image: ${publicUrl}`);
+        setImageUrl(publicUrl);
         setLoading(false);
-        setUsingAI(false);
+        setError(false);
       };
       img.onerror = () => {
-        console.warn(`GitHub asset not found: ${githubUrl}. Showing placeholder.`);
+        console.warn(`Image not found: ${publicUrl}`);
         setError(true);
         setLoading(false);
       };
@@ -92,16 +43,11 @@ const AIGeneratedImage: React.FC<AIGeneratedImageProps> = ({ prompt, className, 
     if (!imageUrl) return;
     const link = document.createElement('a');
     link.href = imageUrl;
-    const downloadName = staticImage ? staticImage.replace(/^assets\//, '') : `ai-generated-${Date.now()}.png`;
+    const downloadName = staticImage || `image-${Date.now()}.png`;
     link.download = downloadName;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  };
-
-  const handleRegenerate = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    generateImage(true);
   };
 
   if (loading) {
@@ -114,7 +60,7 @@ const AIGeneratedImage: React.FC<AIGeneratedImageProps> = ({ prompt, className, 
           </svg>
         </div>
         <span className="text-[10px] uppercase tracking-widest text-[#2C2420]/40 font-medium">
-          {usingAI ? "AI Generating..." : "Fetching Asset..."}
+          Loading...
         </span>
       </div>
     );
@@ -143,7 +89,6 @@ const AIGeneratedImage: React.FC<AIGeneratedImageProps> = ({ prompt, className, 
         src={imageUrl} 
         alt={prompt} 
         className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110" 
-        style={{ filter: usingAI ? 'sepia(0.2)' : 'none' }}
       />
       
       <div className="absolute inset-0 bg-[#D4A373] opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none mix-blend-overlay"></div>

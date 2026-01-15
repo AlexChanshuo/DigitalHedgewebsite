@@ -1,4 +1,3 @@
-
 import React from 'react';
 import AIGeneratedImage from './AIGeneratedImage';
 
@@ -15,8 +14,8 @@ const ServiceValue: React.FC = () => {
                    <div className="bg-[#FAF9F6] p-2 rounded-2xl shadow-sm border border-[#E0E0E0]">
                       <div className="h-56 rounded-xl overflow-hidden relative">
                         <AIGeneratedImage 
-                          prompt="Digital sound waves transforming into data points, minimalist line art, amber and charcoal" 
-                          staticImage="svc-voice.png"
+                          prompt="Data Ingestion visualization" 
+                          staticImage="DataIngestion.png"
                           className="w-full h-full object-cover mix-blend-multiply opacity-90"
                           aspectRatio="3:4"
                         />
@@ -30,8 +29,8 @@ const ServiceValue: React.FC = () => {
                    <div className="bg-[#FAF9F6] p-2 rounded-2xl shadow-sm border border-[#E0E0E0]">
                       <div className="h-40 rounded-xl overflow-hidden relative">
                         <AIGeneratedImage 
-                          prompt="Glass server blocks filled with glowing data particles, lab style" 
-                          staticImage="svc-memory.png"
+                          prompt="AI Filtering visualization" 
+                          staticImage="Infinite-AIFiltering.png"
                           className="w-full h-full object-cover mix-blend-multiply opacity-90"
                           aspectRatio="1:1"
                         />
@@ -47,8 +46,8 @@ const ServiceValue: React.FC = () => {
                    <div className="bg-[#FAF9F6] p-2 rounded-2xl shadow-sm border border-[#E0E0E0]">
                       <div className="h-40 rounded-xl overflow-hidden relative">
                         <AIGeneratedImage 
-                          prompt="Precise alignment of digital structures, tactical execution metaphor, clean lines" 
-                          staticImage="svc-tactic.png"
+                          prompt="Model Calibration visualization" 
+                          staticImage="ModelCalibration.png"
                           className="w-full h-full object-cover mix-blend-multiply opacity-90"
                           aspectRatio="1:1"
                         />
@@ -62,8 +61,8 @@ const ServiceValue: React.FC = () => {
                    <div className="bg-[#FAF9F6] p-2 rounded-2xl shadow-sm border border-[#E0E0E0]">
                       <div className="h-56 rounded-xl overflow-hidden relative">
                         <AIGeneratedImage 
-                          prompt="A glowing data insight point, high contrast, clean scientific style" 
-                          staticImage="svc-insight.png"
+                          prompt="AI Synthesis visualization" 
+                          staticImage="AISynthesis.png"
                           className="w-full h-full object-cover mix-blend-multiply opacity-90"
                           aspectRatio="3:4"
                         />

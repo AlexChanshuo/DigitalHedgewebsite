@@ -1,4 +1,3 @@
-
 import React from 'react';
 import AIGeneratedImage from '../components/AIGeneratedImage';
 
@@ -45,8 +44,8 @@ const VoiceOfChoice: React.FC<{ onBack: () => void }> = ({ onBack }) => {
           <div className="relative">
             <div className="sticky top-40 aspect-square rounded-[3rem] overflow-hidden shadow-2xl border border-[#E0E0E0] bg-white">
                <AIGeneratedImage 
-                 prompt="Data visualization of a phone survey map, glowing lines connecting specific regions, automated report generation on a smartphone screen showing LINE app interface, clean amber and charcoal infographic style" 
-                 staticImage="page-voice-main.png"
+                 prompt="Voice of Choice Survey System" 
+                 staticImage="Voice-ofChoice.png"
                  className="w-full h-full"
                  aspectRatio="1:1"
                />
