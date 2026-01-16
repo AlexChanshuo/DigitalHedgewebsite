@@ -78,6 +78,7 @@ const Login: React.FC<LoginProps> = ({ onSuccess, onBack }) => {
         body: JSON.stringify({
           currentPassword: password,
           newPassword: newPassword,
+          confirmPassword: confirmPassword,
         }),
       });
 
