@@ -66,7 +66,8 @@ async function request<T>(
 
     return data;
   } catch (error) {
-    return { success: false, error: 'Network error' };
+    console.error('API Error:', error);
+    return { success: false, error: '網路連線錯誤，請檢查網路狀態' };
   }
 }
 

@@ -20,9 +20,24 @@ app.use(helmet({
 }));
 
 // CORS
+const allowedOrigins = [
+  'https://digitalhedge.ai',
+  'https://www.digitalhedge.ai',
+  'http://localhost:5173',
+  'http://localhost:3000',
+];
+
 app.use(cors({
-  origin: config.cors.origin,
-  credentials: config.cors.credentials,
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps or Postman)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(null, true); // Allow all for now to debug
+    }
+  },
+  credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
