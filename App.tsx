@@ -5,6 +5,8 @@ import Home from './pages/Home';
 import VoiceOfChoice from './pages/VoiceOfChoice';
 import VoiceSurvey from './pages/VoiceSurvey';
 import SalesAI from './pages/SalesAI';
+import Blog from './pages/Blog';
+import BlogPost from './pages/BlogPost';
 import Login from './pages/Login';
 import Admin from './pages/Admin';
 import Contact from './components/Contact';
@@ -12,11 +14,12 @@ import Footer from './components/Footer';
 import BackgroundEffects from './components/BackgroundEffects';
 import ConstructionOverlay from './components/ConstructionOverlay';
 
-export type Page = 'home' | 'voice-of-choice' | 'voice-survey' | 'sales-ai' | 'login' | 'admin';
+export type Page = 'home' | 'voice-of-choice' | 'voice-survey' | 'sales-ai' | 'blog' | 'blog-post' | 'login' | 'admin';
 
 const AppContent: React.FC = () => {
   const { isAuthenticated, isLoading, logout } = useAuth();
   const [currentPage, setCurrentPage] = useState<Page>('home');
+  const [currentBlogSlug, setCurrentBlogSlug] = useState<string>('');
   const [isScrolled, setIsScrolled] = useState(false);
   const [showConstruction, setShowConstruction] = useState(false);
 
@@ -27,6 +30,18 @@ const AppContent: React.FC = () => {
       setCurrentPage('login');
     } else if (path === '/admin' || path.startsWith('/admin/')) {
       setCurrentPage('admin');
+    } else if (path === '/blog') {
+      setCurrentPage('blog');
+    } else if (path.startsWith('/blog/')) {
+      const slug = path.replace('/blog/', '');
+      setCurrentBlogSlug(slug);
+      setCurrentPage('blog-post');
+    } else if (path === '/voice-of-choice') {
+      setCurrentPage('voice-of-choice');
+    } else if (path === '/voice-survey') {
+      setCurrentPage('voice-survey');
+    } else if (path === '/sales-ai') {
+      setCurrentPage('sales-ai');
     }
   }, []);
 
@@ -35,6 +50,8 @@ const AppContent: React.FC = () => {
     let path = '/';
     if (currentPage === 'login') path = '/login';
     else if (currentPage === 'admin') path = '/admin';
+    else if (currentPage === 'blog') path = '/blog';
+    else if (currentPage === 'blog-post') path = `/blog/${currentBlogSlug}`;
     else if (currentPage === 'voice-of-choice') path = '/voice-of-choice';
     else if (currentPage === 'voice-survey') path = '/voice-survey';
     else if (currentPage === 'sales-ai') path = '/sales-ai';
@@ -42,7 +59,7 @@ const AppContent: React.FC = () => {
     if (window.location.pathname !== path) {
       window.history.pushState({}, '', path);
     }
-  }, [currentPage]);
+  }, [currentPage, currentBlogSlug]);
 
   // Handle browser back/forward
   useEffect(() => {
@@ -50,6 +67,12 @@ const AppContent: React.FC = () => {
       const path = window.location.pathname;
       if (path === '/login') setCurrentPage('login');
       else if (path === '/admin' || path.startsWith('/admin/')) setCurrentPage('admin');
+      else if (path === '/blog') setCurrentPage('blog');
+      else if (path.startsWith('/blog/')) {
+        const slug = path.replace('/blog/', '');
+        setCurrentBlogSlug(slug);
+        setCurrentPage('blog-post');
+      }
       else if (path === '/voice-of-choice') setCurrentPage('voice-of-choice');
       else if (path === '/voice-survey') setCurrentPage('voice-survey');
       else if (path === '/sales-ai') setCurrentPage('sales-ai');
@@ -76,6 +99,12 @@ const AppContent: React.FC = () => {
       setCurrentPage('login');
     }
   }, [isLoading, isAuthenticated, currentPage]);
+
+  // Navigate to blog post
+  function navigateToBlogPost(slug: string) {
+    setCurrentBlogSlug(slug);
+    setCurrentPage('blog-post');
+  }
 
   // Show loading while checking auth
   if (isLoading && (currentPage === 'admin' || currentPage === 'login')) {
@@ -110,6 +139,57 @@ const AppContent: React.FC = () => {
         }}
         onBackToSite={() => setCurrentPage('home')}
       />
+    );
+  }
+
+  // Blog post page (no navbar/footer for cleaner reading)
+  if (currentPage === 'blog-post') {
+    return (
+      <div className="relative min-h-screen overflow-x-hidden text-[#2C2420] bg-[#FAF9F6] selection:bg-[#D4A373] selection:text-white">
+        <BackgroundEffects />
+        <Navbar 
+          isScrolled={isScrolled} 
+          currentPage={currentPage} 
+          onNavigate={setCurrentPage}
+          onOpenConsulting={() => setShowConstruction(true)}
+        />
+        <main className="transition-opacity duration-500">
+          <BlogPost
+            slug={currentBlogSlug}
+            onBack={() => setCurrentPage('blog')}
+            onNavigateToBlog={() => setCurrentPage('blog')}
+          />
+        </main>
+        <Footer />
+        {showConstruction && (
+          <ConstructionOverlay onClose={() => setShowConstruction(false)} />
+        )}
+      </div>
+    );
+  }
+
+  // Blog list page
+  if (currentPage === 'blog') {
+    return (
+      <div className="relative min-h-screen overflow-x-hidden text-[#2C2420] bg-[#FAF9F6] selection:bg-[#D4A373] selection:text-white">
+        <BackgroundEffects />
+        <Navbar 
+          isScrolled={isScrolled} 
+          currentPage={currentPage} 
+          onNavigate={setCurrentPage}
+          onOpenConsulting={() => setShowConstruction(true)}
+        />
+        <main className="transition-opacity duration-500">
+          <Blog
+            onNavigateToPost={navigateToBlogPost}
+            onBack={() => setCurrentPage('home')}
+          />
+        </main>
+        <Footer />
+        {showConstruction && (
+          <ConstructionOverlay onClose={() => setShowConstruction(false)} />
+        )}
+      </div>
     );
   }
 

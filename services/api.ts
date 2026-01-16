@@ -135,7 +135,7 @@ export async function changePassword(currentPassword: string, newPassword: strin
 }
 
 export async function getProfile(): Promise<ApiResponse<LoginResponse['user']>> {
-  return request('/auth/profile');
+  return request('/auth/me');
 }
 
 // ==========================================

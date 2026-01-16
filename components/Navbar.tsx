@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Page } from '../App';
 
@@ -38,7 +37,7 @@ const Navbar: React.FC<NavbarProps> = ({ isScrolled, currentPage, onNavigate, on
             onMouseEnter={() => setShowDropdown(true)}
             onMouseLeave={() => setShowDropdown(false)}
           >
-            <button className={`hover:text-[#D4A373] transition-colors flex items-center space-x-1 h-full py-2 ${currentPage !== 'home' ? 'text-[#D4A373]' : ''}`}>
+            <button className={`hover:text-[#D4A373] transition-colors flex items-center space-x-1 h-full py-2 ${['voice-of-choice', 'sales-ai', 'voice-survey'].includes(currentPage) ? 'text-[#D4A373]' : ''}`}>
               <span>產品矩陣</span>
               <svg className={`w-3 h-3 transition-transform duration-300 ${showDropdown ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
@@ -64,6 +63,13 @@ const Navbar: React.FC<NavbarProps> = ({ isScrolled, currentPage, onNavigate, on
               </div>
             </div>
           </div>
+
+          <button 
+            onClick={() => onNavigate('blog')} 
+            className={`hover:text-[#D4A373] transition-colors ${currentPage === 'blog' || currentPage === 'blog-post' ? 'text-[#D4A373]' : ''}`}
+          >
+            部落格
+          </button>
 
           <button onClick={onOpenConsulting} className="hover:text-[#D4A373] transition-colors">戰略諮詢</button>
         </div>
