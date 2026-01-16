@@ -3,7 +3,12 @@ import { Request, Response, NextFunction } from 'express';
 import { prisma } from '../config/database';
 import { createError } from '../middlewares/errorMiddleware';
 import { generateSlug, ensureUniqueSlug } from '../utils/slug';
-import { PostStatus } from '@prisma/client';
+import { PostStatus, Tag, PostTag } from '@prisma/client';
+
+// Type for post tags with included tag
+interface PostTagWithTag extends PostTag {
+  tag: Tag;
+}
 
 /**
  * 取得所有文章 (公開)
@@ -100,7 +105,7 @@ export async function getAllPosts(req: Request, res: Response, next: NextFunctio
     // 格式化 tags
     const formattedPosts = posts.map((post) => ({
       ...post,
-      tags: post.tags.map((t) => t.tag),
+      tags: post.tags.map((t: { tag: { id: string; name: string; slug: string; color: string | null } }) => t.tag),
     }));
 
     res.json({
@@ -182,7 +187,7 @@ export async function getPostBySlug(req: Request, res: Response, next: NextFunct
       success: true,
       data: {
         ...post,
-        tags: post.tags.map((t) => t.tag),
+        tags: post.tags.map((t: { tag: { id: string; name: string; slug: string; color: string | null } }) => t.tag),
       },
     });
   } catch (error) {
@@ -223,7 +228,7 @@ export async function createPost(req: Request, res: Response, next: NextFunction
 
     // 生成 slug
     const baseSlug = customSlug || generateSlug(title);
-    const slug = await ensureUniqueSlug(baseSlug, async (s) => {
+    const slug = await ensureUniqueSlug(baseSlug, async (s: string) => {
       const existing = await prisma.post.findUnique({ where: { slug: s } });
       return !!existing;
     });
@@ -296,7 +301,7 @@ export async function createPost(req: Request, res: Response, next: NextFunction
       success: true,
       data: {
         ...post,
-        tags: post.tags.map((t) => t.tag),
+        tags: post.tags.map((t: { tag: { id: string; name: string; slug: string } }) => t.tag),
       },
     });
   } catch (error) {
@@ -354,7 +359,7 @@ export async function updatePost(req: Request, res: Response, next: NextFunction
       slug = customSlug;
     } else if (title && title !== post.title && !customSlug) {
       const baseSlug = generateSlug(title);
-      slug = await ensureUniqueSlug(baseSlug, async (s) => {
+      slug = await ensureUniqueSlug(baseSlug, async (s: string) => {
         const existing = await prisma.post.findUnique({ where: { slug: s } });
         return existing !== null && existing.id !== id;
       });
@@ -424,7 +429,7 @@ export async function updatePost(req: Request, res: Response, next: NextFunction
       success: true,
       data: {
         ...updated,
-        tags: updated.tags.map((t) => t.tag),
+        tags: updated.tags.map((t: { tag: { id: string; name: string; slug: string } }) => t.tag),
       },
     });
   } catch (error) {
