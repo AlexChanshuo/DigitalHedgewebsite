@@ -1,7 +1,10 @@
-
 import React from 'react';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  onAdminLogin?: () => void;
+}
+
+const Footer: React.FC<FooterProps> = ({ onAdminLogin }) => {
   return (
     <footer className="py-16 bg-[#2C2420] text-[#FAF9F6]">
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
@@ -17,6 +20,12 @@ const Footer: React.FC = () => {
         <div className="flex space-x-8 text-xs text-[#FAF9F6]/60 uppercase tracking-widest font-medium">
           <a href="#" className="hover:text-[#D4A373] transition-colors">Privacy Policy</a>
           <a href="#" className="hover:text-[#D4A373] transition-colors">Terms of Service</a>
+          <button 
+            onClick={() => window.location.href = '/login'}
+            className="hover:text-[#D4A373] transition-colors"
+          >
+            Admin
+          </button>
         </div>
       </div>
     </footer>
