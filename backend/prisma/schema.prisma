@@ -192,3 +192,94 @@ model PostTag {
   
   @@id([postId, tagId])
 }
+
+// ==========================================
+// AI 內容聚合系統
+// ==========================================
+
+enum SourceType {
+  RSS           // RSS/Atom feed
+  WEBSITE       // Web scraping
+  TWITTER       // Twitter/X API
+}
+
+enum FetchedContentStatus {
+  PENDING       // 待審核
+  APPROVED      // 已審核
+  PUBLISHED     // 已發布
+  REJECTED      // 已拒絕
+  PROCESSING    // AI 處理中
+}
+
+model ContentSource {
+  id          String      @id @default(cuid())
+  name        String      // 來源名稱
+  type        SourceType  @default(RSS)
+  url         String      // RSS 或網站 URL
+  language    String      @default("zh-TW") // 主要語言
+  isActive    Boolean     @default(true)
+  lastFetched DateTime?   // 上次抓取時間
+  fetchInterval Int       @default(60) // 抓取間隔（分鐘）
+  
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  
+  fetchedItems FetchedContent[]
+  
+  @@index([isActive])
+  @@index([type])
+}
+
+model FetchedContent {
+  id              String               @id @default(cuid())
+  sourceId        String
+  source          ContentSource        @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+  
+  // 原始內容
+  originalUrl     String               @unique
+  originalTitle   String
+  originalContent String               // 原始文章內容
+  originalExcerpt String?              // 原始摘要
+  publishedAt     DateTime?            // 原始發布時間
+  
+  // AI 處理後內容
+  generatedTitle   String?             // AI 生成標題
+  generatedContent String?             // AI 重構後內容
+  generatedExcerpt String?             // AI 生成摘要
+  
+  // 狀態
+  status          FetchedContentStatus @default(PENDING)
+  
+  // 發布關聯
+  postId          String?              // 發布後關聯的 Post ID
+  
+  // 時間戳記
+  fetchedAt       DateTime             @default(now())
+  processedAt     DateTime?            // AI 處理時間
+  createdAt       DateTime             @default(now())
+  updatedAt       DateTime             @updatedAt
+  
+  @@index([sourceId])
+  @@index([status])
+  @@index([fetchedAt])
+}
+
+// ==========================================
+// 系統設定
+// ==========================================
+
+model AppSettings {
+  id              String   @id @default("app_settings")
+  
+  // 自動發布設定
+  autoPublish     Boolean  @default(false)  // 自動發布開關
+  autoPublishHour Int      @default(9)      // 每日自動發布時間 (0-23)
+  postsPerDay     Int      @default(2)      // 每日發布數量
+  
+  // AI 處理設定
+  defaultCategoryId String?               // 預設分類
+  defaultAuthorId   String?               // 預設作者
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}

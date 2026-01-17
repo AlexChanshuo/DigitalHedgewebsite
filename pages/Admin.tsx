@@ -5,8 +5,10 @@ import AdminNavbar from '../components/AdminNavbar';
 import AdminPosts from './AdminPosts';
 import AdminPostEditor from './AdminPostEditor';
 import { getPosts, getCategories, PostsResponse, Category } from '../services/api';
+import AdminContentSources from './AdminContentSources';
+import AdminFetchedContent from './AdminFetchedContent';
 
-type AdminPage = 'dashboard' | 'posts' | 'categories' | 'tags' | 'users';
+type AdminPage = 'dashboard' | 'posts' | 'categories' | 'tags' | 'users' | 'content-sources' | 'fetched-content';
 type AdminView = 'list' | 'editor';
 
 interface AdminProps {
@@ -19,7 +21,7 @@ const Admin: React.FC<AdminProps> = ({ onLogout, onBackToSite }) => {
   const [currentPage, setCurrentPage] = useState<AdminPage>('dashboard');
   const [currentView, setCurrentView] = useState<AdminView>('list');
   const [editingPostId, setEditingPostId] = useState<string | null>(null);
-  
+
   // Dashboard stats
   const [stats, setStats] = useState({
     totalPosts: 0,
@@ -81,6 +83,14 @@ const Admin: React.FC<AdminProps> = ({ onLogout, onBackToSite }) => {
   }
 
   const renderContent = () => {
+    if (currentPage === 'content-sources') {
+      return <AdminContentSources />;
+    }
+
+    if (currentPage === 'fetched-content') {
+      return <AdminFetchedContent />;
+    }
+
     if (currentPage === 'posts') {
       if (currentView === 'editor') {
         return (
@@ -182,6 +192,17 @@ const Admin: React.FC<AdminProps> = ({ onLogout, onBackToSite }) => {
                   </div>
                   <span className="font-medium text-[#2C2420]">管理文章</span>
                 </button>
+                <button
+                  onClick={() => setCurrentPage('fetched-content')}
+                  className="w-full flex items-center space-x-3 px-4 py-3 bg-[#FAF9F6] rounded-xl hover:bg-[#D4A373]/10 transition-colors group"
+                >
+                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                    </svg>
+                  </div>
+                  <span className="font-medium text-[#2C2420]">AI 內容審核</span>
+                </button>
               </div>
             </div>
 
@@ -196,7 +217,7 @@ const Admin: React.FC<AdminProps> = ({ onLogout, onBackToSite }) => {
                   查看全部
                 </button>
               </div>
-              
+
               {isLoading ? (
                 <div className="text-center py-8 text-[#2C2420]/50">載入中...</div>
               ) : recentPosts.length === 0 ? (
@@ -215,11 +236,10 @@ const Admin: React.FC<AdminProps> = ({ onLogout, onBackToSite }) => {
                         </p>
                       </div>
                       <div className="flex items-center space-x-3 ml-4">
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          post.status === 'PUBLISHED'
-                            ? 'bg-green-100 text-green-700'
-                            : 'bg-yellow-100 text-yellow-700'
-                        }`}>
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${post.status === 'PUBLISHED'
+                          ? 'bg-green-100 text-green-700'
+                          : 'bg-yellow-100 text-yellow-700'
+                          }`}>
                           {post.status === 'PUBLISHED' ? '已發布' : '草稿'}
                         </span>
                         <button

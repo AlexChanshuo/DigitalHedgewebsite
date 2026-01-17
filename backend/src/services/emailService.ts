@@ -9,7 +9,7 @@ export async function sendPasswordResetEmail(
   resetToken: string
 ): Promise<boolean> {
   const resetUrl = `${config.frontendUrl}/reset-password?token=${resetToken}`;
-  
+
   try {
     await resend.emails.send({
       from: config.email.from,
@@ -118,6 +118,78 @@ export async function sendWelcomeEmail(
     return true;
   } catch (error) {
     console.error('Email sending failed:', error);
+    return false;
+  }
+}
+
+interface ContactNotificationParams {
+  name: string;
+  email: string;
+  message: string;
+}
+
+export async function sendContactNotification(
+  params: ContactNotificationParams
+): Promise<boolean> {
+  const { name, email, message } = params;
+
+  try {
+    await resend.emails.send({
+      from: config.email.from,
+      to: config.contactEmail,
+      reply_to: email,
+      subject: `【Digital Hedge 客戶諮詢】來自 ${name}`,
+      html: `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="utf-8">
+          <style>
+            body { font-family: 'Microsoft JhengHei', sans-serif; line-height: 1.6; color: #2C2420; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .header { text-align: center; padding: 20px 0; border-bottom: 2px solid #D4A373; }
+            .logo { font-size: 24px; font-weight: bold; color: #2C2420; }
+            .content { padding: 30px 0; }
+            .info-box { background: #FAF9F6; padding: 20px; border-radius: 8px; margin: 20px 0; }
+            .label { font-weight: bold; color: #D4A373; }
+            .message-box { background: #fff; border: 1px solid #E0E0E0; padding: 20px; border-radius: 8px; margin: 20px 0; white-space: pre-wrap; }
+            .footer { text-align: center; padding: 20px 0; border-top: 1px solid #E0E0E0; color: #888; font-size: 12px; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <div class="logo">DIGITAL HEDGE</div>
+              <p style="color: #D4A373; margin: 10px 0 0 0;">新客戶諮詢通知</p>
+            </div>
+            <div class="content">
+              <h2>📬 您收到一則新的客戶訊息</h2>
+              
+              <div class="info-box">
+                <p><span class="label">客戶姓名：</span>${name}</p>
+                <p><span class="label">電子郵件：</span><a href="mailto:${email}">${email}</a></p>
+                <p><span class="label">提交時間：</span>${new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' })}</p>
+              </div>
+              
+              <p class="label">客戶訊息內容：</p>
+              <div class="message-box">${message}</div>
+              
+              <p style="color: #888; font-size: 14px;">
+                💡 您可以直接回覆此郵件與客戶聯繫。
+              </p>
+            </div>
+            <div class="footer">
+              <p>© ${new Date().getFullYear()} Digital Hedge Co., Ltd.</p>
+              <p>此郵件由網站聯繫表單自動發送</p>
+            </div>
+          </div>
+        </body>
+        </html>
+      `,
+    });
+    return true;
+  } catch (error) {
+    console.error('Contact notification email failed:', error);
     return false;
   }
 }

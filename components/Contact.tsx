@@ -1,11 +1,49 @@
-
-import React from 'react';
+import React, { useState } from 'react';
+import { submitContactForm } from '../services/api';
 
 interface ContactProps {
   onOpenChat: () => void;
 }
 
 const Contact: React.FC<ContactProps> = ({ onOpenChat }) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: 'success' | 'error' | null;
+    message: string;
+  }>({ type: null, message: '' });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!formData.name || !formData.email || !formData.message) {
+      setSubmitStatus({ type: 'error', message: '請填寫所有欄位' });
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: '' });
+
+    try {
+      const result = await submitContactForm(formData);
+
+      if (result.success) {
+        setSubmitStatus({ type: 'success', message: result.message || '感謝您的訊息，我們會盡快與您聯繫！' });
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        setSubmitStatus({ type: 'error', message: result.error || '提交失敗，請稍後再試' });
+      }
+    } catch (error) {
+      setSubmitStatus({ type: 'error', message: '網路連線錯誤，請檢查網路狀態' });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section id="contact" className="py-32 relative bg-white">
       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
@@ -19,14 +57,49 @@ const Contact: React.FC<ContactProps> = ({ onOpenChat }) => {
             立即與我們的戰略顧問進行模型校準。
           </p>
 
-          <form className="space-y-6 max-w-md">
+          <form className="space-y-6 max-w-md" onSubmit={handleSubmit}>
             <div className="grid grid-cols-2 gap-4">
-              <input type="text" placeholder="您的姓名" className="w-full bg-[#FAF9F6] border border-[#E0E0E0] px-6 py-4 rounded-xl outline-none focus:border-[#D4A373] focus:bg-white transition-all text-sm text-[#2C2420]" />
-              <input type="email" placeholder="電子郵件" className="w-full bg-[#FAF9F6] border border-[#E0E0E0] px-6 py-4 rounded-xl outline-none focus:border-[#D4A373] focus:bg-white transition-all text-sm text-[#2C2420]" />
+              <input
+                type="text"
+                placeholder="您的姓名"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                disabled={isSubmitting}
+                className="w-full bg-[#FAF9F6] border border-[#E0E0E0] px-6 py-4 rounded-xl outline-none focus:border-[#D4A373] focus:bg-white transition-all text-sm text-[#2C2420] disabled:opacity-50"
+              />
+              <input
+                type="email"
+                placeholder="電子郵件"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                disabled={isSubmitting}
+                className="w-full bg-[#FAF9F6] border border-[#E0E0E0] px-6 py-4 rounded-xl outline-none focus:border-[#D4A373] focus:bg-white transition-all text-sm text-[#2C2420] disabled:opacity-50"
+              />
             </div>
-            <textarea placeholder="戰略需求詳述" rows={4} className="w-full bg-[#FAF9F6] border border-[#E0E0E0] px-6 py-4 rounded-xl outline-none focus:border-[#D4A373] focus:bg-white transition-all text-sm text-[#2C2420]"></textarea>
-            <button className="w-full py-5 bg-[#2C2420] text-white font-bold uppercase tracking-widest rounded-xl hover:bg-[#D4A373] transition-all text-sm shadow-xl">
-              送出部署請求
+            <textarea
+              placeholder="戰略需求詳述"
+              rows={4}
+              value={formData.message}
+              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+              disabled={isSubmitting}
+              className="w-full bg-[#FAF9F6] border border-[#E0E0E0] px-6 py-4 rounded-xl outline-none focus:border-[#D4A373] focus:bg-white transition-all text-sm text-[#2C2420] disabled:opacity-50"
+            ></textarea>
+
+            {submitStatus.type && (
+              <div className={`p-4 rounded-xl text-sm ${submitStatus.type === 'success'
+                  ? 'bg-green-50 text-green-700 border border-green-200'
+                  : 'bg-red-50 text-red-700 border border-red-200'
+                }`}>
+                {submitStatus.message}
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full py-5 bg-[#2C2420] text-white font-bold uppercase tracking-widest rounded-xl hover:bg-[#D4A373] transition-all text-sm shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isSubmitting ? '發送中...' : '送出部署請求'}
             </button>
           </form>
         </div>

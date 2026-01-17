@@ -266,3 +266,134 @@ export interface Tag {
 export async function getTags(): Promise<ApiResponse<Tag[]>> {
   return request('/tags');
 }
+
+// ==========================================
+// Contact API
+// ==========================================
+
+export async function submitContactForm(data: {
+  name: string;
+  email: string;
+  message: string;
+}): Promise<ApiResponse> {
+  // Contact form doesn't need auth, so direct fetch
+  try {
+    const response = await fetch(`${API_BASE}/contact`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    return await response.json();
+  } catch (error) {
+    return { success: false, error: '網路連線錯誤，請檢查網路狀態' };
+  }
+}
+
+// ==========================================
+// Content Sources API
+// ==========================================
+
+export interface ContentSource {
+  id: string;
+  name: string;
+  type: 'RSS' | 'WEBSITE' | 'TWITTER';
+  url: string;
+  language: string;
+  isActive: boolean;
+  lastFetched: string | null;
+  fetchInterval: number;
+  _count?: { fetchedItems: number };
+}
+
+export interface FetchedContent {
+  id: string;
+  sourceId: string;
+  source: { name: string };
+  originalUrl: string;
+  originalTitle: string;
+  originalContent: string;
+  originalExcerpt: string | null;
+  publishedAt: string | null;
+  generatedTitle: string | null;
+  generatedContent: string | null;
+  generatedExcerpt: string | null;
+  status: 'PENDING' | 'APPROVED' | 'PUBLISHED' | 'REJECTED' | 'PROCESSING';
+  postId: string | null;
+  fetchedAt: string;
+  processedAt: string | null;
+}
+
+export async function getContentSources(): Promise<ApiResponse<ContentSource[]>> {
+  return request('/content/sources');
+}
+
+export async function createContentSource(data: Partial<ContentSource>): Promise<ApiResponse<ContentSource>> {
+  return request('/content/sources', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+}
+
+export async function updateContentSource(id: string, data: Partial<ContentSource>): Promise<ApiResponse<ContentSource>> {
+  return request(`/content/sources/${id}`, {
+    method: 'PATCH',
+    body: JSON.stringify(data),
+  });
+}
+
+export async function deleteContentSource(id: string): Promise<ApiResponse> {
+  return request(`/content/sources/${id}`, { method: 'DELETE' });
+}
+
+export async function getFetchedContent(params?: {
+  page?: number;
+  limit?: number;
+  status?: string;
+}): Promise<ApiResponse<{ items: FetchedContent[]; pagination: any }>> {
+  const query = new URLSearchParams();
+  if (params?.page) query.set('page', String(params.page));
+  if (params?.limit) query.set('limit', String(params.limit));
+  if (params?.status) query.set('status', params.status);
+
+  return request(`/content/fetched?${query.toString()}`);
+}
+
+export async function updateFetchedContentStatus(id: string, status: string): Promise<ApiResponse> {
+  return request(`/content/fetched/${id}/status`, {
+    method: 'PATCH',
+    body: JSON.stringify({ status }),
+  });
+}
+
+export async function triggerFetchAction(): Promise<ApiResponse> {
+  return request('/content/actions/fetch', { method: 'POST' });
+}
+
+export async function triggerProcessAction(limit: number = 5): Promise<ApiResponse> {
+  return request('/content/actions/process', {
+    method: 'POST',
+    body: JSON.stringify({ limit }),
+  });
+}
+
+export async function triggerPublishAction(
+  contentId: string,
+  authorId: string,
+  categoryId: string
+): Promise<ApiResponse> {
+  return request('/content/actions/publish', {
+    method: 'POST',
+    body: JSON.stringify({ contentId, authorId, categoryId }),
+  });
+}
+
+export async function getAppSettings(): Promise<ApiResponse<any>> {
+  return request('/content/settings');
+}
+
+export async function updateAppSettings(data: any): Promise<ApiResponse<any>> {
+  return request('/content/settings', {
+    method: 'PATCH',
+    body: JSON.stringify(data),
+  });
+}

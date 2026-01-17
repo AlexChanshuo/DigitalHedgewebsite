@@ -21,10 +21,10 @@ const VoiceOfChoice: React.FC<{ onBack: () => void }> = ({ onBack }) => {
             </h1>
             <p className="text-xl text-[#2C2420]/60 mb-8 font-light leading-relaxed">
               專為選戰設計的 AI 自動化電話民調系統。我們解決了傳統民調「速度慢、成本高、人為誤差大」的痛點。
-              <br/><br/>
+              <br /><br />
               系統可針對指定縣市區域進行大量撥號，透過 AI 進行標準化問卷調查，並將所有對話轉為逐字稿，最後透過 LINE 即時傳送分析報告。
             </p>
-            
+
             <div className="flex flex-col space-y-4">
               <div className="flex items-center space-x-3 text-[#2C2420]">
                 <div className="w-6 h-6 rounded-full bg-[#D4A373] flex items-center justify-center text-white text-xs">✓</div>
@@ -43,15 +43,15 @@ const VoiceOfChoice: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 
           <div className="relative">
             <div className="sticky top-40 aspect-square rounded-[3rem] overflow-hidden shadow-2xl border border-[#E0E0E0] bg-white">
-               <AIGeneratedImage 
-                 prompt="Voice of Choice Survey System" 
-                 staticImage="Voice-ofChoice.png"
-                 className="w-full h-full"
-                 aspectRatio="1:1"
-               />
-               <div className="absolute inset-0 bg-gradient-to-t from-[#2C2420]/80 to-transparent flex items-end p-12">
-                  <p className="text-[#D4A373] text-xs tracking-[0.5em] font-bold">AUTOMATED SURVEY</p>
-               </div>
+              <AIGeneratedImage
+                prompt="Voice of Choice Survey System"
+                staticImage="Voice-ofChoice.webp"
+                className="w-full h-full"
+                aspectRatio="1:1"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#2C2420]/80 to-transparent flex items-end p-12">
+                <p className="text-[#D4A373] text-xs tracking-[0.5em] font-bold">AUTOMATED SURVEY</p>
+              </div>
             </div>
           </div>
         </div>
@@ -111,24 +111,24 @@ const VoiceOfChoice: React.FC<{ onBack: () => void }> = ({ onBack }) => {
           <h3 className="text-2xl font-bold mb-8 text-center text-[#2C2420]">AI 民調執行流程</h3>
           <div className="grid md:grid-cols-4 gap-4 text-center">
             <div className="p-4">
-               <div className="w-12 h-12 bg-[#FAF9F6] rounded-full flex items-center justify-center mx-auto mb-4 text-[#D4A373] font-bold border border-[#E0E0E0]">1</div>
-               <h4 className="font-bold text-[#2C2420]">名單與區域設定</h4>
-               <p className="text-xs text-[#2C2420]/50 mt-2">匯入指定縣市或電話區段</p>
+              <div className="w-12 h-12 bg-[#FAF9F6] rounded-full flex items-center justify-center mx-auto mb-4 text-[#D4A373] font-bold border border-[#E0E0E0]">1</div>
+              <h4 className="font-bold text-[#2C2420]">名單與區域設定</h4>
+              <p className="text-xs text-[#2C2420]/50 mt-2">匯入指定縣市或電話區段</p>
             </div>
             <div className="p-4">
-               <div className="w-12 h-12 bg-[#FAF9F6] rounded-full flex items-center justify-center mx-auto mb-4 text-[#D4A373] font-bold border border-[#E0E0E0]">2</div>
-               <h4 className="font-bold text-[#2C2420]">AI 自動撥號</h4>
-               <p className="text-xs text-[#2C2420]/50 mt-2">高併發撥打，標準化提問</p>
+              <div className="w-12 h-12 bg-[#FAF9F6] rounded-full flex items-center justify-center mx-auto mb-4 text-[#D4A373] font-bold border border-[#E0E0E0]">2</div>
+              <h4 className="font-bold text-[#2C2420]">AI 自動撥號</h4>
+              <p className="text-xs text-[#2C2420]/50 mt-2">高併發撥打，標準化提問</p>
             </div>
             <div className="p-4">
-               <div className="w-12 h-12 bg-[#FAF9F6] rounded-full flex items-center justify-center mx-auto mb-4 text-[#D4A373] font-bold border border-[#E0E0E0]">3</div>
-               <h4 className="font-bold text-[#2C2420]">全字稿轉錄</h4>
-               <p className="text-xs text-[#2C2420]/50 mt-2">語音轉文字，情緒標籤</p>
+              <div className="w-12 h-12 bg-[#FAF9F6] rounded-full flex items-center justify-center mx-auto mb-4 text-[#D4A373] font-bold border border-[#E0E0E0]">3</div>
+              <h4 className="font-bold text-[#2C2420]">全字稿轉錄</h4>
+              <p className="text-xs text-[#2C2420]/50 mt-2">語音轉文字，情緒標籤</p>
             </div>
             <div className="p-4">
-               <div className="w-12 h-12 bg-[#FAF9F6] rounded-full flex items-center justify-center mx-auto mb-4 text-[#D4A373] font-bold border border-[#E0E0E0]">4</div>
-               <h4 className="font-bold text-[#2C2420]">LINE 報告輸出</h4>
-               <p className="text-xs text-[#2C2420]/50 mt-2">即時接收 PDF 與圖表</p>
+              <div className="w-12 h-12 bg-[#FAF9F6] rounded-full flex items-center justify-center mx-auto mb-4 text-[#D4A373] font-bold border border-[#E0E0E0]">4</div>
+              <h4 className="font-bold text-[#2C2420]">LINE 報告輸出</h4>
+              <p className="text-xs text-[#2C2420]/50 mt-2">即時接收 PDF 與圖表</p>
             </div>
           </div>
         </div>

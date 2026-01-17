@@ -17,8 +17,9 @@ const AIGeneratedImage: React.FC<AIGeneratedImageProps> = ({ prompt, className, 
     if (staticImage) {
       setLoading(true);
       // Images in public folder are served at root
-      const publicUrl = `/${staticImage}`;
-      
+      // Auto-convert .png references to .webp for optimized images
+      const publicUrl = `/${staticImage.replace('.png', '.webp')}`;
+
       const img = new Image();
       img.src = publicUrl;
       img.onload = () => {
@@ -80,21 +81,21 @@ const AIGeneratedImage: React.FC<AIGeneratedImageProps> = ({ prompt, className, 
   }
 
   return (
-    <div 
+    <div
       className={`relative group overflow-hidden bg-[#FAF9F6] ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <img 
-        src={imageUrl} 
-        alt={prompt} 
-        className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110" 
+      <img
+        src={imageUrl}
+        alt={prompt}
+        className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110"
       />
-      
+
       <div className="absolute inset-0 bg-[#D4A373] opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none mix-blend-overlay"></div>
-      
+
       <div className={`absolute top-4 right-4 flex space-x-2 transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
-        <button 
+        <button
           onClick={handleDownload}
           title="Save Image"
           className="p-2 bg-white/90 backdrop-blur-md hover:bg-[#D4A373] hover:text-white text-[#2C2420] rounded-full transition-all border border-[#E0E0E0] shadow-sm"

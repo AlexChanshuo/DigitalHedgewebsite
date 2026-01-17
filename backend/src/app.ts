@@ -7,6 +7,7 @@ import { prisma } from './config/database';
 import routes from './routes';
 import { errorHandler, notFoundHandler } from './middlewares/errorMiddleware';
 import { generalLimiter } from './middlewares/rateLimitMiddleware';
+import { initCronJobs } from './services/cronService';
 
 const app = express();
 
@@ -75,6 +76,9 @@ async function main() {
     // 測試資料庫連線
     await prisma.$connect();
     console.log('✅ Database connected');
+
+    // Initialize Cron Jobs
+    initCronJobs();
 
     app.listen(config.port, () => {
       console.log(`

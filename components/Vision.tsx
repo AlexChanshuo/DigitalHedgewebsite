@@ -14,7 +14,7 @@ const Vision: React.FC = () => {
             <p className="text-lg text-[#2C2420]/60 mb-8 leading-relaxed font-light">
               人類大腦如同一個容量有限的處理器。在資訊過載的時代，過多的雜訊會堵塞決策的通道。我們提供的是最頂級的 AI 過濾層 (AI Filtering Layer)。
             </p>
-            
+
             <div className="space-y-6">
               <div className="group flex items-start space-x-6 p-6 bg-white rounded-2xl border border-[#E0E0E0] shadow-sm hover:border-[#D4A373] transition-all">
                 <div className="text-3xl font-serif text-[#D4A373] font-bold opacity-50">01</div>
@@ -32,19 +32,19 @@ const Vision: React.FC = () => {
               </div>
             </div>
           </div>
-          
+
           <div className="relative">
-             <div className="bg-white p-3 rounded-[2rem] border border-[#E0E0E0] shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-700">
-                <AIGeneratedImage 
-                   prompt="AI Filtering visualization"
-                   staticImage="Infinite-AIFiltering.png"
-                   className="rounded-[1.5rem] w-full aspect-square"
-                   aspectRatio="1:1"
-                />
-             </div>
-             <div className="absolute -bottom-10 -right-10 text-[200px] text-[#2C2420] opacity-[0.03] font-serif leading-none select-none">
-               AI
-             </div>
+            <div className="bg-white p-3 rounded-[2rem] border border-[#E0E0E0] shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-700">
+              <AIGeneratedImage
+                prompt="AI Filtering visualization"
+                staticImage="Infinite-AIFiltering.webp"
+                className="rounded-[1.5rem] w-full aspect-square"
+                aspectRatio="1:1"
+              />
+            </div>
+            <div className="absolute -bottom-10 -right-10 text-[200px] text-[#2C2420] opacity-[0.03] font-serif leading-none select-none">
+              AI
+            </div>
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 // pages/BlogPost.tsx
 import React, { useState, useEffect } from 'react';
 import { getPost, Post } from '../services/api';
+import SEO from '../components/SEO';
 
 interface BlogPostProps {
   slug: string;
@@ -20,27 +21,18 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, onBack, onNavigateToBlog }) =
   async function loadPost() {
     setIsLoading(true);
     setError('');
-    
+
     try {
       const result = await getPost(slug);
       if (result.success && result.data) {
         setPost(result.data);
-        
-        // Update page title for SEO
-        document.title = `${result.data.title} | Digital Hedge`;
-        
-        // Update meta description
-        const metaDesc = document.querySelector('meta[name="description"]');
-        if (metaDesc && result.data.excerpt) {
-          metaDesc.setAttribute('content', result.data.excerpt);
-        }
       } else {
         setError('文章不存在');
       }
     } catch (e) {
       setError('載入失敗');
     }
-    
+
     setIsLoading(false);
   }
 
@@ -73,7 +65,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, onBack, onNavigateToBlog }) =
 
     // Wrap in paragraph
     html = `<p class="mb-4 leading-relaxed text-[#2C2420]/80">${html}</p>`;
-    
+
     // Wrap list items in ul
     html = html.replace(/(<li.*?<\/li>)+/g, '<ul class="list-disc my-4">$&</ul>');
 
@@ -110,8 +102,36 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, onBack, onNavigateToBlog }) =
     );
   }
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": post.title,
+    "image": post.coverImage ? [post.coverImage] : [],
+    "datePublished": post.publishedAt || post.createdAt,
+    "dateModified": post.updatedAt,
+    "author": [{
+      "@type": "Person",
+      "name": post.author.name || "Digital Hedge Team",
+      "url": "https://digitalhedge.ai"
+    }]
+  };
+
   return (
     <div className="min-h-screen bg-[#FAF9F6]">
+      <SEO
+        title={post.title}
+        description={post.excerpt || post.content.substring(0, 150)}
+        image={post.coverImage || undefined}
+        url={`/blog/${post.slug}`}
+        type="article"
+        publishedTime={post.publishedAt ? new Date(post.publishedAt).toISOString() : new Date(post.createdAt).toISOString()}
+        author={post.author.name || 'Digital Hedge Team'}
+      >
+        <script type="application/ld+json">
+          {JSON.stringify(jsonLd)}
+        </script>
+      </SEO>
+
       {/* Hero Section */}
       <section className="relative pt-32 pb-12 px-6">
         {/* Background decoration */}
@@ -188,7 +208,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, onBack, onNavigateToBlog }) =
       {/* Content */}
       <section className="px-6 pb-20">
         <article className="max-w-3xl mx-auto">
-          <div 
+          <div
             className="prose prose-lg max-w-none"
             dangerouslySetInnerHTML={{ __html: renderContent(post.content) }}
           />

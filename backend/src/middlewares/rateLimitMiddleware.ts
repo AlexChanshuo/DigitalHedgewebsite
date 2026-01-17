@@ -77,3 +77,18 @@ export const writeLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
 });
+
+/**
+ * 聯繫表單限流
+ * 每分鐘最多 5 次
+ */
+export const contactLimiter = rateLimit({
+  windowMs: 60 * 1000, // 1 minute
+  max: 5,
+  message: {
+    success: false,
+    message: '請求過於頻繁，請稍後再試',
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});

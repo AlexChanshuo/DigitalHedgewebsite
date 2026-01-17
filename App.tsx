@@ -55,7 +55,7 @@ const AppContent: React.FC = () => {
     else if (currentPage === 'voice-of-choice') path = '/voice-of-choice';
     else if (currentPage === 'voice-survey') path = '/voice-survey';
     else if (currentPage === 'sales-ai') path = '/sales-ai';
-    
+
     if (window.location.pathname !== path) {
       window.history.pushState({}, '', path);
     }
@@ -147,9 +147,9 @@ const AppContent: React.FC = () => {
     return (
       <div className="relative min-h-screen overflow-x-hidden text-[#2C2420] bg-[#FAF9F6] selection:bg-[#D4A373] selection:text-white">
         <BackgroundEffects />
-        <Navbar 
-          isScrolled={isScrolled} 
-          currentPage={currentPage} 
+        <Navbar
+          isScrolled={isScrolled}
+          currentPage={currentPage}
           onNavigate={setCurrentPage}
           onOpenConsulting={() => setShowConstruction(true)}
         />
@@ -173,9 +173,9 @@ const AppContent: React.FC = () => {
     return (
       <div className="relative min-h-screen overflow-x-hidden text-[#2C2420] bg-[#FAF9F6] selection:bg-[#D4A373] selection:text-white">
         <BackgroundEffects />
-        <Navbar 
-          isScrolled={isScrolled} 
-          currentPage={currentPage} 
+        <Navbar
+          isScrolled={isScrolled}
+          currentPage={currentPage}
           onNavigate={setCurrentPage}
           onOpenConsulting={() => setShowConstruction(true)}
         />
@@ -206,18 +206,18 @@ const AppContent: React.FC = () => {
   return (
     <div className="relative min-h-screen overflow-x-hidden text-[#2C2420] bg-[#FAF9F6] selection:bg-[#D4A373] selection:text-white">
       <BackgroundEffects />
-      <Navbar 
-        isScrolled={isScrolled} 
-        currentPage={currentPage} 
+      <Navbar
+        isScrolled={isScrolled}
+        currentPage={currentPage}
         onNavigate={setCurrentPage}
         onOpenConsulting={() => setShowConstruction(true)}
       />
-      
+
       <main className="transition-opacity duration-500 pt-20">
         {renderPage()}
         {currentPage === 'home' && <Contact onOpenChat={() => setShowConstruction(true)} />}
       </main>
-      
+
       <Footer />
 
       {showConstruction && (
@@ -227,11 +227,17 @@ const AppContent: React.FC = () => {
   );
 };
 
+import { HelmetProvider } from 'react-helmet-async';
+
+// ... (previous code)
+
 const App: React.FC = () => {
   return (
-    <AuthProvider>
-      <AppContent />
-    </AuthProvider>
+    <HelmetProvider>
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
+    </HelmetProvider>
   );
 };
 
