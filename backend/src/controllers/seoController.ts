@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { prisma } from '../config/database';
-import { Feed } from 'feed';
+import RSS from 'rss';
 
 const SITE_URL = 'https://digitalhedge.ai';
 
@@ -73,49 +73,31 @@ export async function generateRSS(req: Request, res: Response) {
             take: 20,
         });
 
-        const feed = new Feed({
+        const feed = new RSS({
             title: "Digital Hedge - AI 技術部落格",
             description: "探索 AI 語音技術、生成式 AI 應用與數位轉型策略",
-            id: SITE_URL,
-            link: SITE_URL,
-            language: "zh-TW",
-            image: `${SITE_URL}/icon.png`,
-            favicon: `${SITE_URL}/favicon.ico`,
-            copyright: `All rights reserved ${new Date().getFullYear()}, Digital Hedge`,
-            updated: posts.length > 0 ? posts[0].publishedAt || new Date() : new Date(),
-            generator: "Digital Hedge Feed Generator",
-            feedLinks: {
-                rss: `${SITE_URL}/api/seo/rss`,
-                atom: `${SITE_URL}/api/seo/atom`,
-            },
-            author: {
-                name: "Digital Hedge",
-                email: "contact@digitalhedge.ai",
-                link: SITE_URL,
-            },
+            feed_url: `${SITE_URL}/api/seo/rss`,
+            site_url: SITE_URL,
+            image_url: `${SITE_URL}/icon.png`,
+            language: 'zh-TW',
+            pubDate: new Date(),
+            ttl: 60,
         });
 
         posts.forEach(post => {
-            feed.addItem({
+            feed.item({
                 title: post.title,
-                id: `${SITE_URL}/blog/${post.slug}`,
-                link: `${SITE_URL}/blog/${post.slug}`,
                 description: post.excerpt || post.content.substring(0, 150) + '...',
-                content: post.content, // Ideally render markdown to HTML here if possible, but raw is okay for now or use excerpt
-                author: [
-                    {
-                        name: post.author.name || 'Digital Hedge Team',
-                        email: post.author.email,
-                    },
-                ],
+                url: `${SITE_URL}/blog/${post.slug}`,
+                guid: post.id,
+                author: post.author.name || 'Digital Hedge Team',
                 date: post.publishedAt || new Date(),
-                image: post.coverImage || undefined,
-                category: [{ name: post.category.name }],
+                categories: [post.category.name],
             });
         });
 
         res.header('Content-Type', 'application/xml');
-        res.send(feed.rss2());
+        res.send(feed.xml());
     } catch (error) {
         console.error('RSS generation error:', error);
         res.status(500).send('Error generating RSS feed');

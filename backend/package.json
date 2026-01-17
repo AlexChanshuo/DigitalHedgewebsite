@@ -27,17 +27,18 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "express-rate-limit": "^7.1.5",
-    "feed": "^5.2.0",
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
     "node-cron": "^4.2.1",
     "prisma": "^5.8.0",
     "resend": "^2.1.0",
+    "rss": "^1.2.2",
     "tsx": "^4.7.0",
     "typescript": "^5.3.3",
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@types/node-cron": "^3.0.11"
+    "@types/node-cron": "^3.0.11",
+    "@types/rss": "^0.0.32"
   }
 }
