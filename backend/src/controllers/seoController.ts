@@ -1,18 +1,18 @@
 import { Request, Response } from 'express';
 import { prisma } from '../config/database';
-import RSS from 'rss';
+import { Feed } from 'feed';
 
 const SITE_URL = 'https://digitalhedge.ai';
 
 export async function generateSitemap(req: Request, res: Response) {
-    try {
-        const posts = await prisma.post.findMany({
-            where: { status: 'PUBLISHED' },
-            select: { slug: true, updatedAt: true },
-            orderBy: { updatedAt: 'desc' },
-        });
+  try {
+    const posts = await prisma.post.findMany({
+      where: { status: 'PUBLISHED' },
+      select: { slug: true, updatedAt: true },
+      orderBy: { updatedAt: 'desc' },
+    });
 
-        let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+    let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>${SITE_URL}</loc>
@@ -41,65 +41,83 @@ export async function generateSitemap(req: Request, res: Response) {
   </url>
 `;
 
-        posts.forEach(post => {
-            sitemap += `  <url>
+    posts.forEach(post => {
+      sitemap += `  <url>
     <loc>${SITE_URL}/blog/${post.slug}</loc>
     <lastmod>${post.updatedAt.toISOString()}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
 `;
-        });
+    });
 
-        sitemap += '</urlset>';
+    sitemap += '</urlset>';
 
-        res.header('Content-Type', 'application/xml');
-        res.send(sitemap);
-    } catch (error) {
-        console.error('Sitemap generation error:', error);
-        res.status(500).send('Error generating sitemap');
-    }
+    res.header('Content-Type', 'application/xml');
+    res.send(sitemap);
+  } catch (error) {
+    console.error('Sitemap generation error:', error);
+    res.status(500).send('Error generating sitemap');
+  }
 }
 
 export async function generateRSS(req: Request, res: Response) {
-    try {
-        const posts = await prisma.post.findMany({
-            where: { status: 'PUBLISHED' },
-            include: {
-                author: { select: { name: true, email: true } },
-                category: { select: { name: true } },
-            },
-            orderBy: { publishedAt: 'desc' },
-            take: 20,
-        });
+  try {
+    const posts = await prisma.post.findMany({
+      where: { status: 'PUBLISHED' },
+      include: {
+        author: { select: { name: true, email: true } },
+        category: { select: { name: true } },
+      },
+      orderBy: { publishedAt: 'desc' },
+      take: 20,
+    });
 
-        const feed = new RSS({
-            title: "Digital Hedge - AI 技術部落格",
-            description: "探索 AI 語音技術、生成式 AI 應用與數位轉型策略",
-            feed_url: `${SITE_URL}/api/seo/rss`,
-            site_url: SITE_URL,
-            image_url: `${SITE_URL}/icon.png`,
-            language: 'zh-TW',
-            pubDate: new Date(),
-            ttl: 60,
-        });
+    const feed = new Feed({
+      title: "Digital Hedge - AI 技術部落格",
+      description: "探索 AI 語音技術、生成式 AI 應用與數位轉型策略",
+      id: `${SITE_URL}/`,
+      link: `${SITE_URL}/`,
+      language: "zh-TW",
+      image: `${SITE_URL}/icon.png`,
+      favicon: `${SITE_URL}/favicon.ico`,
+      copyright: `All rights reserved ${new Date().getFullYear()}, Digital Hedge`,
+      updated: new Date(),
+      generator: "Digital Hedge Feed",
+      feedLinks: {
+        rss2: `${SITE_URL}/api/seo/rss`
+      },
+      author: {
+        name: "Alex Ma",
+        email: "alexma@goldenraintree.tw",
+        link: SITE_URL
+      }
+    });
 
-        posts.forEach(post => {
-            feed.item({
-                title: post.title,
-                description: post.excerpt || post.content.substring(0, 150) + '...',
-                url: `${SITE_URL}/blog/${post.slug}`,
-                guid: post.id,
-                author: post.author.name || 'Digital Hedge Team',
-                date: post.publishedAt || new Date(),
-                categories: [post.category.name],
-            });
-        });
+    posts.forEach(post => {
+      feed.addItem({
+        title: post.title,
+        id: post.slug,
+        link: `${SITE_URL}/blog/${post.slug}`,
+        description: post.excerpt || post.content.substring(0, 150) + '...',
+        content: post.content,
+        author: [
+          {
+            name: post.author.name || 'Digital Hedge Team',
+            email: post.author.email || undefined,
+            link: SITE_URL
+          }
+        ],
+        date: post.publishedAt || new Date(),
+        image: `${SITE_URL}/icon.png`, // Optional: use post image if available
+        category: [{ name: post.category.name }]
+      });
+    });
 
-        res.header('Content-Type', 'application/xml');
-        res.send(feed.xml());
-    } catch (error) {
-        console.error('RSS generation error:', error);
-        res.status(500).send('Error generating RSS feed');
-    }
+    res.header('Content-Type', 'application/xml');
+    res.send(feed.rss2());
+  } catch (error) {
+    console.error('RSS generation error:', error);
+    res.status(500).send('Error generating RSS feed');
+  }
 }
