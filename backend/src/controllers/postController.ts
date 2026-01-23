@@ -10,6 +10,10 @@ interface PostTagWithTag extends PostTag {
   tag: Tag;
 }
 
+// Whitelist of allowed sort fields to prevent SQL injection (SEC-03)
+const ALLOWED_SORT_FIELDS = ['publishedAt', 'createdAt', 'title', 'viewCount'] as const;
+type SortField = typeof ALLOWED_SORT_FIELDS[number];
+
 /**
  * 取得所有文章 (公開)
  * GET /api/posts
@@ -26,6 +30,12 @@ export async function getAllPosts(req: Request, res: Response, next: NextFunctio
       sortBy = 'publishedAt',
       sortOrder = 'desc',
     } = req.query;
+
+    // Validate sortBy against whitelist (SEC-03)
+    const validatedSortBy: SortField = ALLOWED_SORT_FIELDS.includes(sortBy as SortField)
+      ? (sortBy as SortField)
+      : 'publishedAt';
+    const validatedSortOrder = sortOrder === 'asc' ? 'asc' : 'desc';
 
     const where: any = {};
 
@@ -97,7 +107,7 @@ export async function getAllPosts(req: Request, res: Response, next: NextFunctio
         },
         skip: (Number(page) - 1) * Number(limit),
         take: Number(limit),
-        orderBy: { [sortBy as string]: sortOrder },
+        orderBy: { [validatedSortBy]: validatedSortOrder },
       }),
       prisma.post.count({ where }),
     ]);
