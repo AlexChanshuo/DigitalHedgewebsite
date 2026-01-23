@@ -15,81 +15,81 @@ datasource db {
 // ==========================================
 
 enum UserRole {
-  MASTER      // 最高管理員
-  ADMIN       // 管理員
-  EDITOR      // 編輯者
-  USER        // 一般使用者
+  MASTER // 最高管理員
+  ADMIN // 管理員
+  EDITOR // 編輯者
+  USER // 一般使用者
 }
 
 enum UserStatus {
   ACTIVE
   INACTIVE
   SUSPENDED
-  PENDING_PASSWORD_CHANGE  // 需要更改密碼
+  PENDING_PASSWORD_CHANGE // 需要更改密碼
 }
 
 model User {
-  id                String      @id @default(cuid())
-  email             String      @unique
-  passwordHash      String
-  name              String?
-  avatar            String?
-  role              UserRole    @default(USER)
-  status            UserStatus  @default(ACTIVE)
-  
+  id           String     @id @default(cuid())
+  email        String     @unique
+  passwordHash String
+  name         String?
+  avatar       String?
+  role         UserRole   @default(USER)
+  status       UserStatus @default(ACTIVE)
+
   // 安全相關
   failedLoginAttempts Int       @default(0)
-  lockedUntil       DateTime?
-  lastLoginAt       DateTime?
-  lastLoginIp       String?
-  mustChangePassword Boolean    @default(false)
-  
+  lockedUntil         DateTime?
+  lastLoginAt         DateTime?
+  lastLoginIp         String?
+  mustChangePassword  Boolean   @default(false)
+
   // 密碼重設
-  resetToken        String?
-  resetTokenExpiry  DateTime?
-  
+  resetToken       String?
+  resetTokenExpiry DateTime?
+
   // 時間戳記
-  createdAt         DateTime    @default(now())
-  updatedAt         DateTime    @updatedAt
-  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   // 關聯
-  posts             Post[]
-  sessions          Session[]
-  activityLogs      ActivityLog[]
-  
+  posts        Post[]
+  sessions     Session[]
+  activityLogs ActivityLog[]
+
   @@index([email])
   @@index([role])
   @@index([resetToken])
 }
 
 model Session {
-  id            String   @id @default(cuid())
-  userId        String
-  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  refreshToken  String   @unique
-  userAgent     String?
-  ipAddress     String?
-  expiresAt     DateTime
-  
-  createdAt     DateTime @default(now())
-  
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  refreshToken String   @unique
+  userAgent    String?
+  ipAddress    String?
+  expiresAt    DateTime
+
+  createdAt DateTime @default(now())
+
   @@index([userId])
   @@index([refreshToken])
 }
 
 model ActivityLog {
-  id          String   @id @default(cuid())
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  action      String   // LOGIN, LOGOUT, CREATE_POST, etc.
-  details     Json?
-  ipAddress   String?
-  userAgent   String?
-  
-  createdAt   DateTime @default(now())
-  
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  action    String // LOGIN, LOGOUT, CREATE_POST, etc.
+  details   Json?
+  ipAddress String?
+  userAgent String?
+
+  createdAt DateTime @default(now())
+
   @@index([userId])
   @@index([action])
   @@index([createdAt])
@@ -100,83 +100,83 @@ model ActivityLog {
 // ==========================================
 
 enum PostStatus {
-  DRAFT         // 草稿
-  PUBLISHED     // 已發布
-  SCHEDULED     // 排程發布
-  ARCHIVED      // 已封存
+  DRAFT // 草稿
+  PUBLISHED // 已發布
+  SCHEDULED // 排程發布
+  ARCHIVED // 已封存
 }
 
 model Category {
-  id          String   @id @default(cuid())
-  name        String   @unique
-  slug        String   @unique
+  id          String  @id @default(cuid())
+  name        String  @unique
+  slug        String  @unique
   description String?
-  order       Int      @default(0)
-  
+  order       Int     @default(0)
+
   // SEO
   metaTitle       String?
   metaDescription String?
-  
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  
-  posts       Post[]
-  
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  posts Post[]
+
   @@index([slug])
 }
 
 model Tag {
-  id          String   @id @default(cuid())
-  name        String   @unique
-  slug        String   @unique
-  color       String?  // HEX color for UI
-  
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  
-  posts       PostTag[]
-  
+  id    String  @id @default(cuid())
+  name  String  @unique
+  slug  String  @unique
+  color String? // HEX color for UI
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  posts PostTag[]
+
   @@index([slug])
 }
 
 model Post {
-  id          String     @id @default(cuid())
-  
+  id String @id @default(cuid())
+
   // 基本內容
-  title       String
-  slug        String     @unique
-  excerpt     String?    // 摘要
-  content     String     // Markdown
-  coverImage  String?
-  
+  title      String
+  slug       String  @unique
+  excerpt    String? // 摘要
+  content    String // Markdown
+  coverImage String?
+
   // 狀態
   status      PostStatus @default(DRAFT)
   publishedAt DateTime?
   scheduledAt DateTime?
-  
+
   // SEO 優化
   metaTitle       String?
   metaDescription String?
   metaKeywords    String?
   canonicalUrl    String?
-  
+
   // AI SEO (結構化資料)
-  structuredData  Json?    // JSON-LD schema
-  
+  structuredData Json? // JSON-LD schema
+
   // 統計
-  viewCount   Int        @default(0)
-  
+  viewCount Int @default(0)
+
   // 關聯
-  authorId    String
-  author      User       @relation(fields: [authorId], references: [id])
-  categoryId  String
-  category    Category   @relation(fields: [categoryId], references: [id])
-  tags        PostTag[]
-  
+  authorId   String
+  author     User      @relation(fields: [authorId], references: [id])
+  categoryId String
+  category   Category  @relation(fields: [categoryId], references: [id])
+  tags       PostTag[]
+
   // 時間戳記
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@index([slug])
   @@index([status])
   @@index([publishedAt])
@@ -185,11 +185,11 @@ model Post {
 }
 
 model PostTag {
-  postId    String
-  post      Post    @relation(fields: [postId], references: [id], onDelete: Cascade)
-  tagId     String
-  tag       Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
-  
+  postId String
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  tagId  String
+  tag    Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
   @@id([postId, tagId])
 }
 
@@ -198,67 +198,67 @@ model PostTag {
 // ==========================================
 
 enum SourceType {
-  RSS           // RSS/Atom feed
-  WEBSITE       // Web scraping
-  TWITTER       // Twitter/X API
+  RSS // RSS/Atom feed
+  WEBSITE // Web scraping
+  TWITTER // Twitter/X API
 }
 
 enum FetchedContentStatus {
-  PENDING       // 待審核
-  APPROVED      // 已審核
-  PUBLISHED     // 已發布
-  REJECTED      // 已拒絕
-  PROCESSING    // AI 處理中
+  PENDING // 待審核
+  APPROVED // 已審核
+  PUBLISHED // 已發布
+  REJECTED // 已拒絕
+  PROCESSING // AI 處理中
 }
 
 model ContentSource {
-  id          String      @id @default(cuid())
-  name        String      // 來源名稱
-  type        SourceType  @default(RSS)
-  url         String      // RSS 或網站 URL
-  language    String      @default("zh-TW") // 主要語言
-  isActive    Boolean     @default(true)
-  lastFetched DateTime?   // 上次抓取時間
-  fetchInterval Int       @default(60) // 抓取間隔（分鐘）
-  
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  
+  id            String     @id @default(cuid())
+  name          String // 來源名稱
+  type          SourceType @default(RSS)
+  url           String // RSS 或網站 URL
+  language      String     @default("zh-TW") // 主要語言
+  isActive      Boolean    @default(true)
+  lastFetched   DateTime? // 上次抓取時間
+  fetchInterval Int        @default(60) // 抓取間隔（分鐘）
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   fetchedItems FetchedContent[]
-  
+
   @@index([isActive])
   @@index([type])
 }
 
 model FetchedContent {
-  id              String               @id @default(cuid())
-  sourceId        String
-  source          ContentSource        @relation(fields: [sourceId], references: [id], onDelete: Cascade)
-  
+  id       String        @id @default(cuid())
+  sourceId String
+  source   ContentSource @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+
   // 原始內容
-  originalUrl     String               @unique
+  originalUrl     String    @unique
   originalTitle   String
-  originalContent String               // 原始文章內容
-  originalExcerpt String?              // 原始摘要
-  publishedAt     DateTime?            // 原始發布時間
-  
+  originalContent String // 原始文章內容
+  originalExcerpt String? // 原始摘要
+  publishedAt     DateTime? // 原始發布時間
+
   // AI 處理後內容
-  generatedTitle   String?             // AI 生成標題
-  generatedContent String?             // AI 重構後內容
-  generatedExcerpt String?             // AI 生成摘要
-  
+  generatedTitle   String? // AI 生成標題
+  generatedContent String? // AI 重構後內容
+  generatedExcerpt String? // AI 生成摘要
+
   // 狀態
-  status          FetchedContentStatus @default(PENDING)
-  
+  status FetchedContentStatus @default(PENDING)
+
   // 發布關聯
-  postId          String?              // 發布後關聯的 Post ID
-  
+  postId String? // 發布後關聯的 Post ID
+
   // 時間戳記
-  fetchedAt       DateTime             @default(now())
-  processedAt     DateTime?            // AI 處理時間
-  createdAt       DateTime             @default(now())
-  updatedAt       DateTime             @updatedAt
-  
+  fetchedAt   DateTime  @default(now())
+  processedAt DateTime? // AI 處理時間
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
   @@index([sourceId])
   @@index([status])
   @@index([fetchedAt])
@@ -269,17 +269,67 @@ model FetchedContent {
 // ==========================================
 
 model AppSettings {
-  id              String   @id @default("app_settings")
-  
+  id String @id @default("app_settings")
+
   // 自動發布設定
-  autoPublish     Boolean  @default(false)  // 自動發布開關
-  autoPublishHour Int      @default(9)      // 每日自動發布時間 (0-23)
-  postsPerDay     Int      @default(2)      // 每日發布數量
-  
+  autoPublish     Boolean @default(false) // 自動發布開關
+  autoPublishHour Int     @default(9) // 每日自動發布時間 (0-23)
+  postsPerDay     Int     @default(2) // 每日發布數量
+
   // AI 處理設定
-  defaultCategoryId String?               // 預設分類
-  defaultAuthorId   String?               // 預設作者
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  defaultCategoryId String? // 預設分類
+  defaultAuthorId   String? // 預設作者
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ==========================================
+// Retell AI Voice Call Logs
+// ==========================================
+
+enum CallStatus {
+  REGISTERED // Call created but not started
+  ONGOING // Call in progress
+  ENDED // Call completed normally
+  ERROR // Call failed
+}
+
+model CallLog {
+  id String @id @default(cuid())
+
+  // Retell identifiers
+  retellCallId String @unique // call_id from Retell
+  agentId      String // agent_id used for the call
+
+  // Call metadata
+  status     CallStatus @default(REGISTERED)
+  startedAt  DateTime? // from call_started event
+  endedAt    DateTime? // from call_ended event
+  durationMs Int? // call duration in milliseconds
+
+  // Disconnect info
+  disconnectionReason String? // user_hangup, agent_hangup, etc.
+
+  // Transcript data (from call_ended/call_analyzed events)
+  transcript       String? @db.Text // Full transcript text
+  transcriptObject Json? // Detailed transcript with timestamps
+
+  // Analysis (from call_analyzed event)
+  callAnalysis Json? // Sentiment, summary, custom data
+
+  // Optional user association (if user was authenticated)
+  userId String?
+
+  // Metadata passed during call creation
+  metadata Json?
+
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([retellCallId])
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
 }
