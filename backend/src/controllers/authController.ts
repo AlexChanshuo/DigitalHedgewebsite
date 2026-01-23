@@ -298,20 +298,22 @@ export async function forgotPassword(req: Request, res: Response, next: NextFunc
       });
     }
 
-    // 生成重設 Token
-    const resetToken = crypto.randomBytes(32).toString('hex');
+    // Generate raw token for email
+    const rawResetToken = crypto.randomBytes(32).toString('hex');
+    // Hash token for storage (SEC-04)
+    const hashedResetToken = crypto.createHash('sha256').update(rawResetToken).digest('hex');
     const resetTokenExpiry = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
 
     await prisma.user.update({
       where: { id: user.id },
       data: {
-        resetToken,
+        resetToken: hashedResetToken,  // Store hash, not raw token
         resetTokenExpiry,
       },
     });
 
-    // 發送郵件
-    await sendPasswordResetEmail(user.email, resetToken);
+    // Send raw token to user (they need original to reset)
+    await sendPasswordResetEmail(user.email, rawResetToken);
 
     // 記錄活動
     await prisma.activityLog.create({
@@ -340,9 +342,12 @@ export async function resetPassword(req: Request, res: Response, next: NextFunct
   try {
     const { token, newPassword } = req.body;
 
+    // Hash incoming token to compare with stored hash (SEC-04)
+    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+
     const user = await prisma.user.findFirst({
       where: {
-        resetToken: token,
+        resetToken: hashedToken,
         resetTokenExpiry: { gt: new Date() },
       },
     });
