@@ -69,10 +69,41 @@ app.use(notFoundHandler);
 app.use(errorHandler);
 
 // ==========================================
+// Environment Validation (SEC-02)
+// ==========================================
+function validateEnvSecrets() {
+  const errors: string[] = [];
+
+  // JWT secrets
+  if (!process.env.JWT_ACCESS_SECRET ||
+      process.env.JWT_ACCESS_SECRET === 'your-access-secret-change-in-production') {
+    errors.push('JWT_ACCESS_SECRET');
+  }
+  if (!process.env.JWT_REFRESH_SECRET ||
+      process.env.JWT_REFRESH_SECRET === 'your-refresh-secret-change-in-production') {
+    errors.push('JWT_REFRESH_SECRET');
+  }
+
+  // Retell API key (required for voice features)
+  if (!process.env.RETELL_API_KEY) {
+    errors.push('RETELL_API_KEY');
+  }
+
+  if (errors.length > 0) {
+    console.error('FATAL: Missing or invalid environment secrets:', errors.join(', '));
+    console.error('Server cannot start without properly configured secrets.');
+    process.exit(1);
+  }
+}
+
+// ==========================================
 // Server Start
 // ==========================================
 async function main() {
   try {
+    // Validate required secrets before anything else (SEC-02)
+    validateEnvSecrets();
+
     // 測試資料庫連線
     await prisma.$connect();
     console.log('✅ Database connected');
