@@ -8,6 +8,7 @@ import tagRoutes from './tagRoutes';
 import contactRoutes from './contactRoutes';
 import contentSourceRoutes from './contentSourceRoutes';
 import seoRoutes from './seoRoutes';
+import retellRoutes from './retellRoutes';
 
 const router = Router();
 
@@ -29,5 +30,6 @@ router.use('/tags', tagRoutes);
 router.use('/contact', contactRoutes);
 router.use('/content', contentSourceRoutes);
 router.use('/seo', seoRoutes);
+router.use('/retell', retellRoutes);
 
 export default router;
