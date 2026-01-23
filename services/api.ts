@@ -139,6 +139,48 @@ export async function getProfile(): Promise<ApiResponse<LoginResponse['user']>> 
 }
 
 // ==========================================
+// Users API (Master Only)
+// ==========================================
+
+export interface User {
+  id: string;
+  email: string;
+  name: string | null;
+  role: 'MASTER' | 'ADMIN' | 'EDITOR' | 'USER';
+  status: 'ACTIVE' | 'INACTIVE' | 'SUSPENDED' | 'PENDING_PASSWORD_CHANGE';
+  createdAt: string;
+}
+
+export async function getUsers(): Promise<ApiResponse<User[]>> {
+  return request('/users');
+}
+
+export async function createUser(data: { email: string; name: string; role: string; password?: string }): Promise<ApiResponse<User>> {
+  return request('/users', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+}
+
+export async function updateUserRole(id: string, role: string): Promise<ApiResponse<User>> {
+  return request(`/users/${id}/role`, {
+    method: 'PATCH',
+    body: JSON.stringify({ role }),
+  });
+}
+
+export async function updateUserStatus(id: string, status: string): Promise<ApiResponse<User>> {
+  return request(`/users/${id}/status`, {
+    method: 'PATCH',
+    body: JSON.stringify({ status }),
+  });
+}
+
+export async function deleteUser(id: string): Promise<ApiResponse> {
+  return request(`/users/${id}`, { method: 'DELETE' });
+}
+
+// ==========================================
 // Posts API
 // ==========================================
 
@@ -252,6 +294,24 @@ export async function getCategories(): Promise<ApiResponse<Category[]>> {
   return request('/categories');
 }
 
+export async function createCategory(data: { name: string; slug: string; description?: string }): Promise<ApiResponse<Category>> {
+  return request('/categories', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+}
+
+export async function updateCategory(id: string, data: Partial<Category>): Promise<ApiResponse<Category>> {
+  return request(`/categories/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(data),
+  });
+}
+
+export async function deleteCategory(id: string): Promise<ApiResponse> {
+  return request(`/categories/${id}`, { method: 'DELETE' });
+}
+
 // ==========================================
 // Tags API
 // ==========================================
@@ -265,6 +325,24 @@ export interface Tag {
 
 export async function getTags(): Promise<ApiResponse<Tag[]>> {
   return request('/tags');
+}
+
+export async function createTag(data: { name: string; slug: string; color?: string }): Promise<ApiResponse<Tag>> {
+  return request('/tags', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+}
+
+export async function updateTag(id: string, data: Partial<Tag>): Promise<ApiResponse<Tag>> {
+  return request(`/tags/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(data),
+  });
+}
+
+export async function deleteTag(id: string): Promise<ApiResponse> {
+  return request(`/tags/${id}`, { method: 'DELETE' });
 }
 
 // ==========================================
@@ -395,5 +473,21 @@ export async function updateAppSettings(data: any): Promise<ApiResponse<any>> {
   return request('/content/settings', {
     method: 'PATCH',
     body: JSON.stringify(data),
+  });
+}
+
+// ==========================================
+// Voice API (Retell)
+// ==========================================
+
+export interface CreateWebCallResponse {
+  accessToken: string;
+  callId: string;
+}
+
+export async function createWebCall(metadata?: Record<string, unknown>): Promise<ApiResponse<CreateWebCallResponse>> {
+  return request('/retell/web-call', {
+    method: 'POST',
+    body: JSON.stringify({ metadata: metadata || {} }),
   });
 }
