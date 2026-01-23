@@ -13,6 +13,7 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import BackgroundEffects from './components/BackgroundEffects';
 import ConstructionOverlay from './components/ConstructionOverlay';
+import RetellVoiceAgent from './components/voice/RetellVoiceAgent';
 
 export type Page = 'home' | 'voice-of-choice' | 'voice-survey' | 'sales-ai' | 'blog' | 'blog-post' | 'login' | 'admin';
 
@@ -118,10 +119,13 @@ const AppContent: React.FC = () => {
   // Login page
   if (currentPage === 'login') {
     return (
-      <Login
-        onSuccess={() => setCurrentPage('admin')}
-        onBack={() => setCurrentPage('home')}
-      />
+      <>
+        <Login
+          onSuccess={() => setCurrentPage('admin')}
+          onBack={() => setCurrentPage('home')}
+        />
+        <RetellVoiceAgent />
+      </>
     );
   }
 
@@ -132,13 +136,16 @@ const AppContent: React.FC = () => {
       return null;
     }
     return (
-      <Admin
-        onLogout={async () => {
-          await logout();
-          setCurrentPage('home');
-        }}
-        onBackToSite={() => setCurrentPage('home')}
-      />
+      <>
+        <Admin
+          onLogout={async () => {
+            await logout();
+            setCurrentPage('home');
+          }}
+          onBackToSite={() => setCurrentPage('home')}
+        />
+        <RetellVoiceAgent />
+      </>
     );
   }
 
@@ -164,6 +171,7 @@ const AppContent: React.FC = () => {
         {showConstruction && (
           <ConstructionOverlay onClose={() => setShowConstruction(false)} />
         )}
+        <RetellVoiceAgent />
       </div>
     );
   }
@@ -189,6 +197,7 @@ const AppContent: React.FC = () => {
         {showConstruction && (
           <ConstructionOverlay onClose={() => setShowConstruction(false)} />
         )}
+        <RetellVoiceAgent />
       </div>
     );
   }
@@ -223,6 +232,9 @@ const AppContent: React.FC = () => {
       {showConstruction && (
         <ConstructionOverlay onClose={() => setShowConstruction(false)} />
       )}
+
+      {/* Voice Agent - site-wide */}
+      <RetellVoiceAgent />
     </div>
   );
 };
