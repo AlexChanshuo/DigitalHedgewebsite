@@ -52,4 +52,10 @@ export const config = {
 
   // Frontend URL (for email links)
   frontendUrl: process.env.FRONTEND_URL || 'https://digitalhedge.ai',
+
+  // Retell AI (Voice Agent)
+  retell: {
+    apiKey: process.env.RETELL_API_KEY || '',
+    agentId: process.env.RETELL_AGENT_ID || '',
+  },
 };
