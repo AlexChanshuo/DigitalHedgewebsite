@@ -15,9 +15,48 @@ const app = express();
 // Security Middlewares
 // ==========================================
 
-// Helmet - 安全標頭
+// Helmet - security headers with CSP for WebRTC (SEC-05)
 app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' },
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: [
+        "'self'",
+        "'unsafe-inline'",  // Required for Tailwind CDN and inline scripts
+        "https://cdn.tailwindcss.com",
+        "https://cdn.retellai.com",
+      ],
+      styleSrc: [
+        "'self'",
+        "'unsafe-inline'",  // Required for Tailwind and inline styles
+        "https://fonts.googleapis.com",
+      ],
+      fontSrc: [
+        "'self'",
+        "https://fonts.gstatic.com",
+      ],
+      imgSrc: [
+        "'self'",
+        "data:",
+        "blob:",
+      ],
+      connectSrc: [
+        "'self'",
+        "wss://*.livekit.cloud",      // LiveKit WebSocket (Retell uses LiveKit)
+        "https://api.retellai.com",   // Retell API
+        "https://*.retellai.com",     // Retell services
+      ],
+      mediaSrc: [
+        "'self'",
+        "blob:",
+      ],
+      workerSrc: [
+        "'self'",
+        "blob:",
+      ],
+    },
+  },
 }));
 
 // CORS
