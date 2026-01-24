@@ -71,7 +71,6 @@ const Navbar: React.FC<NavbarProps> = ({ isScrolled, currentPage, onNavigate, on
             部落格
           </button>
 
-          <button onClick={onOpenConsulting} className="hover:text-[#D4A373] transition-colors">戰略諮詢</button>
         </div>
 
         {/* CTA Button */}

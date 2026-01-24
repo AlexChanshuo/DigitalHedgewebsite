@@ -1,5 +1,5 @@
 // components/voice/RetellVoiceAgent.tsx
-import React, { useRef, useState, useCallback, useEffect } from 'react';
+import React, { useRef, useState, useCallback, useEffect, useImperativeHandle, forwardRef } from 'react';
 import { RetellWebClient } from 'retell-client-js-sdk';
 import { createWebCall } from '../../services/api';
 import VoiceFloatingButton from './VoiceFloatingButton';
@@ -8,10 +8,18 @@ import { CallState } from './VoiceWaveform';
 import { TranscriptMessage } from './VoiceTranscript';
 
 /**
+ * Handle exposed to parent components via ref.
+ */
+export interface RetellVoiceAgentHandle {
+  openVoiceChat: () => void;
+}
+
+/**
  * Main voice agent component.
  * Manages Retell SDK lifecycle, state transitions, and UI composition.
  *
  * Usage: Place once in App.tsx to enable voice calls site-wide.
+ * Use ref to trigger voice chat programmatically: ref.current.openVoiceChat()
  *
  * SDK Events handled:
  * - call_started -> 'listening'
@@ -21,7 +29,7 @@ import { TranscriptMessage } from './VoiceTranscript';
  * - update -> transcript update
  * - error -> 'ended' with error message (user can close modal and retry)
  */
-const RetellVoiceAgent: React.FC = () => {
+const RetellVoiceAgent = forwardRef<RetellVoiceAgentHandle>((_, ref) => {
   // SDK instance ref (survives re-renders, cleaned up on unmount)
   const clientRef = useRef<RetellWebClient | null>(null);
 
@@ -110,6 +118,15 @@ const RetellVoiceAgent: React.FC = () => {
     }
   }, [isStarting]);
 
+  // Expose openVoiceChat method to parent via ref
+  useImperativeHandle(ref, () => ({
+    openVoiceChat: () => {
+      if (!isModalOpen && !isStarting) {
+        startCall();
+      }
+    }
+  }), [isModalOpen, isStarting, startCall]);
+
   /**
    * End the current call.
    */
@@ -180,7 +197,7 @@ const RetellVoiceAgent: React.FC = () => {
       />
     </>
   );
-};
+});
 
 /**
  * Convert error to user-friendly Chinese message.
@@ -200,5 +217,7 @@ function getErrorMessage(error: unknown): string {
 
   return '發生錯誤，請稍後重試。';
 }
+
+RetellVoiceAgent.displayName = 'RetellVoiceAgent';
 
 export default RetellVoiceAgent;

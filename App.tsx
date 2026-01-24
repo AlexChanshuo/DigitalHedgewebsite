@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
@@ -13,7 +13,7 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import BackgroundEffects from './components/BackgroundEffects';
 import ConstructionOverlay from './components/ConstructionOverlay';
-import RetellVoiceAgent from './components/voice/RetellVoiceAgent';
+import RetellVoiceAgent, { RetellVoiceAgentHandle } from './components/voice/RetellVoiceAgent';
 
 export type Page = 'home' | 'voice-of-choice' | 'voice-survey' | 'sales-ai' | 'blog' | 'blog-post' | 'login' | 'admin';
 
@@ -23,6 +23,14 @@ const AppContent: React.FC = () => {
   const [currentBlogSlug, setCurrentBlogSlug] = useState<string>('');
   const [isScrolled, setIsScrolled] = useState(false);
   const [showConstruction, setShowConstruction] = useState(false);
+
+  // Ref to RetellVoiceAgent for programmatic triggering
+  const voiceAgentRef = useRef<RetellVoiceAgentHandle>(null);
+
+  // Handler to open voice chat from anywhere in the app
+  const openVoiceChat = useCallback(() => {
+    voiceAgentRef.current?.openVoiceChat();
+  }, []);
 
   // Check URL on mount for direct navigation
   useEffect(() => {
@@ -124,7 +132,7 @@ const AppContent: React.FC = () => {
           onSuccess={() => setCurrentPage('admin')}
           onBack={() => setCurrentPage('home')}
         />
-        <RetellVoiceAgent />
+        <RetellVoiceAgent ref={voiceAgentRef} />
       </>
     );
   }
@@ -144,7 +152,7 @@ const AppContent: React.FC = () => {
           }}
           onBackToSite={() => setCurrentPage('home')}
         />
-        <RetellVoiceAgent />
+        <RetellVoiceAgent ref={voiceAgentRef} />
       </>
     );
   }
@@ -158,7 +166,7 @@ const AppContent: React.FC = () => {
           isScrolled={isScrolled}
           currentPage={currentPage}
           onNavigate={setCurrentPage}
-          onOpenConsulting={() => setShowConstruction(true)}
+          onOpenConsulting={openVoiceChat}
         />
         <main className="transition-opacity duration-500">
           <BlogPost
@@ -171,7 +179,7 @@ const AppContent: React.FC = () => {
         {showConstruction && (
           <ConstructionOverlay onClose={() => setShowConstruction(false)} />
         )}
-        <RetellVoiceAgent />
+        <RetellVoiceAgent ref={voiceAgentRef} />
       </div>
     );
   }
@@ -185,7 +193,7 @@ const AppContent: React.FC = () => {
           isScrolled={isScrolled}
           currentPage={currentPage}
           onNavigate={setCurrentPage}
-          onOpenConsulting={() => setShowConstruction(true)}
+          onOpenConsulting={openVoiceChat}
         />
         <main className="transition-opacity duration-500">
           <Blog
@@ -197,7 +205,7 @@ const AppContent: React.FC = () => {
         {showConstruction && (
           <ConstructionOverlay onClose={() => setShowConstruction(false)} />
         )}
-        <RetellVoiceAgent />
+        <RetellVoiceAgent ref={voiceAgentRef} />
       </div>
     );
   }
@@ -219,12 +227,12 @@ const AppContent: React.FC = () => {
         isScrolled={isScrolled}
         currentPage={currentPage}
         onNavigate={setCurrentPage}
-        onOpenConsulting={() => setShowConstruction(true)}
+        onOpenConsulting={openVoiceChat}
       />
 
       <main className="transition-opacity duration-500 pt-20">
         {renderPage()}
-        {currentPage === 'home' && <Contact onOpenChat={() => setShowConstruction(true)} />}
+        {currentPage === 'home' && <Contact onOpenChat={openVoiceChat} />}
       </main>
 
       <Footer />
@@ -234,7 +242,7 @@ const AppContent: React.FC = () => {
       )}
 
       {/* Voice Agent - site-wide */}
-      <RetellVoiceAgent />
+      <RetellVoiceAgent ref={voiceAgentRef} />
     </div>
   );
 };
