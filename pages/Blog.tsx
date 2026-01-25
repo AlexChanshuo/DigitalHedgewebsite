@@ -1,7 +1,9 @@
 // pages/Blog.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import BlogCard from '../components/BlogCard';
-import { getPosts, getCategories, Post, Category } from '../services/api';
+import FilterBar from '../components/FilterBar';
+import { getPosts, getCategories, getTags, Post, Category, Tag } from '../services/api';
+import { useURLFilters } from '../hooks/useURLFilters';
 
 interface BlogProps {
   onNavigateToPost: (slug: string) => void;
@@ -9,48 +11,59 @@ interface BlogProps {
 }
 
 const Blog: React.FC<BlogProps> = ({ onNavigateToPost, onBack }) => {
+  const [filters, updateFilters, clearFilters] = useURLFilters();
   const [posts, setPosts] = useState<Post[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [tags, setTags] = useState<Tag[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    loadData();
-  }, [selectedCategory, page]);
+    const controller = new AbortController();
 
-  async function loadData() {
-    setIsLoading(true);
-    try {
-      const [postsRes, categoriesRes] = await Promise.all([
-        getPosts({
-          page,
-          limit: 9,
-          status: 'PUBLISHED',
-          categoryId: selectedCategory === 'all' ? undefined : selectedCategory,
-        }),
-        getCategories(),
-      ]);
+    async function loadData() {
+      setIsLoading(true);
+      try {
+        const [postsRes, categoriesRes, tagsRes] = await Promise.all([
+          getPosts({
+            page: filters.page,
+            limit: 9,
+            status: 'PUBLISHED',
+            categorySlug: filters.categorySlug || undefined,
+            tagSlug: filters.tagSlug || undefined,
+            search: filters.search || undefined,
+          }),
+          getCategories(),
+          getTags(),
+        ]);
 
-      if (postsRes.success && postsRes.data) {
-        setPosts(postsRes.data.posts);
-        setTotalPages(postsRes.data.pagination.totalPages);
+        if (!controller.signal.aborted) {
+          if (postsRes.success && postsRes.data) {
+            setPosts(postsRes.data.posts);
+            setTotalPages(postsRes.data.pagination.totalPages);
+          }
+
+          if (categoriesRes.success && categoriesRes.data) {
+            setCategories(categoriesRes.data);
+          }
+
+          if (tagsRes.success && tagsRes.data) {
+            setTags(tagsRes.data);
+          }
+        }
+      } catch (e) {
+        if (!controller.signal.aborted) {
+          console.error('Failed to load blog data:', e);
+        }
       }
-
-      if (categoriesRes.success && categoriesRes.data) {
-        setCategories(categoriesRes.data);
+      if (!controller.signal.aborted) {
+        setIsLoading(false);
       }
-    } catch (e) {
-      console.error('Failed to load blog data:', e);
     }
-    setIsLoading(false);
-  }
 
-  function handleCategoryChange(categoryId: string) {
-    setSelectedCategory(categoryId);
-    setPage(1);
-  }
+    loadData();
+    return () => controller.abort();
+  }, [filters.categorySlug, filters.tagSlug, filters.search, filters.page]);
 
   return (
     <div className="min-h-screen bg-[#FAF9F6]">
@@ -89,34 +102,16 @@ const Blog: React.FC<BlogProps> = ({ onNavigateToPost, onBack }) => {
         </div>
       </section>
 
-      {/* Category Filter */}
+      {/* Filter Bar */}
       <section className="px-6 pb-8">
         <div className="max-w-6xl mx-auto">
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            <button
-              onClick={() => handleCategoryChange('all')}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${
-                selectedCategory === 'all'
-                  ? 'bg-[#2C2420] text-white'
-                  : 'bg-white border border-[#E0E0E0] text-[#2C2420]/70 hover:border-[#D4A373] hover:text-[#D4A373]'
-              }`}
-            >
-              全部文章
-            </button>
-            {categories.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => handleCategoryChange(cat.id)}
-                className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${
-                  selectedCategory === cat.id
-                    ? 'bg-[#2C2420] text-white'
-                    : 'bg-white border border-[#E0E0E0] text-[#2C2420]/70 hover:border-[#D4A373] hover:text-[#D4A373]'
-                }`}
-              >
-                {cat.name}
-              </button>
-            ))}
-          </div>
+          <FilterBar
+            filters={filters}
+            categories={categories}
+            tags={tags}
+            onUpdateFilters={updateFilters}
+            onClearFilters={clearFilters}
+          />
         </div>
       </section>
 
@@ -153,6 +148,7 @@ const Blog: React.FC<BlogProps> = ({ onNavigateToPost, onBack }) => {
                       day: 'numeric',
                     })}
                     slug={post.slug}
+                    searchWords={filters.search ? [filters.search] : []}
                     onClick={() => onNavigateToPost(post.slug)}
                   />
                 ))}
@@ -162,18 +158,18 @@ const Blog: React.FC<BlogProps> = ({ onNavigateToPost, onBack }) => {
               {totalPages > 1 && (
                 <div className="flex items-center justify-center space-x-4 mt-12">
                   <button
-                    onClick={() => setPage(p => Math.max(1, p - 1))}
-                    disabled={page === 1}
+                    onClick={() => updateFilters({ page: Math.max(1, filters.page - 1) })}
+                    disabled={filters.page === 1}
                     className="px-5 py-2 border border-[#E0E0E0] rounded-lg hover:bg-[#FAF9F6] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                   >
                     上一頁
                   </button>
                   <span className="text-sm text-[#2C2420]/60">
-                    第 {page} / {totalPages} 頁
+                    第 {filters.page} / {totalPages} 頁
                   </span>
                   <button
-                    onClick={() => setPage(p => Math.min(totalPages, p + 1))}
-                    disabled={page === totalPages}
+                    onClick={() => updateFilters({ page: Math.min(totalPages, filters.page + 1) })}
+                    disabled={filters.page === totalPages}
                     className="px-5 py-2 border border-[#E0E0E0] rounded-lg hover:bg-[#FAF9F6] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                   >
                     下一頁
