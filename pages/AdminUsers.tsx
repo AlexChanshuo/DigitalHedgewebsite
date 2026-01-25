@@ -277,7 +277,7 @@ const AdminUsers: React.FC = () => {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-[#E0E0E0]">
-                        {users.map((u) => (
+                        {sortedUsers().map((u) => (
                             <tr key={u.id} className="hover:bg-gray-50 transition-colors">
                                 <td className="px-6 py-4">
                                     <div className="flex items-center space-x-3">
