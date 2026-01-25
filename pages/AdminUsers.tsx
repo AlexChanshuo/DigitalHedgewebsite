@@ -21,6 +21,10 @@ const AdminUsers: React.FC = () => {
     const [statusFilter, setStatusFilter] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
 
+    // Sort state
+    const [sortField, setSortField] = useState<'name' | 'role' | 'status' | 'createdAt'>('createdAt');
+    const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
+
     // Modal State for Invite (Create)
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalForm, setModalForm] = useState({ email: '', name: '', role: 'EDITOR', password: '' });
@@ -118,6 +122,38 @@ const AdminUsers: React.FC = () => {
         'PENDING_PASSWORD_CHANGE': '待更改密碼',
     };
 
+    function sortedUsers() {
+        return [...users].sort((a, b) => {
+            let aVal: string | number = a[sortField] ?? '';
+            let bVal: string | number = b[sortField] ?? '';
+
+            // Handle date sorting
+            if (sortField === 'createdAt') {
+                aVal = new Date(aVal).getTime();
+                bVal = new Date(bVal).getTime();
+            }
+
+            // String comparison
+            if (typeof aVal === 'string' && typeof bVal === 'string') {
+                aVal = aVal.toLowerCase();
+                bVal = bVal.toLowerCase();
+            }
+
+            if (aVal < bVal) return sortDirection === 'asc' ? -1 : 1;
+            if (aVal > bVal) return sortDirection === 'asc' ? 1 : -1;
+            return 0;
+        });
+    }
+
+    function handleSort(field: 'name' | 'role' | 'status' | 'createdAt') {
+        if (sortField === field) {
+            setSortDirection(prev => prev === 'asc' ? 'desc' : 'asc');
+        } else {
+            setSortField(field);
+            setSortDirection('asc');
+        }
+    }
+
     // Role-based access check - only MASTER can access this page
     if (currentUser?.role !== 'MASTER') {
         return (
@@ -193,10 +229,50 @@ const AdminUsers: React.FC = () => {
                 <table className="w-full text-left">
                     <thead className="bg-[#FAF9F6] border-b border-[#E0E0E0]">
                         <tr>
-                            <th className="px-6 py-4 font-medium text-[#2C2420]">用戶</th>
-                            <th className="px-6 py-4 font-medium text-[#2C2420]">角色</th>
-                            <th className="px-6 py-4 font-medium text-[#2C2420]">狀態</th>
-                            <th className="px-6 py-4 font-medium text-[#2C2420]">加入時間</th>
+                            <th
+                                onClick={() => handleSort('name')}
+                                className="px-6 py-4 font-medium text-[#2C2420] cursor-pointer hover:bg-[#F5F5F5] select-none"
+                            >
+                                <span className="flex items-center space-x-1">
+                                    <span>用戶</span>
+                                    {sortField === 'name' && (
+                                        <span className="text-[#D4A373]">{sortDirection === 'asc' ? '\u2191' : '\u2193'}</span>
+                                    )}
+                                </span>
+                            </th>
+                            <th
+                                onClick={() => handleSort('role')}
+                                className="px-6 py-4 font-medium text-[#2C2420] cursor-pointer hover:bg-[#F5F5F5] select-none"
+                            >
+                                <span className="flex items-center space-x-1">
+                                    <span>角色</span>
+                                    {sortField === 'role' && (
+                                        <span className="text-[#D4A373]">{sortDirection === 'asc' ? '\u2191' : '\u2193'}</span>
+                                    )}
+                                </span>
+                            </th>
+                            <th
+                                onClick={() => handleSort('status')}
+                                className="px-6 py-4 font-medium text-[#2C2420] cursor-pointer hover:bg-[#F5F5F5] select-none"
+                            >
+                                <span className="flex items-center space-x-1">
+                                    <span>狀態</span>
+                                    {sortField === 'status' && (
+                                        <span className="text-[#D4A373]">{sortDirection === 'asc' ? '\u2191' : '\u2193'}</span>
+                                    )}
+                                </span>
+                            </th>
+                            <th
+                                onClick={() => handleSort('createdAt')}
+                                className="px-6 py-4 font-medium text-[#2C2420] cursor-pointer hover:bg-[#F5F5F5] select-none"
+                            >
+                                <span className="flex items-center space-x-1">
+                                    <span>加入時間</span>
+                                    {sortField === 'createdAt' && (
+                                        <span className="text-[#D4A373]">{sortDirection === 'asc' ? '\u2191' : '\u2193'}</span>
+                                    )}
+                                </span>
+                            </th>
                             <th className="px-6 py-4 font-medium text-[#2C2420] text-right">操作</th>
                         </tr>
                     </thead>
