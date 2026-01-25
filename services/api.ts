@@ -333,6 +333,7 @@ export interface Tag {
   name: string;
   slug: string;
   color: string | null;
+  _count?: { posts: number };
 }
 
 export async function getTags(): Promise<ApiResponse<Tag[]>> {
