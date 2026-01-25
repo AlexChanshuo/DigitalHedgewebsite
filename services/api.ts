@@ -234,6 +234,9 @@ export async function getPosts(params?: {
   limit?: number;
   status?: string;
   categoryId?: string;
+  categorySlug?: string;
+  tagId?: string;
+  tagSlug?: string;
   search?: string;
 }): Promise<ApiResponse<PostsResponse>> {
   const query = new URLSearchParams();
@@ -241,6 +244,9 @@ export async function getPosts(params?: {
   if (params?.limit) query.set('limit', String(params.limit));
   if (params?.status) query.set('status', params.status);
   if (params?.categoryId) query.set('categoryId', params.categoryId);
+  if (params?.categorySlug) query.set('categorySlug', params.categorySlug);
+  if (params?.tagId) query.set('tagId', params.tagId);
+  if (params?.tagSlug) query.set('tagSlug', params.tagSlug);
   if (params?.search) query.set('search', params.search);
 
   return request(`/posts?${query.toString()}`);
