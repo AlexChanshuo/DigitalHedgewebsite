@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import { prisma } from '../config/database';
 import { hashPassword } from '../utils/password';
 import { createError } from '../middlewares/errorMiddleware';
-import { sendWelcomeEmail } from '../services/emailService';
+import { sendWelcomeEmail, sendInvitationEmail } from '../services/emailService';
 
 /**
  * 取得所有使用者 (管理員)
@@ -146,9 +146,9 @@ export async function createUser(req: Request, res: Response, next: NextFunction
       },
     });
 
-    // 發送歡迎郵件
+    // 發送邀請郵件
     if (name) {
-      await sendWelcomeEmail(user.email, name);
+      await sendInvitationEmail(user.email, name, user.role);
     }
 
     // 記錄活動
