@@ -151,8 +151,14 @@ export interface User {
   createdAt: string;
 }
 
-export async function getUsers(): Promise<ApiResponse<User[]>> {
-  return request('/users');
+export async function getUsers(params?: { role?: string; status?: string; search?: string }): Promise<ApiResponse<User[]>> {
+  const query = new URLSearchParams();
+  if (params?.role) query.set('role', params.role);
+  if (params?.status) query.set('status', params.status);
+  if (params?.search) query.set('search', params.search);
+
+  const queryString = query.toString();
+  return request(`/users${queryString ? `?${queryString}` : ''}`);
 }
 
 export async function createUser(data: { email: string; name: string; role: string; password?: string }): Promise<ApiResponse<User>> {
