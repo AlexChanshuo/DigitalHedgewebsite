@@ -186,16 +186,19 @@ export async function deleteTag(req: Request, res: Response, next: NextFunction)
 
     const tag = await prisma.tag.findUnique({
       where: { id },
+      include: {
+        _count: { select: { posts: true } },
+      },
     });
 
     if (!tag) {
       throw createError('標籤不存在', 404);
     }
 
-    // 先刪除關聯
-    await prisma.postTag.deleteMany({
-      where: { tagId: id },
-    });
+    // 檢查是否有文章使用此標籤
+    if (tag._count.posts > 0) {
+      throw createError(`此標籤有 ${tag._count.posts} 篇文章使用，無法刪除`, 400);
+    }
 
     // 刪除標籤
     await prisma.tag.delete({ where: { id } });
