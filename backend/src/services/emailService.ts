@@ -128,6 +128,88 @@ interface ContactNotificationParams {
   message: string;
 }
 
+export async function sendInvitationEmail(
+  to: string,
+  name: string,
+  role: string
+): Promise<boolean> {
+  const roleLabels: Record<string, string> = {
+    'MASTER': '最高管理員',
+    'ADMIN': '管理員',
+    'EDITOR': '編輯',
+    'USER': '一般會員',
+  };
+  const roleLabel = roleLabels[role] || role;
+
+  try {
+    await resend.emails.send({
+      from: config.email.from,
+      to,
+      subject: '【Digital Hedge】您的帳號已建立',
+      html: `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="utf-8">
+          <style>
+            body { font-family: 'Microsoft JhengHei', sans-serif; line-height: 1.6; color: #2C2420; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .header { text-align: center; padding: 20px 0; border-bottom: 2px solid #D4A373; }
+            .logo { font-size: 24px; font-weight: bold; color: #2C2420; }
+            .content { padding: 30px 0; }
+            .button { display: inline-block; padding: 14px 28px; background: #D4A373; color: #fff !important; text-decoration: none; border-radius: 8px; font-weight: bold; }
+            .info-box { background: #FAF9F6; padding: 20px; border-radius: 8px; margin: 20px 0; }
+            .label { font-weight: bold; color: #D4A373; }
+            .footer { text-align: center; padding: 20px 0; border-top: 1px solid #E0E0E0; color: #888; font-size: 12px; }
+            .note { background: #FFF3E0; padding: 15px; border-radius: 8px; margin: 20px 0; font-size: 14px; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <div class="logo">DIGITAL HEDGE</div>
+            </div>
+            <div class="content">
+              <h2>歡迎加入 Digital Hedge！</h2>
+              <p>親愛的 ${name}，</p>
+              <p>您的帳號已由管理員建立。以下是您的帳號資訊：</p>
+
+              <div class="info-box">
+                <p><span class="label">登入帳號：</span>${to}</p>
+                <p><span class="label">帳號角色：</span>${roleLabel}</p>
+              </div>
+
+              <p>您的登入密碼將由管理員另行通知。首次登入後，系統會要求您更改密碼以確保帳號安全。</p>
+
+              <p style="text-align: center; margin: 30px 0;">
+                <a href="${config.frontendUrl}/login" class="button">立即登入</a>
+              </p>
+
+              <div class="note">
+                <strong>溫馨提示：</strong>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                  <li>請妥善保管您的登入資訊</li>
+                  <li>首次登入後請立即更改密碼</li>
+                  <li>如有任何問題，請聯繫管理員</li>
+                </ul>
+              </div>
+            </div>
+            <div class="footer">
+              <p>&copy; ${new Date().getFullYear()} Digital Hedge Co., Ltd.</p>
+              <p>此為系統自動發送郵件，請勿直接回覆</p>
+            </div>
+          </div>
+        </body>
+        </html>
+      `,
+    });
+    return true;
+  } catch (error) {
+    console.error('Invitation email failed:', error);
+    return false;
+  }
+}
+
 export async function sendContactNotification(
   params: ContactNotificationParams
 ): Promise<boolean> {
