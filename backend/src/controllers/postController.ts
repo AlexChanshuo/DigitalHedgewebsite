@@ -25,7 +25,9 @@ export async function getAllPosts(req: Request, res: Response, next: NextFunctio
       limit = 10,
       status,
       categoryId,
+      categorySlug,
       tagId,
+      tagSlug,
       search,
       sortBy = 'publishedAt',
       sortOrder = 'desc',
@@ -47,13 +49,33 @@ export async function getAllPosts(req: Request, res: Response, next: NextFunctio
       where.status = status;
     }
 
-    if (categoryId) {
-      where.categoryId = categoryId;
+    // Resolve category slug to ID if provided (and categoryId not already set)
+    let categoryIdResolved = categoryId as string | undefined;
+    if (categorySlug && !categoryId) {
+      const category = await prisma.category.findUnique({
+        where: { slug: categorySlug as string },
+        select: { id: true },
+      });
+      if (category) categoryIdResolved = category.id;
     }
 
-    if (tagId) {
+    // Resolve tag slug to ID if provided (and tagId not already set)
+    let tagIdResolved = tagId as string | undefined;
+    if (tagSlug && !tagId) {
+      const tag = await prisma.tag.findUnique({
+        where: { slug: tagSlug as string },
+        select: { id: true },
+      });
+      if (tag) tagIdResolved = tag.id;
+    }
+
+    if (categoryIdResolved) {
+      where.categoryId = categoryIdResolved;
+    }
+
+    if (tagIdResolved) {
       where.tags = {
-        some: { tagId: tagId as string },
+        some: { tagId: tagIdResolved },
       };
     }
 
