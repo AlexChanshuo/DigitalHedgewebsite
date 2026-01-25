@@ -1,6 +1,14 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
+interface HreflangConfig {
+    enabled: boolean;
+    languages?: Array<{
+        lang: string;    // e.g., 'zh-TW', 'en'
+        url: string;     // Full URL or path
+    }>;
+}
+
 interface SEOProps {
     title?: string;
     description?: string;
@@ -9,6 +17,7 @@ interface SEOProps {
     type?: 'website' | 'article';
     publishedTime?: string;
     author?: string;
+    hreflang?: HreflangConfig;
     children?: React.ReactNode;
 }
 
@@ -20,6 +29,7 @@ const SEO: React.FC<SEOProps> = ({
     type = 'website',
     publishedTime,
     author,
+    hreflang,
     children,
 }) => {
     const siteTitle = 'Digital Hedge - AI 語音與數位轉型';
@@ -59,6 +69,27 @@ const SEO: React.FC<SEOProps> = ({
             )}
             {type === 'article' && author && (
                 <meta property="article:author" content={author} />
+            )}
+
+            {/* hreflang tags for bilingual content */}
+            {hreflang?.enabled && (
+                <>
+                    {/* Self-referencing and alternate languages */}
+                    {hreflang.languages?.map((lang) => (
+                        <link
+                            key={lang.lang}
+                            rel="alternate"
+                            hrefLang={lang.lang}
+                            href={lang.url.startsWith('http') ? lang.url : `${siteUrl}${lang.url}`}
+                        />
+                    ))}
+                    {/* x-default fallback - use current URL */}
+                    <link
+                        rel="alternate"
+                        hrefLang="x-default"
+                        href={metaUrl}
+                    />
+                </>
             )}
 
             {children}
