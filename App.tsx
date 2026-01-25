@@ -39,12 +39,15 @@ const AppContent: React.FC = () => {
       setCurrentPage('login');
     } else if (path === '/admin' || path.startsWith('/admin/')) {
       setCurrentPage('admin');
-    } else if (path === '/blog') {
+    } else if (path === '/blog' || path.startsWith('/blog/category/') || path.startsWith('/blog/tag/')) {
       setCurrentPage('blog');
     } else if (path.startsWith('/blog/')) {
+      // Only treat as blog post if not a filter URL
       const slug = path.replace('/blog/', '');
-      setCurrentBlogSlug(slug);
-      setCurrentPage('blog-post');
+      if (!slug.startsWith('category/') && !slug.startsWith('tag/')) {
+        setCurrentBlogSlug(slug);
+        setCurrentPage('blog-post');
+      }
     } else if (path === '/voice-of-choice') {
       setCurrentPage('voice-of-choice');
     } else if (path === '/voice-survey') {
@@ -59,13 +62,22 @@ const AppContent: React.FC = () => {
     let path = '/';
     if (currentPage === 'login') path = '/login';
     else if (currentPage === 'admin') path = '/admin';
-    else if (currentPage === 'blog') path = '/blog';
+    else if (currentPage === 'blog') {
+      // Don't override path if it's a filter URL - Blog component manages its own URL
+      if (!window.location.pathname.startsWith('/blog/category/') &&
+          !window.location.pathname.startsWith('/blog/tag/') &&
+          window.location.pathname !== '/blog') {
+        path = '/blog';
+      } else {
+        path = window.location.pathname + window.location.search;
+      }
+    }
     else if (currentPage === 'blog-post') path = `/blog/${currentBlogSlug}`;
     else if (currentPage === 'voice-of-choice') path = '/voice-of-choice';
     else if (currentPage === 'voice-survey') path = '/voice-survey';
     else if (currentPage === 'sales-ai') path = '/sales-ai';
 
-    if (window.location.pathname !== path) {
+    if (window.location.pathname !== path && !path.includes(window.location.pathname)) {
       window.history.pushState({}, '', path);
     }
   }, [currentPage, currentBlogSlug]);
@@ -76,11 +88,17 @@ const AppContent: React.FC = () => {
       const path = window.location.pathname;
       if (path === '/login') setCurrentPage('login');
       else if (path === '/admin' || path.startsWith('/admin/')) setCurrentPage('admin');
-      else if (path === '/blog') setCurrentPage('blog');
+      else if (path === '/blog' || path.startsWith('/blog/category/') || path.startsWith('/blog/tag/')) {
+        setCurrentPage('blog');
+      }
       else if (path.startsWith('/blog/')) {
         const slug = path.replace('/blog/', '');
-        setCurrentBlogSlug(slug);
-        setCurrentPage('blog-post');
+        if (!slug.startsWith('category/') && !slug.startsWith('tag/')) {
+          setCurrentBlogSlug(slug);
+          setCurrentPage('blog-post');
+        } else {
+          setCurrentPage('blog');
+        }
       }
       else if (path === '/voice-of-choice') setCurrentPage('voice-of-choice');
       else if (path === '/voice-survey') setCurrentPage('voice-survey');
