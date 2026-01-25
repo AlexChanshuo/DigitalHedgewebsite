@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { getPost, Post } from '../services/api';
 import SEO from '../components/SEO';
+import BreadcrumbSchema from '../components/seo/BreadcrumbSchema';
 
 interface BlogPostProps {
   slug: string;
@@ -130,6 +131,13 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, onBack, onNavigateToBlog }) =
         <script type="application/ld+json">
           {JSON.stringify(jsonLd)}
         </script>
+        <BreadcrumbSchema
+          items={[
+            { name: '首頁', url: '/' },
+            { name: '部落格', url: '/blog' },
+            { name: post.title }
+          ]}
+        />
       </SEO>
 
       {/* Hero Section */}

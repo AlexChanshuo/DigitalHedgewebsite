@@ -2,6 +2,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import BlogCard from '../components/BlogCard';
 import FilterBar from '../components/FilterBar';
+import SEO from '../components/SEO';
+import BreadcrumbSchema from '../components/seo/BreadcrumbSchema';
 import { getPosts, getCategories, getTags, Post, Category, Tag } from '../services/api';
 import { useURLFilters } from '../hooks/useURLFilters';
 
@@ -67,6 +69,19 @@ const Blog: React.FC<BlogProps> = ({ onNavigateToPost, onBack }) => {
 
   return (
     <div className="min-h-screen bg-[#FAF9F6]">
+      <SEO
+        title="部落格"
+        description="探索 AI 語音技術、生成式 AI 應用與數位轉型策略的最新文章"
+        url="/blog"
+      >
+        <BreadcrumbSchema
+          items={[
+            { name: '首頁', url: '/' },
+            { name: '部落格' }
+          ]}
+        />
+      </SEO>
+
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-6">
         {/* Background decoration */}
