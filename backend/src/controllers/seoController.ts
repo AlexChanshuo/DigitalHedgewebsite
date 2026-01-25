@@ -39,6 +39,16 @@ export async function generateSitemap(req: Request, res: Response) {
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>${SITE_URL}/cognitive-hedge</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>${SITE_URL}/industry-voice</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 `;
 
     posts.forEach(post => {
