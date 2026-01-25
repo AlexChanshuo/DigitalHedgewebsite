@@ -47,7 +47,9 @@ const AdminUsers: React.FC = () => {
             search: searchQuery || undefined,
         });
         if (result.success && result.data) {
-            setUsers(result.data);
+            // Handle both flat array and paginated response structures
+            const userData = Array.isArray(result.data) ? result.data : (result.data as any).users;
+            setUsers(userData || []);
         } else {
             setError(result.error || '載入使用者列表失敗');
         }
