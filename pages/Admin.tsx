@@ -7,6 +7,9 @@ import AdminPostEditor from './AdminPostEditor';
 import { getPosts, getCategories, PostsResponse, Category } from '../services/api';
 import AdminContentSources from './AdminContentSources';
 import AdminFetchedContent from './AdminFetchedContent';
+import AdminCategories from './AdminCategories';
+import AdminTags from './AdminTags';
+import AdminUsers from './AdminUsers';
 
 type AdminPage = 'dashboard' | 'posts' | 'categories' | 'tags' | 'users' | 'content-sources' | 'fetched-content';
 type AdminView = 'list' | 'editor';
@@ -261,7 +264,18 @@ const Admin: React.FC<AdminProps> = ({ onLogout, onBackToSite }) => {
       );
     }
 
-    // Placeholder for other pages
+    if (currentPage === 'categories') {
+      return <AdminCategories />;
+    }
+
+    if (currentPage === 'tags') {
+      return <AdminTags />;
+    }
+
+    if (currentPage === 'users') {
+      return <AdminUsers />;
+    }
+
     return (
       <div className="bg-white rounded-2xl border border-[#E0E0E0] p-12 text-center">
         <p className="text-[#2C2420]/50">此功能開發中...</p>
