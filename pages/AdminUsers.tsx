@@ -16,10 +16,16 @@ const AdminUsers: React.FC = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
+    // Filter state
+    const [roleFilter, setRoleFilter] = useState('');
+    const [statusFilter, setStatusFilter] = useState('');
+    const [searchQuery, setSearchQuery] = useState('');
+
     // Modal State for Invite (Create)
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalForm, setModalForm] = useState({ email: '', name: '', role: 'EDITOR', password: '' });
     const [isSaving, setIsSaving] = useState(false);
+    const [createdUser, setCreatedUser] = useState<{ email: string; password: string } | null>(null);
 
     useEffect(() => {
         if (currentUser?.role === 'MASTER') {
@@ -27,11 +33,15 @@ const AdminUsers: React.FC = () => {
         } else {
             setIsLoading(false);
         }
-    }, [currentUser?.role]);
+    }, [currentUser?.role, roleFilter, statusFilter, searchQuery]);
 
     async function loadUsers() {
         setIsLoading(true);
-        const result = await getUsers();
+        const result = await getUsers({
+            role: roleFilter || undefined,
+            status: statusFilter || undefined,
+            search: searchQuery || undefined,
+        });
         if (result.success && result.data) {
             setUsers(result.data);
         } else {
@@ -42,7 +52,14 @@ const AdminUsers: React.FC = () => {
 
     function handleAddNew() {
         setModalForm({ email: '', name: '', role: 'EDITOR', password: '' });
+        setCreatedUser(null);
         setIsModalOpen(true);
+    }
+
+    function closeModal() {
+        setIsModalOpen(false);
+        setCreatedUser(null);
+        setModalForm({ email: '', name: '', role: 'EDITOR', password: '' });
     }
 
     async function handleDelete(id: string) {
@@ -75,9 +92,9 @@ const AdminUsers: React.FC = () => {
         try {
             const result = await createUser(modalForm);
             if (result.success) {
-                setIsModalOpen(false);
+                setCreatedUser({ email: modalForm.email, password: modalForm.password });
                 loadUsers();
-                alert('使用者已建立！請將密碼通知對方。');
+                // Don't close modal - show success state
             } else {
                 alert(result.error || '建立失敗');
             }
@@ -129,6 +146,41 @@ const AdminUsers: React.FC = () => {
                     </svg>
                     <span>新增使用者</span>
                 </button>
+            </div>
+
+            {/* Filter controls */}
+            <div className="flex flex-wrap gap-4 items-center">
+                <select
+                    value={roleFilter}
+                    onChange={(e) => setRoleFilter(e.target.value)}
+                    className="px-4 py-2 rounded-lg border border-[#E0E0E0] outline-none focus:border-[#D4A373]"
+                >
+                    <option value="">全部角色</option>
+                    <option value="MASTER">最高管理員</option>
+                    <option value="ADMIN">管理員</option>
+                    <option value="EDITOR">編輯</option>
+                    <option value="USER">一般會員</option>
+                </select>
+
+                <select
+                    value={statusFilter}
+                    onChange={(e) => setStatusFilter(e.target.value)}
+                    className="px-4 py-2 rounded-lg border border-[#E0E0E0] outline-none focus:border-[#D4A373]"
+                >
+                    <option value="">全部狀態</option>
+                    <option value="ACTIVE">使用中</option>
+                    <option value="INACTIVE">停用</option>
+                    <option value="SUSPENDED">已凍結</option>
+                    <option value="PENDING_PASSWORD_CHANGE">待更改密碼</option>
+                </select>
+
+                <input
+                    type="text"
+                    placeholder="搜尋姓名或 Email..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="flex-1 min-w-[200px] px-4 py-2 rounded-lg border border-[#E0E0E0] outline-none focus:border-[#D4A373]"
+                />
             </div>
 
             {error && (
@@ -221,79 +273,136 @@ const AdminUsers: React.FC = () => {
             {isModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
                     <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden">
-                        <div className="p-6 border-b border-[#E0E0E0]">
-                            <h3 className="text-xl font-bold text-[#2C2420]">新增使用者</h3>
-                        </div>
-                        <form onSubmit={handleSubmit} className="p-6 space-y-4">
-                            <div>
-                                <label className="block text-sm font-medium text-[#2C2420] mb-1">
-                                    Email <span className="text-red-500">*</span>
-                                </label>
-                                <input
-                                    type="email"
-                                    required
-                                    value={modalForm.email}
-                                    onChange={(e) => setModalForm({ ...modalForm, email: e.target.value })}
-                                    className="w-full px-4 py-2 rounded-lg border border-[#E0E0E0] outline-none focus:border-[#D4A373]"
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium text-[#2C2420] mb-1">
-                                    姓名
-                                </label>
-                                <input
-                                    type="text"
-                                    required
-                                    value={modalForm.name}
-                                    onChange={(e) => setModalForm({ ...modalForm, name: e.target.value })}
-                                    className="w-full px-4 py-2 rounded-lg border border-[#E0E0E0] outline-none focus:border-[#D4A373]"
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium text-[#2C2420] mb-1">
-                                    角色
-                                </label>
-                                <select
-                                    value={modalForm.role}
-                                    onChange={(e) => setModalForm({ ...modalForm, role: e.target.value })}
-                                    className="w-full px-4 py-2 rounded-lg border border-[#E0E0E0] outline-none focus:border-[#D4A373]"
-                                >
-                                    <option value="ADMIN">管理員</option>
-                                    <option value="EDITOR">編輯者</option>
-                                    <option value="USER">一般會員</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium text-[#2C2420] mb-1">
-                                    初始密碼 <span className="text-red-500">*</span>
-                                </label>
-                                <input
-                                    type="text"
-                                    required
-                                    value={modalForm.password}
-                                    onChange={(e) => setModalForm({ ...modalForm, password: e.target.value })}
-                                    className="w-full px-4 py-2 rounded-lg border border-[#E0E0E0] outline-none focus:border-[#D4A373]"
-                                    placeholder="至少 8 碼"
-                                />
-                            </div>
+                        {createdUser ? (
+                            // Success state - show password
+                            <>
+                                <div className="p-6 border-b border-[#E0E0E0] bg-green-50">
+                                    <div className="flex items-center space-x-2">
+                                        <svg className="w-6 h-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <h3 className="text-xl font-bold text-green-800">使用者已建立</h3>
+                                    </div>
+                                </div>
+                                <div className="p-6 space-y-4">
+                                    <p className="text-gray-600">請將以下資訊傳送給新使用者：</p>
 
-                            <div className="flex justify-end space-x-3 pt-4">
-                                <button
-                                    type="button"
-                                    onClick={() => setIsModalOpen(false)}
-                                    className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
-                                >
-                                    取消
-                                </button>
-                                <button
-                                    type="submit"
-                                    disabled={isSaving}
-                                    className="px-6 py-2 bg-[#D4A373] text-white rounded-lg hover:bg-[#B08968] font-medium"
-                                >
-                                    {isSaving ? '建立中...' : '建立'}
-                                </button>
-                            </div>
-                        </form>
+                                    <div className="bg-gray-50 p-4 rounded-lg space-y-2">
+                                        <div>
+                                            <span className="text-sm text-gray-500">帳號：</span>
+                                            <p className="font-mono text-[#2C2420]">{createdUser.email}</p>
+                                        </div>
+                                        <div>
+                                            <span className="text-sm text-gray-500">臨時密碼：</span>
+                                            <div className="flex items-center space-x-2">
+                                                <p className="font-mono text-lg text-[#2C2420] bg-yellow-50 px-2 py-1 rounded">{createdUser.password}</p>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        navigator.clipboard.writeText(createdUser.password);
+                                                        alert('已複製密碼');
+                                                    }}
+                                                    className="text-sm text-[#D4A373] hover:text-[#B08968]"
+                                                >
+                                                    複製
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <p className="text-sm text-gray-500">
+                                        使用者首次登入後需更改密碼。邀請郵件已發送至對方信箱。
+                                    </p>
+
+                                    <div className="flex justify-end pt-4">
+                                        <button
+                                            type="button"
+                                            onClick={closeModal}
+                                            className="px-6 py-2 bg-[#D4A373] text-white rounded-lg hover:bg-[#B08968] font-medium"
+                                        >
+                                            完成
+                                        </button>
+                                    </div>
+                                </div>
+                            </>
+                        ) : (
+                            // Create form state
+                            <>
+                                <div className="p-6 border-b border-[#E0E0E0]">
+                                    <h3 className="text-xl font-bold text-[#2C2420]">新增使用者</h3>
+                                </div>
+                                <form onSubmit={handleSubmit} className="p-6 space-y-4">
+                                    <div>
+                                        <label className="block text-sm font-medium text-[#2C2420] mb-1">
+                                            Email <span className="text-red-500">*</span>
+                                        </label>
+                                        <input
+                                            type="email"
+                                            required
+                                            value={modalForm.email}
+                                            onChange={(e) => setModalForm({ ...modalForm, email: e.target.value })}
+                                            className="w-full px-4 py-2 rounded-lg border border-[#E0E0E0] outline-none focus:border-[#D4A373]"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-[#2C2420] mb-1">
+                                            姓名
+                                        </label>
+                                        <input
+                                            type="text"
+                                            required
+                                            value={modalForm.name}
+                                            onChange={(e) => setModalForm({ ...modalForm, name: e.target.value })}
+                                            className="w-full px-4 py-2 rounded-lg border border-[#E0E0E0] outline-none focus:border-[#D4A373]"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-[#2C2420] mb-1">
+                                            角色
+                                        </label>
+                                        <select
+                                            value={modalForm.role}
+                                            onChange={(e) => setModalForm({ ...modalForm, role: e.target.value })}
+                                            className="w-full px-4 py-2 rounded-lg border border-[#E0E0E0] outline-none focus:border-[#D4A373]"
+                                        >
+                                            <option value="ADMIN">管理員</option>
+                                            <option value="EDITOR">編輯者</option>
+                                            <option value="USER">一般會員</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-[#2C2420] mb-1">
+                                            初始密碼 <span className="text-red-500">*</span>
+                                        </label>
+                                        <input
+                                            type="text"
+                                            required
+                                            value={modalForm.password}
+                                            onChange={(e) => setModalForm({ ...modalForm, password: e.target.value })}
+                                            className="w-full px-4 py-2 rounded-lg border border-[#E0E0E0] outline-none focus:border-[#D4A373]"
+                                            placeholder="至少 8 碼"
+                                        />
+                                    </div>
+
+                                    <div className="flex justify-end space-x-3 pt-4">
+                                        <button
+                                            type="button"
+                                            onClick={closeModal}
+                                            className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+                                        >
+                                            取消
+                                        </button>
+                                        <button
+                                            type="submit"
+                                            disabled={isSaving}
+                                            className="px-6 py-2 bg-[#D4A373] text-white rounded-lg hover:bg-[#B08968] font-medium"
+                                        >
+                                            {isSaving ? '建立中...' : '建立'}
+                                        </button>
+                                    </div>
+                                </form>
+                            </>
+                        )}
                     </div>
                 </div>
             )}
