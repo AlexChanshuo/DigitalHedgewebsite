@@ -1,5 +1,6 @@
 // components/BlogCard.tsx
 import React from 'react';
+import Highlighter from 'react-highlight-words';
 
 interface BlogCardProps {
   title: string;
@@ -8,6 +9,7 @@ interface BlogCardProps {
   category: string;
   date: string;
   slug: string;
+  searchWords?: string[];
   onClick: () => void;
 }
 
@@ -17,6 +19,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
   coverImage,
   category,
   date,
+  searchWords = [],
   onClick,
 }) => {
   return (
@@ -51,12 +54,30 @@ const BlogCard: React.FC<BlogCardProps> = ({
       {/* Content */}
       <div className="p-6">
         <h3 className="text-lg font-bold text-[#2C2420] font-serif mb-2 line-clamp-2 group-hover:text-[#D4A373] transition-colors">
-          {title}
+          {searchWords.length > 0 ? (
+            <Highlighter
+              searchWords={searchWords}
+              autoEscape={true}
+              textToHighlight={title}
+              highlightClassName="bg-yellow-200 rounded px-0.5"
+            />
+          ) : (
+            title
+          )}
         </h3>
         
         {excerpt && (
           <p className="text-sm text-[#2C2420]/60 line-clamp-2 mb-4">
-            {excerpt}
+            {searchWords.length > 0 ? (
+              <Highlighter
+                searchWords={searchWords}
+                autoEscape={true}
+                textToHighlight={excerpt}
+                highlightClassName="bg-yellow-200 rounded px-0.5"
+              />
+            ) : (
+              excerpt
+            )}
           </p>
         )}
 
