@@ -13,14 +13,14 @@ const AIAgent: React.FC<AIAgentProps> = ({ onBack, onOpenDemo }) => {
   return (
     <div className="min-h-screen bg-[#FAF9F6]">
       <SEO
-        title="AI Agent 顧問 | 打造你的 AI 團隊"
-        description="協助企業建立專屬 AI Agent 和 AI Agent 團隊。從個人助理到部門級協作，讓 AI 成為你的第 N+1 號員工。"
+        title="執行型 AI Agent | 減輕人力負擔"
+        description="專為重人力產業打造的執行型 AI Agent。不只是顧問，是真正能執行任務、減輕人力負擔的 AI 團隊成員。24/7 不間斷運作。"
         url="/ai-agent"
       >
         <BreadcrumbSchema
           items={[
             { name: '首頁', url: '/' },
-            { name: 'AI Agent 顧問' }
+            { name: '執行型 AI Agent' }
           ]}
         />
       </SEO>
@@ -45,24 +45,32 @@ const AIAgent: React.FC<AIAgentProps> = ({ onBack, onOpenDemo }) => {
             <div>
               <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#D4A373]/10 text-[#D4A373] text-[10px] uppercase tracking-widest font-bold mb-6">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#D4A373]"></span>
-                <span>AI Team Building</span>
+                <span>Execution Agent</span>
               </div>
 
               <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight text-[#2C2420] font-serif">
-                AI Agent 顧問<br />
-                <span className="text-[#D4A373]">打造你的 AI 團隊</span>
+                執行型 AI Agent<br />
+                <span className="text-[#D4A373]">減輕你的人力負擔</span>
               </h1>
               <p className="text-xl text-[#2C2420]/60 mb-8 font-light leading-relaxed">
-                不只是工具，是你的團隊成員。
+                不只是顧問，是<strong className="text-[#2C2420]">真正能執行任務</strong>的 AI。
                 <br /><br />
-                我們協助企業建立專屬的 AI Agent，從個人助理到整個 AI 團隊，讓 AI 真正成為你組織的一部分。
+                專為<strong className="text-[#2C2420]">重人力產業</strong>設計——客服、營運、行銷、行政，讓 AI 接手那些重複性高、耗時費力的工作。
               </p>
+
+              <div className="flex items-center space-x-4 mb-8">
+                <div className="flex -space-x-2">
+                  <div className="w-10 h-10 rounded-full bg-[#D4A373] flex items-center justify-center text-white text-xs font-bold">24</div>
+                  <div className="w-10 h-10 rounded-full bg-[#2C2420] flex items-center justify-center text-white text-xs font-bold">/7</div>
+                </div>
+                <span className="text-[#2C2420]/60">全年無休運作</span>
+              </div>
 
               <button
                 onClick={onOpenDemo}
                 className="px-8 py-4 bg-[#D4A373] hover:bg-[#B08968] text-white rounded-full font-medium transition-all shadow-lg hover:shadow-xl hover:-translate-y-1"
               >
-                預約諮詢
+                了解如何減輕人力負擔
               </button>
             </div>
 
@@ -75,7 +83,7 @@ const AIAgent: React.FC<AIAgentProps> = ({ onBack, onOpenDemo }) => {
                   aspectRatio="1:1"
                 />
                 <div className="absolute -bottom-4 -right-4 bg-white p-4 rounded-xl shadow-lg border border-[#E0E0E0]">
-                  <p className="text-[#D4A373] text-xs tracking-[0.5em] font-bold">AI TEAM</p>
+                  <p className="text-[#D4A373] text-xs tracking-[0.3em] font-bold">EXECUTION AI</p>
                 </div>
               </div>
             </div>
@@ -83,44 +91,70 @@ const AIAgent: React.FC<AIAgentProps> = ({ onBack, onOpenDemo }) => {
         </div>
       </section>
 
-      {/* What is AI Agent */}
+      {/* Problem Statement */}
+      <section className="py-20 px-6 bg-[#2C2420] text-white">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 font-serif">重人力產業的痛點</h2>
+          <p className="text-white/60 text-lg mb-12">越是需要服務的產業，人力成本越高、越難招人、越容易出錯</p>
+          
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-white/10">
+              <div className="text-4xl font-bold text-[#D4A373] mb-2">60%</div>
+              <p className="text-white/70 text-sm">時間花在重複性工作</p>
+            </div>
+            <div className="bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-white/10">
+              <div className="text-4xl font-bold text-[#D4A373] mb-2">24hr</div>
+              <p className="text-white/70 text-sm">客戶期待即時回應</p>
+            </div>
+            <div className="bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-white/10">
+              <div className="text-4xl font-bold text-[#D4A373] mb-2">↑35%</div>
+              <p className="text-white/70 text-sm">人力成本逐年上漲</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Execution vs Consultant */}
       <section className="py-20 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-10 text-[#2C2420] text-center font-serif">什麼是 AI Agent？</h2>
+          <h2 className="text-3xl font-bold mb-4 text-[#2C2420] text-center font-serif">執行型 vs 顧問型</h2>
+          <p className="text-[#2C2420]/60 text-center mb-12 max-w-2xl mx-auto">大多數 AI 只能給建議，但你需要的是能動手做事的 AI</p>
           
           <div className="grid md:grid-cols-2 gap-8 mb-12">
             <div className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#E0E0E0]">
-              <h3 className="text-xl font-bold mb-4 text-[#2C2420]">傳統 AI 工具</h3>
+              <div className="text-red-400 text-xs font-bold tracking-widest mb-4">❌ 顧問型 AI</div>
+              <h3 className="text-xl font-bold mb-4 text-[#2C2420]">只能給建議</h3>
               <ul className="space-y-3 text-[#2C2420]/60">
                 <li className="flex items-start space-x-3">
                   <svg className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
-                  <span>問一次答一次，沒有記憶</span>
+                  <span>「你應該這樣做...」然後呢？</span>
                 </li>
                 <li className="flex items-start space-x-3">
                   <svg className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
-                  <span>不了解你的業務和偏好</span>
+                  <span>還是需要人去執行</span>
                 </li>
                 <li className="flex items-start space-x-3">
                   <svg className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
-                  <span>無法主動執行任務</span>
+                  <span>人力負擔沒有減少</span>
                 </li>
               </ul>
             </div>
 
             <div className="bg-white p-8 rounded-3xl border-2 border-[#D4A373]">
-              <h3 className="text-xl font-bold mb-4 text-[#2C2420]">AI Agent</h3>
+              <div className="text-[#D4A373] text-xs font-bold tracking-widest mb-4">✓ 執行型 AI</div>
+              <h3 className="text-xl font-bold mb-4 text-[#2C2420]">直接幫你做</h3>
               <ul className="space-y-3 text-[#2C2420]">
                 <li className="flex items-start space-x-3">
                   <svg className="w-5 h-5 text-[#D4A373] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" /></svg>
-                  <span><strong>永久記憶</strong> — 記得所有對話和決策</span>
+                  <span><strong>自動回覆</strong>客戶訊息</span>
                 </li>
                 <li className="flex items-start space-x-3">
                   <svg className="w-5 h-5 text-[#D4A373] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" /></svg>
-                  <span><strong>了解你</strong> — 學習你的風格和偏好</span>
+                  <span><strong>自動處理</strong>訂單和排程</span>
                 </li>
                 <li className="flex items-start space-x-3">
                   <svg className="w-5 h-5 text-[#D4A373] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" /></svg>
-                  <span><strong>主動執行</strong> — 24/7 自動處理任務</span>
+                  <span><strong>真正減輕</strong>人力負擔</span>
                 </li>
               </ul>
             </div>
@@ -128,41 +162,76 @@ const AIAgent: React.FC<AIAgentProps> = ({ onBack, onOpenDemo }) => {
         </div>
       </section>
 
-      {/* Services */}
+      {/* Use Cases */}
       <section className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-4 text-[#2C2420] text-center font-serif">我們的服務</h2>
-          <p className="text-[#2C2420]/60 text-center mb-12 max-w-2xl mx-auto">從個人到團隊，從簡單到複雜，我們提供完整的 AI Agent 建置服務。</p>
+          <h2 className="text-3xl font-bold mb-4 text-[#2C2420] text-center font-serif">適合重人力產業</h2>
+          <p className="text-[#2C2420]/60 text-center mb-12 max-w-2xl mx-auto">越是人力密集的產業，AI 執行能帶來的效益越大</p>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white p-8 rounded-3xl border border-[#E0E0E0] hover:border-[#D4A373] transition-colors">
-              <div className="w-16 h-16 bg-[#D4A373]/10 rounded-2xl flex items-center justify-center mb-6">
-                <svg className="w-8 h-8 text-[#D4A373]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { icon: '🏨', title: '飯店旅宿', desc: '訂房確認、客服回覆、入住指引' },
+              { icon: '🍽️', title: '餐飲服務', desc: '訂位管理、外送協調、顧客回饋' },
+              { icon: '🏥', title: '醫療診所', desc: '預約排程、病患提醒、初步諮詢' },
+              { icon: '🛒', title: '電商零售', desc: '訂單處理、物流追蹤、售後服務' },
+            ].map((item, i) => (
+              <div key={i} className="bg-white p-6 rounded-2xl border border-[#E0E0E0] hover:border-[#D4A373] transition-colors text-center">
+                <div className="text-4xl mb-4">{item.icon}</div>
+                <h3 className="font-bold text-[#2C2420] mb-2">{item.title}</h3>
+                <p className="text-sm text-[#2C2420]/60">{item.desc}</p>
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-[#2C2420]">個人 AI Agent</h3>
-              <p className="text-[#2C2420]/60 mb-6">專屬於你的 AI 助理。處理郵件、排程、資料整理、內容創作。用越久越了解你，越用越順手。</p>
-              <ul className="space-y-2 text-sm text-[#2C2420]/70">
-                <li>• 串接你的工具（Email、行事曆、Notion...）</li>
-                <li>• 學習你的溝通風格和決策習慣</li>
-                <li>• 24/7 待命，隨時回應</li>
-              </ul>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How it works */}
+      <section className="py-20 px-6 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold mb-4 text-[#2C2420] text-center font-serif">AI 團隊如何運作</h2>
+          <p className="text-[#2C2420]/60 text-center mb-12 max-w-2xl mx-auto">一個指揮官 + 多個專職 Agent，各司其職</p>
+
+          <div className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#E0E0E0]">
+            <div className="flex flex-col items-center mb-8">
+              <div className="w-20 h-20 bg-[#2C2420] rounded-2xl flex items-center justify-center text-3xl mb-4">🧠</div>
+              <h3 className="font-bold text-[#2C2420]">指揮官 Agent</h3>
+              <p className="text-sm text-[#2C2420]/60">統籌調度，分派任務</p>
+            </div>
+            
+            <div className="flex justify-center mb-4">
+              <svg className="w-8 h-8 text-[#D4A373]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
             </div>
 
-            <div className="bg-white p-8 rounded-3xl border border-[#E0E0E0] hover:border-[#D4A373] transition-colors">
-              <div className="w-16 h-16 bg-[#D4A373]/10 rounded-2xl flex items-center justify-center mb-6">
-                <svg className="w-8 h-8 text-[#D4A373]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-[#2C2420]">AI Agent 團隊</h3>
-              <p className="text-[#2C2420]/60 mb-6">多個 AI Agent 協作，各司其職。營運、行銷、客服、財務，每個領域都有專屬 Agent。</p>
-              <ul className="space-y-2 text-sm text-[#2C2420]/70">
-                <li>• 專業分工，context 不混亂</li>
-                <li>• Agent 之間可以溝通協作</li>
-                <li>• 知識永久保存，不會離職帶走</li>
-              </ul>
+            <div className="grid md:grid-cols-4 gap-4">
+              {[
+                { emoji: '💬', title: '客服 Agent', desc: '自動回覆客戶問題' },
+                { emoji: '📊', title: '營運 Agent', desc: '處理訂單和排程' },
+                { emoji: '📱', title: '行銷 Agent', desc: '內容創作和發布' },
+                { emoji: '📋', title: '行政 Agent', desc: '資料整理和報表' },
+              ].map((item, i) => (
+                <div key={i} className="bg-white p-4 rounded-xl border border-[#E0E0E0] text-center">
+                  <div className="text-2xl mb-2">{item.emoji}</div>
+                  <h4 className="font-bold text-sm text-[#2C2420]">{item.title}</h4>
+                  <p className="text-xs text-[#2C2420]/60">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-8 grid md:grid-cols-3 gap-6 text-center">
+            <div>
+              <div className="text-2xl font-bold text-[#D4A373] mb-1">專業分工</div>
+              <p className="text-sm text-[#2C2420]/60">每個 Agent 專精一個領域</p>
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-[#D4A373] mb-1">風險隔離</div>
+              <p className="text-sm text-[#2C2420]/60">一個出問題不影響其他</p>
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-[#D4A373] mb-1">永久記憶</div>
+              <p className="text-sm text-[#2C2420]/60">知識累積不會離職帶走</p>
             </div>
           </div>
         </div>
@@ -172,16 +241,16 @@ const AIAgent: React.FC<AIAgentProps> = ({ onBack, onOpenDemo }) => {
       <section className="py-20 px-6 bg-[#2C2420]">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white font-serif">
-            準備好擁有你的 AI 團隊了嗎？
+            讓 AI 接手那些耗時的工作
           </h2>
           <p className="text-white/60 mb-8 text-lg">
-            從一個 AI Agent 開始，逐步建立你的 AI 組織。
+            從一個執行型 AI Agent 開始，看看能省下多少人力。
           </p>
           <button
             onClick={onOpenDemo}
             className="px-8 py-4 bg-[#D4A373] hover:bg-[#B08968] text-white rounded-full font-medium transition-all shadow-lg hover:shadow-xl"
           >
-            預約免費諮詢
+            預約免費評估
           </button>
         </div>
       </section>
