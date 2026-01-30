@@ -10,26 +10,34 @@ const products = [
   {
     id: 'voice-of-choice' as Page,
     title: '民選之聲',
-    subtitle: 'Political Survey System',
-    description: '針對指定縣市區域進行 AI 自動化電話民調。包含逐字稿紀錄與情緒分析，一天內即可完成萬份樣本報告，並透過 LINE 即時傳送。',
-    tag: 'Rapid Survey',
+    subtitle: 'AI 民調系統',
+    description: '一天完成傳統民調一週的工作。AI 自動撥打、自動分析、報告直送 LINE。選戰期間，每一天都是關鍵。',
+    tag: '快速民調',
     iconPath: "M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
   },
   {
     id: 'sales-ai' as Page,
     title: '語音 AI 業務',
-    subtitle: 'Sales & Scheduling Agent',
-    description: '專為舊客開發設計的 AI 業務。不僅能進行產品推薦，更能直接與客戶確認時間，並自動將預約寫入您的行事曆，消除人工開發的疲勞。',
-    tag: 'Automated Sales',
+    subtitle: '自動開發客戶',
+    description: 'AI 幫你打電話、約客戶、排進行事曆。你只需要在約好的時間出現就好。一天處理千通電話，不累、不抱怨、不請假。',
+    tag: '自動銷售',
     iconPath: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
   },
   {
     id: 'voice-survey' as Page,
-    title: '語音 AI 調查系統',
-    subtitle: 'CEO Brand & Insight',
-    description: '市場調查的終極武器。結合「AI 聲線克隆」，讓老闆親自致電給數萬名客戶，展現最大誠意，獲取第一手真實情緒反饋。',
-    tag: 'Brand Connection',
+    title: '語音 AI 調查',
+    subtitle: '用你的聲音調查',
+    description: '用你的聲音打給每一位客戶。AI 學習你的聲音與語氣，大規模調查但保持一對一的溫度。',
+    tag: '品牌連結',
     iconPath: "M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"
+  },
+  {
+    id: 'ai-agent' as Page,
+    title: 'AI Agent 顧問',
+    subtitle: '打造你的 AI 團隊',
+    description: '協助企業建立專屬 AI Agent 和 AI Agent 團隊。從個人助理到部門級協作，讓 AI 成為你的第 N+1 號員工。',
+    tag: 'AI 團隊',
+    iconPath: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
   }
 ];
 

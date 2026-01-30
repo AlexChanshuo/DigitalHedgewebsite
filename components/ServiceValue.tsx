@@ -78,22 +78,22 @@ const ServiceValue: React.FC = () => {
 
           {/* Text Content */}
           <div className="order-1 lg:order-2">
-            <h2 className="text-xs tracking-[0.3em] text-[#D4A373] uppercase mb-6 font-bold">The Process</h2>
+            <h2 className="text-xs tracking-[0.3em] text-[#D4A373] uppercase mb-6 font-bold">How It Works</h2>
             <h3 className="text-4xl md:text-5xl font-bold mb-8 leading-tight text-[#2C2420] font-serif">
-              從原始數據<br />到決策資產
+              三步驟<br />就這麼簡單
             </h3>
             <p className="text-lg text-[#2C2420]/60 mb-8 leading-relaxed font-light">
-              大多數 AI 服務只提供通用的模型 (Generic LLMs)。<br />
-              我們為您打造的是 <span className="font-medium text-[#D4A373]">Fine-tuned Model (微調模型)</span> ——完全依照您的數據 DNA 進行訓練與校準。
+              不需要懂技術，不需要寫程式。<br />
+              告訴我們你要做什麼，剩下的交給 AI。
             </p>
             <ul className="space-y-6">
               {[
-                "數據攝取：識別核心人格特質與聲線紋理。",
-                "精準校準：設定戰術模組的參數與權重。",
-                "黃金合成：即時輸出情緒雷達圖與心理模型。"
+                "給我們名單 — 你要打給誰？電話號碼給我們就好。",
+                "設定問題 — 你想問什麼？我們幫你設計對話腳本。",
+                "收報告 — AI 自動打完，分析報告直接送到你手上。"
               ].map((item, idx) => (
                 <li key={idx} className="flex items-center space-x-4 p-4 bg-[#FAF9F6] rounded-xl shadow-sm border border-[#E0E0E0] hover:border-[#D4A373] transition-colors">
-                  <span className="w-2 h-2 bg-[#D4A373] rounded-full flex-shrink-0"></span>
+                  <span className="w-8 h-8 bg-[#D4A373] rounded-full flex-shrink-0 flex items-center justify-center text-white font-bold text-sm">{idx + 1}</span>
                   <span className="text-[#2C2420] font-medium">{item}</span>
                 </li>
               ))}

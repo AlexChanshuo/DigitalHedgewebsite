@@ -18,13 +18,13 @@ const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-[1.1] text-[#2C2420] tracking-tight">
-            AI 智能萃取 <br />
-            <span className="text-[#D4A373]">為品牌提煉最純粹的真實</span>
+            AI 幫你打電話 <br />
+            <span className="text-[#D4A373]">民調、銷售、調查，一通搞定</span>
           </h1>
 
           <p className="text-xl text-[#2C2420]/60 mb-10 leading-relaxed font-light max-w-lg">
-            在雜訊爆炸的時代，您不需要更多數據。
-            您需要的是透過 AI 濾杯，去除 99% 的無效噪音，精準萃取出剩下的 1% 決策精華。
+            傳統電話行銷太慢、太貴、太累。
+            讓 AI 一天打完你一個月的量，還更準確。
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4">
@@ -32,14 +32,14 @@ const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
               onClick={onOpenDemo}
               className="px-8 py-4 bg-[#D4A373] hover:bg-[#B08968] text-white rounded-full font-medium transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 flex items-center justify-center space-x-2"
             >
-              <span>啟動 AI 萃取</span>
+              <span>預約 Demo</span>
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
             </button>
             <button
               onClick={onOpenDemo}
               className="px-8 py-4 bg-transparent border border-[#2C2420]/20 hover:border-[#D4A373] text-[#2C2420] hover:text-[#D4A373] rounded-full font-medium transition-all flex items-center justify-center"
             >
-              參觀技術架構
+              看看怎麼做
             </button>
           </div>
 

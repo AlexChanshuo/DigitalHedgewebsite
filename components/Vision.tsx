@@ -7,27 +7,34 @@ const Vision: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid md:grid-cols-2 gap-20 items-center">
           <div>
-            <h2 className="text-xs tracking-[0.3em] text-[#D4A373] uppercase mb-4 font-bold">Core Technology</h2>
+            <h2 className="text-xs tracking-[0.3em] text-[#D4A373] uppercase mb-4 font-bold">Why AI</h2>
             <h3 className="text-4xl font-bold mb-6 text-[#2C2420] leading-tight font-serif">
-              過濾數據雜訊，<br />僅留決策真實。
+              為什麼用 AI<br />打電話？
             </h3>
             <p className="text-lg text-[#2C2420]/60 mb-8 leading-relaxed font-light">
-              人類大腦如同一個容量有限的處理器。在資訊過載的時代，過多的雜訊會堵塞決策的通道。我們提供的是最頂級的 AI 過濾層 (AI Filtering Layer)。
+              傳統電話行銷需要大量人力、時間和管理成本。AI 可以解決這些問題。
             </p>
 
             <div className="space-y-6">
               <div className="group flex items-start space-x-6 p-6 bg-white rounded-2xl border border-[#E0E0E0] shadow-sm hover:border-[#D4A373] transition-all">
-                <div className="text-3xl font-serif text-[#D4A373] font-bold opacity-50">01</div>
+                <div className="text-3xl font-serif text-[#D4A373] font-bold opacity-50">100x</div>
                 <div>
-                  <h4 className="text-xl font-bold mb-2 text-[#2C2420]">無限過濾 (Infinite AI Filtering)</h4>
-                  <p className="text-[#2C2420]/50 text-sm leading-relaxed">24/7 持續運作，AI 將海量社群輿論進行去雜質處理，保留最純淨的觀點。</p>
+                  <h4 className="text-xl font-bold mb-2 text-[#2C2420]">快 100 倍</h4>
+                  <p className="text-[#2C2420]/50 text-sm leading-relaxed">傳統民調要兩週，我們一天搞定。一天處理數千通電話，效率完全不同等級。</p>
                 </div>
               </div>
               <div className="group flex items-start space-x-6 p-6 bg-white rounded-2xl border border-[#E0E0E0] shadow-sm hover:border-[#D4A373] transition-all">
-                <div className="text-3xl font-serif text-[#D4A373] font-bold opacity-50">02</div>
+                <div className="text-3xl font-serif text-[#D4A373] font-bold opacity-50">80%</div>
                 <div>
-                  <h4 className="text-xl font-bold mb-2 text-[#2C2420]">資產封存 (Data Retention)</h4>
-                  <p className="text-[#2C2420]/50 text-sm leading-relaxed">將您的決策邏輯進行向量化封存，確保智慧資產永不磨損。</p>
+                  <h4 className="text-xl font-bold mb-2 text-[#2C2420]">省 80% 成本</h4>
+                  <p className="text-[#2C2420]/50 text-sm leading-relaxed">不用請人、不用培訓、不用管理。AI 不會累、不會請假、不會離職。</p>
+                </div>
+              </div>
+              <div className="group flex items-start space-x-6 p-6 bg-white rounded-2xl border border-[#E0E0E0] shadow-sm hover:border-[#D4A373] transition-all">
+                <div className="text-3xl font-serif text-[#D4A373] font-bold opacity-50">0</div>
+                <div>
+                  <h4 className="text-xl font-bold mb-2 text-[#2C2420]">0 人為誤差</h4>
+                  <p className="text-[#2C2420]/50 text-sm leading-relaxed">每通電話品質一致，不會情緒化，不會誘導回答。全程錄音和文字紀錄，100% 可追溯。</p>
                 </div>
               </div>
             </div>
