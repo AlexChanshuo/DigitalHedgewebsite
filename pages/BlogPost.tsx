@@ -8,9 +8,17 @@ interface BlogPostProps {
   slug: string;
   onBack: () => void;
   onNavigateToBlog: () => void;
+  onNavigateToCategory?: (categorySlug: string) => void;
+  onNavigateToTag?: (tagSlug: string) => void;
 }
 
-const BlogPost: React.FC<BlogPostProps> = ({ slug, onBack, onNavigateToBlog }) => {
+const BlogPost: React.FC<BlogPostProps> = ({ 
+  slug, 
+  onBack, 
+  onNavigateToBlog,
+  onNavigateToCategory,
+  onNavigateToTag,
+}) => {
   const [post, setPost] = useState<Post | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
@@ -72,6 +80,18 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, onBack, onNavigateToBlog }) =
 
     return html;
   }
+
+  const handleCategoryClick = () => {
+    if (post && onNavigateToCategory) {
+      onNavigateToCategory(post.category.slug);
+    }
+  };
+
+  const handleTagClick = (tagSlug: string) => {
+    if (onNavigateToTag) {
+      onNavigateToTag(tagSlug);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -161,9 +181,12 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, onBack, onNavigateToBlog }) =
 
           {/* Category & Date */}
           <div className="flex items-center space-x-4 mb-6">
-            <span className="px-3 py-1 bg-[#D4A373]/10 rounded-full text-sm font-medium text-[#D4A373]">
+            <button
+              onClick={handleCategoryClick}
+              className="px-3 py-1 bg-[#D4A373]/10 rounded-full text-sm font-medium text-[#D4A373] hover:bg-[#D4A373] hover:text-white transition-colors cursor-pointer"
+            >
               {post.category.name}
-            </span>
+            </button>
             <span className="text-sm text-[#2C2420]/50">
               {new Date(post.publishedAt || post.createdAt).toLocaleDateString('zh-TW', {
                 year: 'numeric',
@@ -223,20 +246,21 @@ const BlogPost: React.FC<BlogPostProps> = ({ slug, onBack, onNavigateToBlog }) =
         </article>
       </section>
 
-      {/* Tags */}
+      {/* Tags - Now Clickable */}
       {post.tags.length > 0 && (
         <section className="px-6 pb-12">
           <div className="max-w-3xl mx-auto">
             <div className="flex flex-wrap items-center gap-2 pt-8 border-t border-[#E0E0E0]">
               <span className="text-sm text-[#2C2420]/50 mr-2">標籤：</span>
               {post.tags.map((tag) => (
-                <span
+                <button
                   key={tag.id}
-                  className="px-3 py-1 bg-[#FAF9F6] border border-[#E0E0E0] rounded-full text-sm text-[#2C2420]/70"
+                  onClick={() => handleTagClick(tag.slug)}
+                  className="px-3 py-1 bg-[#FAF9F6] border border-[#E0E0E0] rounded-full text-sm text-[#2C2420]/70 hover:border-[#D4A373] hover:text-[#D4A373] transition-colors cursor-pointer"
                   style={tag.color ? { borderColor: tag.color, color: tag.color } : {}}
                 >
                   #{tag.name}
-                </span>
+                </button>
               ))}
             </div>
           </div>

@@ -7,10 +7,12 @@ interface BlogCardProps {
   excerpt: string | null;
   coverImage: string | null;
   category: string;
+  categorySlug: string;
   date: string;
   slug: string;
   searchWords?: string[];
   onClick: () => void;
+  onCategoryClick?: (slug: string) => void;
 }
 
 const BlogCard: React.FC<BlogCardProps> = ({
@@ -18,10 +20,19 @@ const BlogCard: React.FC<BlogCardProps> = ({
   excerpt,
   coverImage,
   category,
+  categorySlug,
   date,
   searchWords = [],
   onClick,
+  onCategoryClick,
 }) => {
+  const handleCategoryClick = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent triggering the card's onClick
+    if (onCategoryClick) {
+      onCategoryClick(categorySlug);
+    }
+  };
+
   return (
     <article
       onClick={onClick}
@@ -43,11 +54,14 @@ const BlogCard: React.FC<BlogCardProps> = ({
           </div>
         )}
         
-        {/* Category Badge */}
+        {/* Category Badge - Now Clickable */}
         <div className="absolute top-4 left-4">
-          <span className="px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-xs font-medium text-[#2C2420] shadow-sm">
+          <button
+            onClick={handleCategoryClick}
+            className="px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-xs font-medium text-[#2C2420] shadow-sm hover:bg-[#D4A373] hover:text-white transition-colors"
+          >
             {category}
-          </span>
+          </button>
         </div>
       </div>
 

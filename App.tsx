@@ -133,6 +133,18 @@ const AppContent: React.FC = () => {
     setCurrentPage('blog-post');
   }
 
+  // Navigate to blog with category filter
+  function navigateToCategory(categorySlug: string) {
+    window.history.pushState({}, '', `/blog/category/${encodeURIComponent(categorySlug)}`);
+    setCurrentPage('blog');
+  }
+
+  // Navigate to blog with tag filter
+  function navigateToTag(tagSlug: string) {
+    window.history.pushState({}, '', `/blog/tag/${encodeURIComponent(tagSlug)}`);
+    setCurrentPage('blog');
+  }
+
   // Show loading while checking auth
   if (isLoading && (currentPage === 'admin' || currentPage === 'login')) {
     return (
@@ -191,6 +203,8 @@ const AppContent: React.FC = () => {
             slug={currentBlogSlug}
             onBack={() => setCurrentPage('blog')}
             onNavigateToBlog={() => setCurrentPage('blog')}
+            onNavigateToCategory={navigateToCategory}
+            onNavigateToTag={navigateToTag}
           />
         </main>
         <Footer />

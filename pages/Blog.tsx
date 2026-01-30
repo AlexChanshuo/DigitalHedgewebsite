@@ -157,6 +157,7 @@ const Blog: React.FC<BlogProps> = ({ onNavigateToPost, onBack }) => {
                     excerpt={post.excerpt}
                     coverImage={post.coverImage}
                     category={post.category.name}
+                    categorySlug={post.category.slug}
                     date={new Date(post.publishedAt || post.createdAt).toLocaleDateString('zh-TW', {
                       year: 'numeric',
                       month: 'long',
@@ -165,6 +166,7 @@ const Blog: React.FC<BlogProps> = ({ onNavigateToPost, onBack }) => {
                     slug={post.slug}
                     searchWords={filters.search ? [filters.search] : []}
                     onClick={() => onNavigateToPost(post.slug)}
+                    onCategoryClick={(slug) => updateFilters({ categorySlug: slug, tagSlug: null })}
                   />
                 ))}
               </div>
