@@ -14,7 +14,7 @@ export async function sendPasswordResetEmail(
     await resend.emails.send({
       from: config.email.from,
       to,
-      subject: '【Digital Hedge】密碼重設請求',
+      subject: '【Pain Point Technologies】密碼重設請求',
       html: `
         <!DOCTYPE html>
         <html>
@@ -34,7 +34,7 @@ export async function sendPasswordResetEmail(
         <body>
           <div class="container">
             <div class="header">
-              <div class="logo">DIGITAL HEDGE</div>
+              <div class="logo">PAIN POINT</div>
             </div>
             <div class="content">
               <h2>密碼重設請求</h2>
@@ -55,7 +55,7 @@ export async function sendPasswordResetEmail(
               <p style="word-break: break-all; color: #666; font-size: 12px;">${resetUrl}</p>
             </div>
             <div class="footer">
-              <p>© ${new Date().getFullYear()} Digital Hedge Co., Ltd.</p>
+              <p>© ${new Date().getFullYear()} Pain Point Technologies Co., Ltd.</p>
               <p>此為系統自動發送郵件，請勿直接回覆</p>
             </div>
           </div>
@@ -78,7 +78,7 @@ export async function sendWelcomeEmail(
     await resend.emails.send({
       from: config.email.from,
       to,
-      subject: '【Digital Hedge】歡迎加入',
+      subject: '【Pain Point Technologies】歡迎加入',
       html: `
         <!DOCTYPE html>
         <html>
@@ -97,18 +97,18 @@ export async function sendWelcomeEmail(
         <body>
           <div class="container">
             <div class="header">
-              <div class="logo">DIGITAL HEDGE</div>
+              <div class="logo">PAIN POINT</div>
             </div>
             <div class="content">
-              <h2>歡迎加入 Digital Hedge！</h2>
+              <h2>歡迎加入 Pain Point Technologies！</h2>
               <p>親愛的 ${name}，</p>
-              <p>感謝您加入 Digital Hedge。您的帳號已成功建立。</p>
+              <p>感謝您加入 Pain Point Technologies。您的帳號已成功建立。</p>
               <p style="text-align: center; margin: 30px 0;">
                 <a href="${config.frontendUrl}/login" class="button">立即登入</a>
               </p>
             </div>
             <div class="footer">
-              <p>© ${new Date().getFullYear()} Digital Hedge Co., Ltd.</p>
+              <p>© ${new Date().getFullYear()} Pain Point Technologies Co., Ltd.</p>
             </div>
           </div>
         </body>
@@ -145,7 +145,7 @@ export async function sendInvitationEmail(
     await resend.emails.send({
       from: config.email.from,
       to,
-      subject: '【Digital Hedge】您的帳號已建立',
+      subject: '【Pain Point Technologies】您的帳號已建立',
       html: `
         <!DOCTYPE html>
         <html>
@@ -167,10 +167,10 @@ export async function sendInvitationEmail(
         <body>
           <div class="container">
             <div class="header">
-              <div class="logo">DIGITAL HEDGE</div>
+              <div class="logo">PAIN POINT</div>
             </div>
             <div class="content">
-              <h2>歡迎加入 Digital Hedge！</h2>
+              <h2>歡迎加入 Pain Point Technologies！</h2>
               <p>親愛的 ${name}，</p>
               <p>您的帳號已由管理員建立。以下是您的帳號資訊：</p>
 
@@ -195,7 +195,7 @@ export async function sendInvitationEmail(
               </div>
             </div>
             <div class="footer">
-              <p>&copy; ${new Date().getFullYear()} Digital Hedge Co., Ltd.</p>
+              <p>&copy; ${new Date().getFullYear()} Pain Point Technologies Co., Ltd.</p>
               <p>此為系統自動發送郵件，請勿直接回覆</p>
             </div>
           </div>
@@ -220,7 +220,7 @@ export async function sendContactNotification(
       from: config.email.from,
       to: config.contactEmail,
       reply_to: email,
-      subject: `【Digital Hedge 客戶諮詢】來自 ${name}`,
+      subject: `【Pain Point Technologies 客戶諮詢】來自 ${name}`,
       html: `
         <!DOCTYPE html>
         <html>
@@ -241,7 +241,7 @@ export async function sendContactNotification(
         <body>
           <div class="container">
             <div class="header">
-              <div class="logo">DIGITAL HEDGE</div>
+              <div class="logo">PAIN POINT</div>
               <p style="color: #D4A373; margin: 10px 0 0 0;">新客戶諮詢通知</p>
             </div>
             <div class="content">
@@ -261,7 +261,7 @@ export async function sendContactNotification(
               </p>
             </div>
             <div class="footer">
-              <p>© ${new Date().getFullYear()} Digital Hedge Co., Ltd.</p>
+              <p>© ${new Date().getFullYear()} Pain Point Technologies Co., Ltd.</p>
               <p>此郵件由網站聯繫表單自動發送</p>
             </div>
           </div>

@@ -23,9 +23,9 @@ const Navbar: React.FC<NavbarProps> = ({ isScrolled, currentPage, onNavigate, on
         {/* Logo Area */}
         <button onClick={() => onNavigate('home')} className="flex items-center space-x-3 group">
           <div className="w-8 h-8 border border-[#2C2420] rounded-lg flex items-center justify-center text-[#2C2420] font-serif font-bold text-xs group-hover:bg-[#2C2420] group-hover:text-[#D4A373] transition-colors duration-500">
-            DH
+            PP
           </div>
-          <span className="text-xl font-bold tracking-tight text-[#2C2420]">DIGITAL HEDGE</span>
+          <span className="text-xl font-bold tracking-tight text-[#2C2420]">PAIN POINT</span>
         </button>
         
         {/* Desktop Menu */}

@@ -16,14 +16,14 @@ const Home: React.FC<HomeProps> = ({ onNavigate, onOpenDemo }) => {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Digital Hedge",
-    "url": "https://digitalhedge.ai",
-    "logo": "https://digitalhedge.ai/icon.png",
+    "name": "Pain Point Technologies 痛點科技",
+    "url": "https://painpoint.tech",
+    "logo": "https://painpoint.tech/icon.png",
     "sameAs": [
-      "https://twitter.com/digitalhedge",
-      "https://linkedin.com/company/digitalhedge"
+      "https://twitter.com/painpointtech",
+      "https://linkedin.com/company/painpointtech"
     ],
-    "description": "Digital Hedge 專注於 AI 語音技術、生成式 AI 應用與數位轉型策略，為企業提供最前沿的 AI 解決方案。"
+    "description": "痛點科技 (Pain Point Technologies) 專注於 AI 語音技術、生成式 AI 應用與數位轉型策略，為企業提供最前沿的 AI 解決方案。"
   };
 
   return (

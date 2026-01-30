@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { prisma } from '../config/database';
 import { Feed } from 'feed';
 
-const SITE_URL = 'https://digitalhedge.ai';
+const SITE_URL = 'https://painpoint.tech';
 
 export async function generateSitemap(req: Request, res: Response) {
   try {
@@ -84,16 +84,16 @@ export async function generateRSS(req: Request, res: Response) {
     });
 
     const feed = new Feed({
-      title: "Digital Hedge - AI 技術部落格",
+      title: "痛點科技 Pain Point Technologies - AI 技術部落格",
       description: "探索 AI 語音技術、生成式 AI 應用與數位轉型策略",
       id: `${SITE_URL}/`,
       link: `${SITE_URL}/`,
       language: "zh-TW",
       image: `${SITE_URL}/icon.png`,
       favicon: `${SITE_URL}/favicon.ico`,
-      copyright: `All rights reserved ${new Date().getFullYear()}, Digital Hedge`,
+      copyright: `All rights reserved ${new Date().getFullYear()}, Pain Point Technologies 痛點科技`,
       updated: new Date(),
-      generator: "Digital Hedge Feed",
+      generator: "Pain Point Technologies Feed",
       feedLinks: {
         rss2: `${SITE_URL}/api/seo/rss`
       },
@@ -113,7 +113,7 @@ export async function generateRSS(req: Request, res: Response) {
         content: post.content,
         author: [
           {
-            name: post.author.name || 'Digital Hedge Team',
+            name: post.author.name || 'Pain Point Technologies Team',
             email: post.author.email || undefined,
             link: SITE_URL
           }

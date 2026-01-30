@@ -1,6 +1,8 @@
-# Digital Hedge Project Handover Document
-**Last Updated:** 2026-01-21
+# Pain Point Technologies (痛點科技) Project Handover Document
+**Last Updated:** 2026-01-31
 **Project Owner:** Alex Ma (alexma@goldenraintree.tw)
+
+> ⚠️ **Brand Update (2026-01-31):** Company renamed from "Digital Hedge" to "Pain Point Technologies (痛點科技)". Logo updated from "DH" to "PP".
 
 ---
 

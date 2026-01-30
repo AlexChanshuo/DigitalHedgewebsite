@@ -1,4 +1,5 @@
 // services/api.ts
+// TODO: Update to api.painpoint.tech when DNS is configured
 const API_BASE = 'https://api.digitalhedge.ai/api';
 
 interface ApiResponse<T = any> {

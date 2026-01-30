@@ -23,14 +23,14 @@ This document outlines the **Master Plan** for the Digital Hedge website integra
 
 These items were in the original scope but have not yet been built. They should be the next focus.
 
-### Option B: CMS Completeness (Finish Phase 4)
-*   **[ ] Category Management UI:** Admin page to create, edit, delete categories.
-*   **[ ] Tag Management UI:** Admin page to manage tags.
-*   **[ ] User Management UI:** Admin page to invite/edit team members (Master role).
+### Option B: CMS Completeness (Finish Phase 4) ✅ COMPLETE
+*   **[x] Category Management UI:** Admin page to create, edit, delete categories.
+*   **[x] Tag Management UI:** Admin page to manage tags.
+*   **[x] User Management UI:** Admin page to invite/edit team members (Master role).
 
-### Option A: Enhanced Navigation (Finish Phase 5)
-*   **[ ] Filter Pages:** Public pages for `/blog/category/:slug` and `/blog/tag/:slug`.
-*   **[ ] Search Functionality:** Search bar for articles.
+### Option A: Enhanced Navigation (Finish Phase 5) ✅ COMPLETE
+*   **[x] Filter Pages:** Public pages for `/blog/category/:slug` and `/blog/tag/:slug`.
+*   **[x] Search Functionality:** Search bar with debounce + category/tag dropdown filters.
 
 ---
 

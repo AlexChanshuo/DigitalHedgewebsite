@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <!-- Background circle (optional, can be removed for transparent) -->
+  <!-- <circle cx="60" cy="60" r="58" fill="#FAF9F6" stroke="#2C2420" stroke-width="2"/> -->
+  
+  <!-- First P -->
+  <path d="M20 25 L20 95 L32 95 L32 68 L50 68 C65 68 75 58 75 46.5 C75 35 65 25 50 25 Z M32 36 L48 36 C58 36 63 40 63 46.5 C63 53 58 57 48 57 L32 57 Z" fill="#2C2420"/>
+  
+  <!-- Second P (slightly overlapping) -->
+  <path d="M55 25 L55 95 L67 95 L67 68 L85 68 C100 68 110 58 110 46.5 C110 35 100 25 85 25 Z M67 36 L83 36 C93 36 98 40 98 46.5 C98 53 93 57 83 57 L67 57 Z" fill="#2C2420" opacity="0.7"/>
+</svg>

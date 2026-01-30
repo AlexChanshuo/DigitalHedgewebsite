@@ -32,12 +32,12 @@ const SEO: React.FC<SEOProps> = ({
     hreflang,
     children,
 }) => {
-    const siteTitle = 'Digital Hedge - AI 語音與數位轉型';
-    const siteDescription = 'Digital Hedge 專注於 AI 語音技術、生成式 AI 應用與數位轉型策略，為企業提供最前沿的 AI 解決方案。';
-    const siteUrl = 'https://digitalhedge.ai';
+    const siteTitle = 'Pain Point Technologies | 痛點科技 - AI 語音與數位轉型';
+    const siteDescription = '痛點科技 (Pain Point Technologies) 專注於 AI 語音技術、生成式 AI 應用與數位轉型策略，為企業提供最前沿的 AI 解決方案。';
+    const siteUrl = 'https://painpoint.tech';
     const defaultImage = `${siteUrl}/og-image.jpg`;
 
-    const metaTitle = title ? `${title} | Digital Hedge` : siteTitle;
+    const metaTitle = title ? `${title} | 痛點科技` : siteTitle;
     const metaDescription = description || siteDescription;
     const metaImage = image || defaultImage;
     const metaUrl = url ? `${siteUrl}${url}` : siteUrl;
@@ -55,7 +55,7 @@ const SEO: React.FC<SEOProps> = ({
             <meta property="og:description" content={metaDescription} />
             <meta property="og:url" content={metaUrl} />
             <meta property="og:image" content={metaImage} />
-            <meta property="og:site_name" content="Digital Hedge" />
+            <meta property="og:site_name" content="痛點科技 Pain Point Technologies" />
 
             {/* Twitter */}
             <meta name="twitter:card" content="summary_large_image" />
