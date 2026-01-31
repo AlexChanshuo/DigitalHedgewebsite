@@ -11,30 +11,29 @@ const SalesAI: React.FC<{ onBack: () => void }> = ({ onBack }) => {
         title="Sales AI - 語音 AI 業務與客戶服務系統"
         description="專為舊客激活與產品推薦設計的 AI 業務系統。自動撥號開發、行事曆串接，讓 AI 將有興趣的客戶直接預約到您的行事曆。"
         url="/products/sales-ai"
-      >
-        <BreadcrumbSchema
-          items={[
-            { name: '首頁', url: '/' },
-            { name: 'Sales AI' }
-          ]}
-        />
-        <FAQSchema
-          faqs={[
-            {
-              question: "Sales AI 能提升多少銷售轉換率？",
-              answer: "根據客戶案例，Sales AI 平均提升 30-50% 的銷售轉換率，因為 AI 能 24/7 不間斷進行客戶開發，且面對拒絕依然保持完美禮貌與熱情。"
-            },
-            {
-              question: "Sales AI 如何處理複雜的銷售問題？",
-              answer: "Sales AI 基於您的產品知識庫訓練，能處理常見問題。遇到複雜問題時，AI 會記錄客戶需求，並在預約時段由真人業務人員跟進處理。"
-            },
-            {
-              question: "Sales AI 是否支援行事曆整合？",
-              answer: "支援。當客戶表示有興趣時，AI 能直接與客戶核對時間，並即時將會議或體驗時段寫入您的 Google/Outlook 行事曆。業務人員只需在預約好的時間出現即可。"
-            }
-          ]}
-        />
-      </SEO>
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: '首頁', url: '/' },
+          { name: 'Sales AI' }
+        ]}
+      />
+      <FAQSchema
+        faqs={[
+          {
+            question: "Sales AI 能提升多少銷售轉換率？",
+            answer: "根據客戶案例，Sales AI 平均提升 30-50% 的銷售轉換率，因為 AI 能 24/7 不間斷進行客戶開發，且面對拒絕依然保持完美禮貌與熱情。"
+          },
+          {
+            question: "Sales AI 如何處理複雜的銷售問題？",
+            answer: "Sales AI 基於您的產品知識庫訓練，能處理常見問題。遇到複雜問題時，AI 會記錄客戶需求，並在預約時段由真人業務人員跟進處理。"
+          },
+          {
+            question: "Sales AI 是否支援行事曆整合？",
+            answer: "支援。當客戶表示有興趣時，AI 能直接與客戶核對時間，並即時將會議或體驗時段寫入您的 Google/Outlook 行事曆。業務人員只需在預約好的時間出現即可。"
+          }
+        ]}
+      />
       <div className="pt-10 pb-20 animate-in fade-in duration-700 bg-[#FAF9F6] min-h-screen">
       <div className="max-w-7xl mx-auto px-6">
         <button onClick={onBack} className="text-[#2C2420]/50 hover:text-[#D4A373] transition-colors flex items-center space-x-2 mb-12 uppercase tracking-widest text-xs font-bold bg-white border border-[#E0E0E0] px-4 py-2 rounded-full w-fit">

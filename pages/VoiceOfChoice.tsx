@@ -11,30 +11,29 @@ const VoiceOfChoice: React.FC<{ onBack: () => void }> = ({ onBack }) => {
         title="Voice of Choice - AI 自動化電話民調系統"
         description="專為選戰設計的 AI 自動化電話民調系統。解決傳統民調速度慢、成本高、人為誤差大的痛點，提供全字稿紀錄與 LINE 即時報告。"
         url="/products/voice-of-choice"
-      >
-        <BreadcrumbSchema
-          items={[
-            { name: '首頁', url: '/' },
-            { name: 'Voice of Choice' }
-          ]}
-        />
-        <FAQSchema
-          faqs={[
-            {
-              question: "Voice of Choice 是什麼？",
-              answer: "Voice of Choice 是 Digital Hedge 的 AI 自動化電話民調系統，專為選戰設計。透過 AI 進行標準化問卷調查，並將所有對話轉為逐字稿，最後透過 LINE 即時傳送分析報告。"
-            },
-            {
-              question: "Voice of Choice 與傳統民調有什麼不同？",
-              answer: "相較於傳統民調耗時數週、成本高且容易有人為誤差，Voice of Choice 數小時內即可完成數千通有效樣本撥打，一天內產出完整報告，且所有對話都有逐字稿紀錄可回溯驗證。"
-            },
-            {
-              question: "Voice of Choice 如何確保民調數據準確性？",
-              answer: "AI 自動將每通電話轉為逐字稿，並標記關鍵字與情緒，確保數據精準可回溯。標準化的 AI 提問避免了人工電訪員可能的誘導回答或紀錄偏差問題。"
-            }
-          ]}
-        />
-      </SEO>
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: '首頁', url: '/' },
+          { name: 'Voice of Choice' }
+        ]}
+      />
+      <FAQSchema
+        faqs={[
+          {
+            question: "Voice of Choice 是什麼？",
+            answer: "Voice of Choice 是 Digital Hedge 的 AI 自動化電話民調系統，專為選戰設計。透過 AI 進行標準化問卷調查，並將所有對話轉為逐字稿，最後透過 LINE 即時傳送分析報告。"
+          },
+          {
+            question: "Voice of Choice 與傳統民調有什麼不同？",
+            answer: "相較於傳統民調耗時數週、成本高且容易有人為誤差，Voice of Choice 數小時內即可完成數千通有效樣本撥打，一天內產出完整報告，且所有對話都有逐字稿紀錄可回溯驗證。"
+          },
+          {
+            question: "Voice of Choice 如何確保民調數據準確性？",
+            answer: "AI 自動將每通電話轉為逐字稿，並標記關鍵字與情緒，確保數據精準可回溯。標準化的 AI 提問避免了人工電訪員可能的誘導回答或紀錄偏差問題。"
+          }
+        ]}
+      />
       <div className="pt-10 pb-20 animate-in fade-in duration-700 bg-[#FAF9F6] min-h-screen">
       <div className="max-w-7xl mx-auto px-6">
         <button onClick={onBack} className="text-[#2C2420]/50 hover:text-[#D4A373] transition-colors flex items-center space-x-2 mb-12 uppercase tracking-widest text-xs font-bold bg-white border border-[#E0E0E0] px-4 py-2 rounded-full w-fit">

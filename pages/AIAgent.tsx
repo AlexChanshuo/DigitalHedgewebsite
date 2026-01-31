@@ -16,14 +16,13 @@ const AIAgent: React.FC<AIAgentProps> = ({ onBack, onOpenDemo }) => {
         title="執行型 AI Agent | 減輕人力負擔"
         description="專為重人力產業打造的執行型 AI Agent。不只是顧問，是真正能執行任務、減輕人力負擔的 AI 團隊成員。24/7 不間斷運作。"
         url="/ai-agent"
-      >
-        <BreadcrumbSchema
-          items={[
-            { name: '首頁', url: '/' },
-            { name: '執行型 AI Agent' }
-          ]}
-        />
-      </SEO>
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: '首頁', url: '/' },
+          { name: '執行型 AI Agent' }
+        ]}
+      />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-6 overflow-hidden">

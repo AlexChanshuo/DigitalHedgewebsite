@@ -11,30 +11,29 @@ const VoiceSurvey: React.FC<{ onBack: () => void }> = ({ onBack }) => {
         title="Voice Survey - AI 聲線克隆調查系統"
         description="結合 AI 聲線克隆技術的市場調查系統。讓老闆的聲音親自致電客戶，收集第一手真實反饋，強化個人品牌影響力。"
         url="/products/voice-survey"
-      >
-        <BreadcrumbSchema
-          items={[
-            { name: '首頁', url: '/' },
-            { name: 'Voice Survey' }
-          ]}
-        />
-        <FAQSchema
-          faqs={[
-            {
-              question: "Voice Survey 如何運作？",
-              answer: "Voice Survey 透過 AI 語音技術自動進行電話調查，能夠自然對話並即時分析回應，大幅提升調查效率。更特別的是可以克隆老闆的聲音，讓客戶感受到個人化的關懷。"
-            },
-            {
-              question: "Voice Survey 的調查完成率如何？",
-              answer: "相較於傳統電話調查，AI 語音調查的完成率平均提升 40%，因為 AI 能在最佳時段撥打並進行個人化對話。當客戶聽到的是「老闆親自致電」的聲音，接聽率與互動意願大幅提升。"
-            },
-            {
-              question: "調查數據如何分析？",
-              answer: "系統即時轉錄並分析回應，提供情緒分析、關鍵詞提取和視覺化報告，讓您快速掌握調查結果。AI 能在對話中分析客戶的語氣、遲疑與情緒起伏，提供深度洞察。"
-            }
-          ]}
-        />
-      </SEO>
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: '首頁', url: '/' },
+          { name: 'Voice Survey' }
+        ]}
+      />
+      <FAQSchema
+        faqs={[
+          {
+            question: "Voice Survey 如何運作？",
+            answer: "Voice Survey 透過 AI 語音技術自動進行電話調查，能夠自然對話並即時分析回應，大幅提升調查效率。更特別的是可以克隆老闆的聲音，讓客戶感受到個人化的關懷。"
+          },
+          {
+            question: "Voice Survey 的調查完成率如何？",
+            answer: "相較於傳統電話調查，AI 語音調查的完成率平均提升 40%，因為 AI 能在最佳時段撥打並進行個人化對話。當客戶聽到的是「老闆親自致電」的聲音，接聽率與互動意願大幅提升。"
+          },
+          {
+            question: "調查數據如何分析？",
+            answer: "系統即時轉錄並分析回應，提供情緒分析、關鍵詞提取和視覺化報告，讓您快速掌握調查結果。AI 能在對話中分析客戶的語氣、遲疑與情緒起伏，提供深度洞察。"
+          }
+        ]}
+      />
       <div className="pt-10 pb-20 animate-in fade-in duration-700 bg-[#FAF9F6] min-h-screen">
       <div className="max-w-7xl mx-auto px-6">
         <button onClick={onBack} className="text-[#2C2420]/50 hover:text-[#D4A373] transition-colors flex items-center space-x-2 mb-12 uppercase tracking-widest text-xs font-bold bg-white border border-[#E0E0E0] px-4 py-2 rounded-full w-fit">

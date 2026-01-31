@@ -28,11 +28,8 @@ const Home: React.FC<HomeProps> = ({ onNavigate, onOpenDemo }) => {
 
   return (
     <>
-      <SEO>
-        <script type="application/ld+json">
-          {JSON.stringify(jsonLd)}
-        </script>
-      </SEO>
+      <SEO />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Hero onOpenDemo={onOpenDemo} />
       <Vision />
       <ProductPillars onNavigate={onNavigate} />
