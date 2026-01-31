@@ -63,6 +63,8 @@ app.use(helmet({
 const allowedOrigins = [
   'https://digitalhedge.ai',
   'https://www.digitalhedge.ai',
+  'https://painpoint-ai.com',
+  'https://www.painpoint-ai.com',
   'http://localhost:5173',
   'http://localhost:3000',
 ];
