@@ -73,14 +73,13 @@ const Blog: React.FC<BlogProps> = ({ onNavigateToPost, onBack }) => {
         title="部落格"
         description="探索 AI 語音技術、生成式 AI 應用與數位轉型策略的最新文章"
         url="/blog"
-      >
-        <BreadcrumbSchema
-          items={[
-            { name: '首頁', url: '/' },
-            { name: '部落格' }
-          ]}
-        />
-      </SEO>
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: '首頁', url: '/' },
+          { name: '部落格' }
+        ]}
+      />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-6">

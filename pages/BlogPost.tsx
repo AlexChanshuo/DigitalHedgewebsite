@@ -147,18 +147,15 @@ const BlogPost: React.FC<BlogPostProps> = ({
         type="article"
         publishedTime={post.publishedAt ? new Date(post.publishedAt).toISOString() : new Date(post.createdAt).toISOString()}
         author={post.author.name || 'Digital Hedge Team'}
-      >
-        <script type="application/ld+json">
-          {JSON.stringify(jsonLd)}
-        </script>
-        <BreadcrumbSchema
-          items={[
-            { name: '首頁', url: '/' },
-            { name: '部落格', url: '/blog' },
-            { name: post.title }
-          ]}
-        />
-      </SEO>
+      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <BreadcrumbSchema
+        items={[
+          { name: '首頁', url: '/' },
+          { name: '部落格', url: '/blog' },
+          { name: post.title }
+        ]}
+      />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-12 px-6">
