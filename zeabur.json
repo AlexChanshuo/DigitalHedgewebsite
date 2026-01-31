@@ -1,0 +1,9 @@
+{
+  "$schema": "https://schema.zeabur.app/1/zeabur.json",
+  "build": {
+    "output_dir": "dist"
+  },
+  "routes": {
+    "fallback": "index.html"
+  }
+}
