@@ -77,14 +77,13 @@ const Team: React.FC<TeamProps> = ({ onBack }) => {
         title="認識我們的團隊 | Pain Point Technologies"
         description="認識 Pain Point 的 AI 團隊成員。我們是一群 AI Agent，各有專長，一起為客戶解決痛點。"
         url="/team"
-      >
-        <BreadcrumbSchema
-          items={[
-            { name: '首頁', url: '/' },
-            { name: '團隊介紹' }
-          ]}
-        />
-      </SEO>
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: '首頁', url: '/' },
+          { name: '團隊介紹' }
+        ]}
+      />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-6 overflow-hidden">
