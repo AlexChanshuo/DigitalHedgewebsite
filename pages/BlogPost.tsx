@@ -207,9 +207,17 @@ const BlogPost: React.FC<BlogPostProps> = ({
 
           {/* Author & Read time */}
           <div className="flex items-center space-x-4 pb-8 border-b border-[#E0E0E0]">
-            <div className="w-12 h-12 bg-[#D4A373] rounded-full flex items-center justify-center text-white font-bold">
-              {post.author.name?.[0] || 'A'}
-            </div>
+            {post.author.avatar ? (
+              <img
+                src={post.author.avatar}
+                alt={post.author.name || 'Author'}
+                className="w-12 h-12 rounded-full object-cover"
+              />
+            ) : (
+              <div className="w-12 h-12 bg-[#D4A373] rounded-full flex items-center justify-center text-white font-bold">
+                {post.author.name?.[0] || 'A'}
+              </div>
+            )}
             <div>
               <p className="font-medium text-[#2C2420]">{post.author.name || 'Digital Hedge'}</p>
               <p className="text-sm text-[#2C2420]/50">

@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
     getUsers,
     createUser,
     deleteUser,
     updateUserRole,
     updateUserStatus,
+    updateUser,
     User
 } from '../services/api';
 import { useAuth } from '../contexts/AuthContext';
@@ -30,6 +31,13 @@ const AdminUsers: React.FC = () => {
     const [modalForm, setModalForm] = useState({ email: '', name: '', role: 'EDITOR', password: '' });
     const [isSaving, setIsSaving] = useState(false);
     const [createdUser, setCreatedUser] = useState<{ email: string; password: string } | null>(null);
+
+    // Edit Modal State
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [editingUser, setEditingUser] = useState<User | null>(null);
+    const [editForm, setEditForm] = useState({ name: '', email: '', avatar: '' });
+    const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
         if (currentUser?.role === 'MASTER') {
@@ -77,6 +85,67 @@ const AdminUsers: React.FC = () => {
         } else {
             alert(result.error || '刪除失敗');
         }
+    }
+
+    function handleEdit(user: User) {
+        setEditingUser(user);
+        setEditForm({
+            name: user.name || '',
+            email: user.email,
+            avatar: user.avatar || ''
+        });
+        setAvatarPreview(user.avatar || null);
+        setIsEditModalOpen(true);
+    }
+
+    function closeEditModal() {
+        setIsEditModalOpen(false);
+        setEditingUser(null);
+        setEditForm({ name: '', email: '', avatar: '' });
+        setAvatarPreview(null);
+    }
+
+    function handleAvatarFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const file = e.target.files?.[0];
+        if (file) {
+            // Validate file size (max 2MB)
+            if (file.size > 2 * 1024 * 1024) {
+                alert('圖片大小不能超過 2MB');
+                return;
+            }
+
+            // Convert to base64
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const base64 = event.target?.result as string;
+                setAvatarPreview(base64);
+                setEditForm(prev => ({ ...prev, avatar: base64 }));
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    async function handleEditSubmit(e: React.FormEvent) {
+        e.preventDefault();
+        if (!editingUser) return;
+
+        setIsSaving(true);
+        try {
+            const result = await updateUser(editingUser.id, {
+                name: editForm.name || undefined,
+                email: editForm.email,
+                avatar: editForm.avatar || undefined
+            });
+            if (result.success) {
+                loadUsers();
+                closeEditModal();
+            } else {
+                alert(result.error || '更新失敗');
+            }
+        } catch (err) {
+            alert('發生錯誤');
+        }
+        setIsSaving(false);
     }
 
     async function handleRoleChange(id: string, newRole: string) {
@@ -283,9 +352,17 @@ const AdminUsers: React.FC = () => {
                             <tr key={u.id} className="hover:bg-gray-50 transition-colors">
                                 <td className="px-6 py-4">
                                     <div className="flex items-center space-x-3">
-                                        <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-sm font-bold text-gray-600">
-                                            {u.name?.[0] || u.email[0].toUpperCase()}
-                                        </div>
+                                        {u.avatar ? (
+                                            <img
+                                                src={u.avatar}
+                                                alt={u.name || 'User'}
+                                                className="w-8 h-8 rounded-full object-cover"
+                                            />
+                                        ) : (
+                                            <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-sm font-bold text-gray-600">
+                                                {u.name?.[0] || u.email[0].toUpperCase()}
+                                            </div>
+                                        )}
                                         <div>
                                             <p className="font-medium text-[#2C2420]">{u.name || '-'}</p>
                                             <p className="text-sm text-gray-500">{u.email}</p>
@@ -312,12 +389,18 @@ const AdminUsers: React.FC = () => {
                                     {new Date(u.createdAt).toLocaleDateString('zh-TW')}
                                 </td>
                                 <td className="px-6 py-4 text-right space-x-3">
+                                    <button
+                                        onClick={() => handleEdit(u)}
+                                        className="text-xs text-[#D4A373] hover:text-[#B08968] font-medium"
+                                    >
+                                        編輯
+                                    </button>
                                     {u.role !== 'MASTER' && (
                                         <>
                                             <select
                                                 value={u.role}
                                                 onChange={(e) => handleRoleChange(u.id, e.target.value)}
-                                                className="text-xs border border-gray-300 rounded px-1 py-1 mr-2"
+                                                className="text-xs border border-gray-300 rounded px-1 py-1 mx-2"
                                             >
                                                 <option value="ADMIN">管理員</option>
                                                 <option value="EDITOR">編輯</option>
@@ -336,9 +419,6 @@ const AdminUsers: React.FC = () => {
                                                 刪除
                                             </button>
                                         </>
-                                    )}
-                                    {u.role === 'MASTER' && (
-                                        <span className="text-xs text-gray-400">無法操作</span>
                                     )}
                                 </td>
                             </tr>
@@ -481,6 +561,132 @@ const AdminUsers: React.FC = () => {
                                 </form>
                             </>
                         )}
+                    </div>
+                </div>
+            )}
+
+            {/* Edit Modal */}
+            {isEditModalOpen && editingUser && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
+                    <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden">
+                        <div className="p-6 border-b border-[#E0E0E0]">
+                            <h3 className="text-xl font-bold text-[#2C2420]">編輯使用者</h3>
+                        </div>
+                        <form onSubmit={handleEditSubmit} className="p-6 space-y-4">
+                            {/* Avatar Upload */}
+                            <div>
+                                <label className="block text-sm font-medium text-[#2C2420] mb-2">
+                                    頭像
+                                </label>
+                                <div className="flex items-center space-x-4">
+                                    <div className="relative">
+                                        {avatarPreview ? (
+                                            <img
+                                                src={avatarPreview}
+                                                alt="Avatar preview"
+                                                className="w-20 h-20 rounded-full object-cover border-2 border-[#E0E0E0]"
+                                            />
+                                        ) : (
+                                            <div className="w-20 h-20 rounded-full bg-[#D4A373] flex items-center justify-center text-white text-2xl font-bold">
+                                                {editForm.name?.[0] || editingUser.email[0].toUpperCase()}
+                                            </div>
+                                        )}
+                                        <button
+                                            type="button"
+                                            onClick={() => fileInputRef.current?.click()}
+                                            className="absolute bottom-0 right-0 w-7 h-7 bg-[#2C2420] rounded-full flex items-center justify-center text-white hover:bg-[#D4A373] transition-colors"
+                                        >
+                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div className="flex-1">
+                                        <input
+                                            ref={fileInputRef}
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={handleAvatarFileChange}
+                                            className="hidden"
+                                        />
+                                        <p className="text-sm text-gray-500">
+                                            點擊相機圖示上傳圖片
+                                        </p>
+                                        <p className="text-xs text-gray-400 mt-1">
+                                            支援 JPG、PNG，最大 2MB
+                                        </p>
+                                        {avatarPreview && (
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    setAvatarPreview(null);
+                                                    setEditForm(prev => ({ ...prev, avatar: '' }));
+                                                }}
+                                                className="text-xs text-red-500 hover:text-red-700 mt-1"
+                                            >
+                                                移除頭像
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
+                                {/* URL input alternative */}
+                                <div className="mt-3">
+                                    <label className="block text-xs text-gray-500 mb-1">或輸入圖片網址</label>
+                                    <input
+                                        type="url"
+                                        value={editForm.avatar}
+                                        onChange={(e) => {
+                                            setEditForm(prev => ({ ...prev, avatar: e.target.value }));
+                                            setAvatarPreview(e.target.value || null);
+                                        }}
+                                        placeholder="https://..."
+                                        className="w-full px-3 py-2 text-sm rounded-lg border border-[#E0E0E0] outline-none focus:border-[#D4A373]"
+                                    />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-[#2C2420] mb-1">
+                                    姓名
+                                </label>
+                                <input
+                                    type="text"
+                                    value={editForm.name}
+                                    onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
+                                    className="w-full px-4 py-2 rounded-lg border border-[#E0E0E0] outline-none focus:border-[#D4A373]"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-[#2C2420] mb-1">
+                                    Email
+                                </label>
+                                <input
+                                    type="email"
+                                    required
+                                    value={editForm.email}
+                                    onChange={(e) => setEditForm({ ...editForm, email: e.target.value })}
+                                    className="w-full px-4 py-2 rounded-lg border border-[#E0E0E0] outline-none focus:border-[#D4A373]"
+                                />
+                            </div>
+
+                            <div className="flex justify-end space-x-3 pt-4">
+                                <button
+                                    type="button"
+                                    onClick={closeEditModal}
+                                    className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+                                >
+                                    取消
+                                </button>
+                                <button
+                                    type="submit"
+                                    disabled={isSaving}
+                                    className="px-6 py-2 bg-[#D4A373] text-white rounded-lg hover:bg-[#B08968] font-medium disabled:opacity-50"
+                                >
+                                    {isSaving ? '儲存中...' : '儲存'}
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             )}
