@@ -10,12 +10,18 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ isScrolled, currentPage, onNavigate, onOpenConsulting }) => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const products = [
     { id: 'voice-of-choice', name: '民選之聲 (Political Survey)' },
     { id: 'sales-ai', name: '語音 AI 業務 (Sales Agent)' },
     { id: 'voice-survey', name: '語音 AI 調查 (Voice Survey)' },
   ];
+
+  const handleMobileNavigate = (page: Page) => {
+    onNavigate(page);
+    setMobileMenuOpen(false);
+  };
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'bg-[#FAF9F6]/90 backdrop-blur-md shadow-sm py-4' : 'bg-transparent py-6'}`}>
@@ -80,13 +86,75 @@ const Navbar: React.FC<NavbarProps> = ({ isScrolled, currentPage, onNavigate, on
 
         </div>
 
-        {/* CTA Button */}
-        <button 
-          onClick={onOpenConsulting}
-          className="px-6 py-2.5 bg-[#2C2420] hover:bg-[#D4A373] text-[#FAF9F6] transition-all rounded-full text-sm font-medium shadow-lg hover:shadow-[#D4A373]/30"
-        >
-          預約演示
-        </button>
+        {/* Mobile Menu Button + CTA */}
+        <div className="flex items-center space-x-4">
+          {/* Hamburger Menu Button (Mobile Only) */}
+          <button 
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 text-[#2C2420] hover:text-[#D4A373] transition-colors"
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? (
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            )}
+          </button>
+
+          {/* CTA Button */}
+          <button 
+            onClick={onOpenConsulting}
+            className="px-6 py-2.5 bg-[#2C2420] hover:bg-[#D4A373] text-[#FAF9F6] transition-all rounded-full text-sm font-medium shadow-lg hover:shadow-[#D4A373]/30"
+          >
+            預約演示
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu Dropdown */}
+      <div 
+        className={`md:hidden absolute top-full left-0 right-0 bg-[#FAF9F6]/95 backdrop-blur-md shadow-lg transition-all duration-300 overflow-hidden ${mobileMenuOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}
+      >
+        <div className="px-6 py-4 space-y-2">
+          <button 
+            onClick={() => handleMobileNavigate('home')}
+            className={`block w-full text-left px-4 py-3 rounded-lg transition-colors ${currentPage === 'home' ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-[#2C2420] hover:bg-[#D4A373]/10'}`}
+          >
+            品牌哲學
+          </button>
+
+          {/* Products Section */}
+          <div className="px-4 py-2">
+            <div className="text-xs uppercase tracking-wider text-[#2C2420]/50 mb-2">產品矩陣</div>
+            {products.map(p => (
+              <button 
+                key={p.id}
+                onClick={() => handleMobileNavigate(p.id as Page)}
+                className={`block w-full text-left px-4 py-2 rounded-lg transition-colors text-sm ${currentPage === p.id ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-[#2C2420] hover:bg-[#D4A373]/10'}`}
+              >
+                {p.name}
+              </button>
+            ))}
+          </div>
+
+          <button 
+            onClick={() => handleMobileNavigate('team')}
+            className={`block w-full text-left px-4 py-3 rounded-lg transition-colors ${currentPage === 'team' ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-[#2C2420] hover:bg-[#D4A373]/10'}`}
+          >
+            團隊介紹
+          </button>
+
+          <button 
+            onClick={() => handleMobileNavigate('blog')}
+            className={`block w-full text-left px-4 py-3 rounded-lg transition-colors ${currentPage === 'blog' || currentPage === 'blog-post' ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-[#2C2420] hover:bg-[#D4A373]/10'}`}
+          >
+            部落格
+          </button>
+        </div>
       </div>
     </nav>
   );
