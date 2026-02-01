@@ -6,6 +6,7 @@ import VoiceOfChoice from './pages/VoiceOfChoice';
 import VoiceSurvey from './pages/VoiceSurvey';
 import SalesAI from './pages/SalesAI';
 import AIAgent from './pages/AIAgent';
+import AITeam from './pages/AITeam';
 import Team from './pages/Team';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
@@ -17,7 +18,7 @@ import BackgroundEffects from './components/BackgroundEffects';
 import ConstructionOverlay from './components/ConstructionOverlay';
 import RetellVoiceAgent, { RetellVoiceAgentHandle } from './components/voice/RetellVoiceAgent';
 
-export type Page = 'home' | 'voice-of-choice' | 'voice-survey' | 'sales-ai' | 'ai-agent' | 'team' | 'blog' | 'blog-post' | 'login' | 'admin';
+export type Page = 'home' | 'voice-of-choice' | 'voice-survey' | 'sales-ai' | 'ai-agent' | 'ai-team' | 'team' | 'blog' | 'blog-post' | 'login' | 'admin';
 
 const AppContent: React.FC = () => {
   const { isAuthenticated, isLoading, logout } = useAuth();
@@ -58,6 +59,8 @@ const AppContent: React.FC = () => {
       setCurrentPage('sales-ai');
     } else if (path === '/ai-agent') {
       setCurrentPage('ai-agent');
+    } else if (path === '/ai-team') {
+      setCurrentPage('ai-team');
     } else if (path === '/team') {
       setCurrentPage('team');
     }
@@ -83,6 +86,7 @@ const AppContent: React.FC = () => {
     else if (currentPage === 'voice-survey') path = '/voice-survey';
     else if (currentPage === 'sales-ai') path = '/sales-ai';
     else if (currentPage === 'ai-agent') path = '/ai-agent';
+    else if (currentPage === 'ai-team') path = '/ai-team';
     else if (currentPage === 'team') path = '/team';
 
     if (window.location.pathname !== path && !path.includes(window.location.pathname)) {
@@ -112,6 +116,7 @@ const AppContent: React.FC = () => {
       else if (path === '/voice-survey') setCurrentPage('voice-survey');
       else if (path === '/sales-ai') setCurrentPage('sales-ai');
       else if (path === '/ai-agent') setCurrentPage('ai-agent');
+      else if (path === '/ai-team') setCurrentPage('ai-team');
       else if (path === '/team') setCurrentPage('team');
       else setCurrentPage('home');
     };
@@ -258,6 +263,7 @@ const AppContent: React.FC = () => {
       case 'voice-of-choice': return <VoiceOfChoice onBack={() => setCurrentPage('home')} />;
       case 'sales-ai': return <SalesAI onBack={() => setCurrentPage('home')} />;
       case 'ai-agent': return <AIAgent onBack={() => setCurrentPage('home')} onOpenDemo={openVoiceChat} />;
+      case 'ai-team': return <AITeam onBack={() => setCurrentPage('home')} onOpenDemo={openVoiceChat} />;
       case 'team': return <Team onBack={() => setCurrentPage('home')} />;
       case 'voice-survey': return <VoiceSurvey onBack={() => setCurrentPage('home')} />;
       default: return <Home onNavigate={setCurrentPage} onOpenDemo={() => setShowConstruction(true)} />;
