@@ -1,11 +1,6 @@
 // components/voice/RetellVoiceAgent.tsx
-import React, { useRef, useState, useCallback, useEffect, useImperativeHandle, forwardRef } from 'react';
-import { RetellWebClient } from 'retell-client-js-sdk';
-import { createWebCall } from '../../services/api';
+import React, { useState, useCallback, useImperativeHandle, forwardRef } from 'react';
 import VoiceFloatingButton from './VoiceFloatingButton';
-import VoiceCallModal from './VoiceCallModal';
-import { CallState } from './VoiceWaveform';
-import { TranscriptMessage } from './VoiceTranscript';
 
 /**
  * Handle exposed to parent components via ref.
@@ -16,207 +11,71 @@ export interface RetellVoiceAgentHandle {
 
 /**
  * Main voice agent component.
- * Manages Retell SDK lifecycle, state transitions, and UI composition.
+ * TEMPORARILY DISABLED - Shows "開發中" modal instead of starting voice calls.
  *
- * Usage: Place once in App.tsx to enable voice calls site-wide.
- * Use ref to trigger voice chat programmatically: ref.current.openVoiceChat()
- *
- * SDK Events handled:
- * - call_started -> 'listening'
- * - call_ended -> 'ended'
- * - agent_start_talking -> 'speaking'
- * - agent_stop_talking -> 'listening'
- * - update -> transcript update
- * - error -> 'ended' with error message (user can close modal and retry)
+ * TODO: Re-enable when Retell integration is ready for production.
  */
 const RetellVoiceAgent = forwardRef<RetellVoiceAgentHandle>((_, ref) => {
-  // SDK instance ref (survives re-renders, cleaned up on unmount)
-  const clientRef = useRef<RetellWebClient | null>(null);
-
-  // UI state
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [callState, setCallState] = useState<CallState>('idle');
-  const [transcript, setTranscript] = useState<TranscriptMessage[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [isStarting, setIsStarting] = useState(false);
 
-  /**
-   * Start a new voice call.
-   * Fetches access token from backend, initializes SDK, sets up event listeners.
-   */
-  const startCall = useCallback(async () => {
-    // Prevent double-starts
-    if (isStarting || clientRef.current) return;
-
-    setIsStarting(true);
-    setError(null);
-    setTranscript([]);
-    setCallState('connecting');
+  const showDevelopmentModal = useCallback(() => {
     setIsModalOpen(true);
+  }, []);
 
-    try {
-      // Get access token from backend (30-second expiry!)
-      const response = await createWebCall();
-
-      if (!response.success || !response.data) {
-        throw new Error(response.error || '無法建立通話');
-      }
-
-      const { accessToken } = response.data;
-
-      // Initialize Retell client
-      const client = new RetellWebClient();
-      clientRef.current = client;
-
-      // Set up event listeners BEFORE starting call
-      client.on('call_started', () => {
-        console.log('Retell: call_started');
-        setCallState('listening');
-      });
-
-      client.on('call_ended', () => {
-        console.log('Retell: call_ended');
-        setCallState('ended');
-        clientRef.current = null;
-      });
-
-      client.on('agent_start_talking', () => {
-        console.log('Retell: agent_start_talking');
-        setCallState('speaking');
-      });
-
-      client.on('agent_stop_talking', () => {
-        console.log('Retell: agent_stop_talking');
-        setCallState('listening');
-      });
-
-      client.on('update', (update: { transcript?: TranscriptMessage[] }) => {
-        if (update.transcript) {
-          setTranscript(update.transcript);
-        }
-      });
-
-      client.on('error', (err: Error) => {
-        console.error('Retell error:', err);
-        // Set error message in Chinese - user can close modal and click FAB to retry
-        setError(getErrorMessage(err));
-        setCallState('ended');
-        clientRef.current = null;
-      });
-
-      // Start the call (must be within 30s of getting token)
-      await client.startCall({ accessToken });
-
-    } catch (err: unknown) {
-      console.error('Failed to start call:', err);
-      // Set error message - user can close modal and click FAB to retry
-      setError(getErrorMessage(err));
-      setCallState('ended');
-      clientRef.current = null;
-    } finally {
-      setIsStarting(false);
-    }
-  }, [isStarting]);
+  const closeModal = useCallback(() => {
+    setIsModalOpen(false);
+  }, []);
 
   // Expose openVoiceChat method to parent via ref
   useImperativeHandle(ref, () => ({
     openVoiceChat: () => {
-      if (!isModalOpen && !isStarting) {
-        startCall();
-      }
+      showDevelopmentModal();
     }
-  }), [isModalOpen, isStarting, startCall]);
+  }), [showDevelopmentModal]);
 
-  /**
-   * End the current call.
-   */
-  const endCall = useCallback(() => {
-    if (clientRef.current) {
-      clientRef.current.stopCall();
-      clientRef.current = null;
-    }
-    setCallState('ended');
-  }, []);
-
-  /**
-   * Close the modal. If call is active, end it first.
-   * After closing, user can click FAB again to start a new call (retry after error).
-   */
-  const closeModal = useCallback(() => {
-    if (clientRef.current) {
-      clientRef.current.stopCall();
-      clientRef.current = null;
-    }
-    setIsModalOpen(false);
-    setCallState('idle');
-    setTranscript([]);
-    setError(null);
-  }, []);
-
-  /**
-   * Handle FAB click.
-   * If modal is closed, start a call. If modal is open, close it.
-   */
   const handleFabClick = useCallback(() => {
     if (isModalOpen) {
       closeModal();
     } else {
-      startCall();
+      showDevelopmentModal();
     }
-  }, [isModalOpen, closeModal, startCall]);
-
-  /**
-   * Cleanup on unmount - stop any active call.
-   */
-  useEffect(() => {
-    return () => {
-      if (clientRef.current) {
-        clientRef.current.stopCall();
-        clientRef.current = null;
-      }
-    };
-  }, []);
-
-  // Determine if call is active (for FAB state)
-  const isCallActive = callState === 'connecting' || callState === 'listening' || callState === 'speaking';
+  }, [isModalOpen, closeModal, showDevelopmentModal]);
 
   return (
     <>
       <VoiceFloatingButton
         onClick={handleFabClick}
-        isActive={isCallActive || isModalOpen}
-        disabled={isStarting}
+        isActive={isModalOpen}
+        disabled={false}
       />
-      <VoiceCallModal
-        isOpen={isModalOpen}
-        callState={callState}
-        transcript={transcript}
-        onEndCall={endCall}
-        onClose={closeModal}
-        error={error}
-      />
+      
+      {/* Development Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl shadow-2xl p-8 mx-4 max-w-sm w-full text-center">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#D4A373]/20 flex items-center justify-center">
+              <svg className="w-8 h-8 text-[#D4A373]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-bold text-[#2C2420] mb-2">語音 AI 助理</h3>
+            <p className="text-[#D4A373] font-medium mb-4">🚧 開發中 🚧</p>
+            <p className="text-gray-600 text-sm mb-6">
+              此功能正在開發中，敬請期待！<br />
+              如有需求，請透過聯絡表單與我們聯繫。
+            </p>
+            <button
+              onClick={closeModal}
+              className="w-full py-3 px-6 bg-[#2C2420] hover:bg-[#D4A373] text-white rounded-lg font-medium transition-colors"
+            >
+              了解
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 });
-
-/**
- * Convert error to user-friendly Chinese message.
- */
-function getErrorMessage(error: unknown): string {
-  const message = (error instanceof Error ? error.message : String(error)).toLowerCase();
-
-  if (message.includes('permission') || message.includes('microphone')) {
-    return '無法存取麥克風。請允許瀏覽器使用麥克風權限。';
-  }
-  if (message.includes('token') || message.includes('expired')) {
-    return '連線逾時，請重試。';
-  }
-  if (message.includes('network') || message.includes('connection')) {
-    return '網路連線錯誤，請檢查網路狀態。';
-  }
-
-  return '發生錯誤，請稍後重試。';
-}
 
 RetellVoiceAgent.displayName = 'RetellVoiceAgent';
 
