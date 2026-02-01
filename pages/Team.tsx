@@ -44,7 +44,7 @@ const teamMembers: TeamMember[] = [
     image: '/team/peacock.jpg',
     personality: ['內容創作', 'SEO 優化', '社群經營', '品牌故事'],
     social: {
-      threads: 'https://threads.net/@peacock_painpoint',
+      threads: 'https://www.threads.net/@peacock_painpoint',
       facebook: 'https://www.facebook.com/share/188T8PeGm7/',
     },
   },
