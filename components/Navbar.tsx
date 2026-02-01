@@ -65,6 +65,13 @@ const Navbar: React.FC<NavbarProps> = ({ isScrolled, currentPage, onNavigate, on
           </div>
 
           <button 
+            onClick={() => onNavigate('team')} 
+            className={`hover:text-[#D4A373] transition-colors ${currentPage === 'team' ? 'text-[#D4A373]' : ''}`}
+          >
+            團隊介紹
+          </button>
+
+          <button 
             onClick={() => onNavigate('blog')} 
             className={`hover:text-[#D4A373] transition-colors ${currentPage === 'blog' || currentPage === 'blog-post' ? 'text-[#D4A373]' : ''}`}
           >
