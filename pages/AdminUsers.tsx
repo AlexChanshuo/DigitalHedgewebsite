@@ -35,7 +35,14 @@ const AdminUsers: React.FC = () => {
     // Edit Modal State
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [editingUser, setEditingUser] = useState<User | null>(null);
-    const [editForm, setEditForm] = useState({ name: '', email: '', avatar: '', bio: '' });
+    const [editForm, setEditForm] = useState({ 
+        name: '', 
+        email: '', 
+        avatar: '', 
+        bio: '',
+        publicEmail: '',
+        socialLinks: { threads: '', twitter: '', facebook: '', linkedin: '', website: '' }
+    });
     const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -93,7 +100,15 @@ const AdminUsers: React.FC = () => {
             name: user.name || '',
             email: user.email,
             avatar: user.avatar || '',
-            bio: user.bio || ''
+            bio: user.bio || '',
+            publicEmail: user.publicEmail || '',
+            socialLinks: {
+                threads: user.socialLinks?.threads || '',
+                twitter: user.socialLinks?.twitter || '',
+                facebook: user.socialLinks?.facebook || '',
+                linkedin: user.socialLinks?.linkedin || '',
+                website: user.socialLinks?.website || ''
+            }
         });
         setAvatarPreview(user.avatar || null);
         setIsEditModalOpen(true);
@@ -102,7 +117,14 @@ const AdminUsers: React.FC = () => {
     function closeEditModal() {
         setIsEditModalOpen(false);
         setEditingUser(null);
-        setEditForm({ name: '', email: '', avatar: '', bio: '' });
+        setEditForm({ 
+            name: '', 
+            email: '', 
+            avatar: '', 
+            bio: '',
+            publicEmail: '',
+            socialLinks: { threads: '', twitter: '', facebook: '', linkedin: '', website: '' }
+        });
         setAvatarPreview(null);
     }
 
@@ -132,11 +154,18 @@ const AdminUsers: React.FC = () => {
 
         setIsSaving(true);
         try {
+            // Filter out empty social links
+            const socialLinks = Object.fromEntries(
+                Object.entries(editForm.socialLinks).filter(([_, v]) => v)
+            );
+            
             const result = await updateUser(editingUser.id, {
                 name: editForm.name || undefined,
                 email: editForm.email,
                 avatar: editForm.avatar || undefined,
-                bio: editForm.bio || undefined
+                bio: editForm.bio || undefined,
+                publicEmail: editForm.publicEmail || undefined,
+                socialLinks: Object.keys(socialLinks).length > 0 ? socialLinks : undefined
             });
             if (result.success) {
                 loadUsers();
@@ -684,6 +713,77 @@ const AdminUsers: React.FC = () => {
                                     className="w-full px-4 py-2 rounded-lg border border-[#E0E0E0] outline-none focus:border-[#D4A373] resize-none"
                                 />
                                 <p className="text-xs text-gray-400 mt-1 text-right">{editForm.bio.length}/200</p>
+                            </div>
+
+                            {/* Contact Info */}
+                            <div className="border-t border-[#E0E0E0] pt-4 mt-4">
+                                <h4 className="text-sm font-medium text-[#2C2420] mb-3">聯絡方式</h4>
+                                <div className="space-y-3">
+                                    <div>
+                                        <label className="block text-xs text-gray-500 mb-1">公開 Email</label>
+                                        <input
+                                            type="email"
+                                            value={editForm.publicEmail}
+                                            onChange={(e) => setEditForm({ ...editForm, publicEmail: e.target.value })}
+                                            placeholder="contact@example.com"
+                                            className="w-full px-3 py-2 text-sm rounded-lg border border-[#E0E0E0] outline-none focus:border-[#D4A373]"
+                                        />
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-3">
+                                        <div>
+                                            <label className="block text-xs text-gray-500 mb-1">Threads</label>
+                                            <input
+                                                type="text"
+                                                value={editForm.socialLinks.threads}
+                                                onChange={(e) => setEditForm({ 
+                                                    ...editForm, 
+                                                    socialLinks: { ...editForm.socialLinks, threads: e.target.value }
+                                                })}
+                                                placeholder="@username"
+                                                className="w-full px-3 py-2 text-sm rounded-lg border border-[#E0E0E0] outline-none focus:border-[#D4A373]"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-xs text-gray-500 mb-1">X (Twitter)</label>
+                                            <input
+                                                type="text"
+                                                value={editForm.socialLinks.twitter}
+                                                onChange={(e) => setEditForm({ 
+                                                    ...editForm, 
+                                                    socialLinks: { ...editForm.socialLinks, twitter: e.target.value }
+                                                })}
+                                                placeholder="@username"
+                                                className="w-full px-3 py-2 text-sm rounded-lg border border-[#E0E0E0] outline-none focus:border-[#D4A373]"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-xs text-gray-500 mb-1">Facebook</label>
+                                            <input
+                                                type="text"
+                                                value={editForm.socialLinks.facebook}
+                                                onChange={(e) => setEditForm({ 
+                                                    ...editForm, 
+                                                    socialLinks: { ...editForm.socialLinks, facebook: e.target.value }
+                                                })}
+                                                placeholder="https://facebook.com/..."
+                                                className="w-full px-3 py-2 text-sm rounded-lg border border-[#E0E0E0] outline-none focus:border-[#D4A373]"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-xs text-gray-500 mb-1">個人網站</label>
+                                            <input
+                                                type="text"
+                                                value={editForm.socialLinks.website}
+                                                onChange={(e) => setEditForm({ 
+                                                    ...editForm, 
+                                                    socialLinks: { ...editForm.socialLinks, website: e.target.value }
+                                                })}
+                                                placeholder="https://..."
+                                                className="w-full px-3 py-2 text-sm rounded-lg border border-[#E0E0E0] outline-none focus:border-[#D4A373]"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div className="flex justify-end space-x-3 pt-4">

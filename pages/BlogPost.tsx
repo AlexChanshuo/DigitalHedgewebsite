@@ -206,26 +206,94 @@ const BlogPost: React.FC<BlogPostProps> = ({
           )}
 
           {/* Author & Read time */}
-          <div className="flex items-center space-x-4 pb-8 border-b border-[#E0E0E0]">
+          <div className="flex items-start space-x-4 pb-8 border-b border-[#E0E0E0]">
             {post.author.avatar ? (
               <img
                 src={post.author.avatar}
                 alt={post.author.name || 'Author'}
-                className="w-12 h-12 rounded-full object-cover"
+                className="w-14 h-14 rounded-full object-cover flex-shrink-0"
               />
             ) : (
-              <div className="w-12 h-12 bg-[#D4A373] rounded-full flex items-center justify-center text-white font-bold">
+              <div className="w-14 h-14 bg-[#D4A373] rounded-full flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
                 {post.author.name?.[0] || 'A'}
               </div>
             )}
-            <div>
+            <div className="flex-1 min-w-0">
               <p className="font-medium text-[#2C2420]">{post.author.name || 'Digital Hedge'}</p>
               {post.author.bio && (
-                <p className="text-sm text-[#D4A373] italic mb-1">{post.author.bio}</p>
+                <p className="text-sm text-[#D4A373] italic">{post.author.bio}</p>
               )}
-              <p className="text-sm text-[#2C2420]/50">
+              <p className="text-sm text-[#2C2420]/50 mt-1">
                 {Math.ceil(post.content.length / 500)} 分鐘閱讀 · {post.viewCount} 次瀏覽
               </p>
+              {/* Contact Links */}
+              {(post.author.publicEmail || post.author.socialLinks) && (
+                <div className="flex flex-wrap items-center gap-3 mt-2">
+                  {post.author.publicEmail && (
+                    <a
+                      href={`mailto:${post.author.publicEmail}`}
+                      className="inline-flex items-center text-xs text-[#2C2420]/60 hover:text-[#D4A373] transition-colors"
+                    >
+                      <svg className="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                      {post.author.publicEmail}
+                    </a>
+                  )}
+                  {post.author.socialLinks?.threads && (
+                    <a
+                      href={post.author.socialLinks.threads.startsWith('http') ? post.author.socialLinks.threads : `https://threads.net/${post.author.socialLinks.threads}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center text-xs text-[#2C2420]/60 hover:text-[#D4A373] transition-colors"
+                    >
+                      <svg className="w-3.5 h-3.5 mr-1" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.5 12.068V12c.015-3.58 1.205-6.333 3.509-8.182C7.082 2.174 9.935 1.32 13.453 1.32h.01c3.576.024 6.329 1.205 8.178 3.508 1.644 2.052 2.494 4.905 2.494 8.423v.068c-.015 3.58-1.205 6.333-3.509 8.182-2.056 1.644-4.909 2.494-8.427 2.494l-.013.005zm-.067-4.086c2.108 0 3.738-.632 4.846-1.879 1.097-1.234 1.654-2.982 1.654-5.195v-.034c-.008-2.199-.566-3.943-1.66-5.18-1.104-1.25-2.734-1.883-4.84-1.883h-.01c-2.108 0-3.738.632-4.846 1.879-1.097 1.234-1.654 2.982-1.654 5.195v.034c.008 2.199.566 3.943 1.66 5.18 1.104 1.25 2.734 1.883 4.84 1.883h.01z"/>
+                      </svg>
+                      Threads
+                    </a>
+                  )}
+                  {post.author.socialLinks?.twitter && (
+                    <a
+                      href={post.author.socialLinks.twitter.startsWith('http') ? post.author.socialLinks.twitter : `https://twitter.com/${post.author.socialLinks.twitter}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center text-xs text-[#2C2420]/60 hover:text-[#D4A373] transition-colors"
+                    >
+                      <svg className="w-3.5 h-3.5 mr-1" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                      </svg>
+                      X
+                    </a>
+                  )}
+                  {post.author.socialLinks?.facebook && (
+                    <a
+                      href={post.author.socialLinks.facebook}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center text-xs text-[#2C2420]/60 hover:text-[#D4A373] transition-colors"
+                    >
+                      <svg className="w-3.5 h-3.5 mr-1" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                      </svg>
+                      Facebook
+                    </a>
+                  )}
+                  {post.author.socialLinks?.website && (
+                    <a
+                      href={post.author.socialLinks.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center text-xs text-[#2C2420]/60 hover:text-[#D4A373] transition-colors"
+                    >
+                      <svg className="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                      </svg>
+                      網站
+                    </a>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>

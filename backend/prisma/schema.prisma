@@ -35,6 +35,8 @@ model User {
   name         String?
   avatar       String?
   bio          String?    // 作者簽名/簡介
+  publicEmail  String?    // 公開聯絡 Email
+  socialLinks  Json?      // 社群連結 {threads, twitter, facebook, linkedin, website}
   role         UserRole   @default(USER)
   status       UserStatus @default(ACTIVE)
 

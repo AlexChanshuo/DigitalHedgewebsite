@@ -143,12 +143,22 @@ export async function getProfile(): Promise<ApiResponse<LoginResponse['user']>> 
 // Users API (Master Only)
 // ==========================================
 
+export interface SocialLinks {
+  threads?: string;
+  twitter?: string;
+  facebook?: string;
+  linkedin?: string;
+  website?: string;
+}
+
 export interface User {
   id: string;
   email: string;
   name: string | null;
   avatar: string | null;
   bio: string | null;
+  publicEmail: string | null;
+  socialLinks: SocialLinks | null;
   role: 'MASTER' | 'ADMIN' | 'EDITOR' | 'USER';
   status: 'ACTIVE' | 'INACTIVE' | 'SUSPENDED' | 'PENDING_PASSWORD_CHANGE';
   createdAt: string;
@@ -189,7 +199,7 @@ export async function deleteUser(id: string): Promise<ApiResponse> {
   return request(`/users/${id}`, { method: 'DELETE' });
 }
 
-export async function updateUser(id: string, data: { name?: string; email?: string; avatar?: string; bio?: string }): Promise<ApiResponse<User>> {
+export async function updateUser(id: string, data: { name?: string; email?: string; avatar?: string; bio?: string; publicEmail?: string; socialLinks?: SocialLinks }): Promise<ApiResponse<User>> {
   return request(`/users/${id}`, {
     method: 'PATCH',
     body: JSON.stringify(data),
@@ -217,6 +227,8 @@ export interface Post {
     name: string | null;
     avatar: string | null;
     bio: string | null;
+    publicEmail: string | null;
+    socialLinks: SocialLinks | null;
   };
   category: {
     id: string;

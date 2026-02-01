@@ -106,6 +106,8 @@ export async function getAllPosts(req: Request, res: Response, next: NextFunctio
               name: true,
               avatar: true,
               bio: true,
+              publicEmail: true,
+              socialLinks: true,
             },
           },
           category: {
@@ -176,6 +178,8 @@ export async function getPostBySlug(req: Request, res: Response, next: NextFunct
             name: true,
             avatar: true,
               bio: true,
+              publicEmail: true,
+              socialLinks: true,
           },
         },
         category: {
