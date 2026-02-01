@@ -58,6 +58,16 @@ const teamMembers: TeamMember[] = [
     image: '/team/squirrel.jpg',
     personality: ['客戶服務', '資料整理', '任務執行', '多語言支援'],
   },
+  {
+    id: 'boar',
+    name: '山豬博士',
+    nameEn: 'Dr. Boar',
+    emoji: '🐗',
+    role: '研究員 / Researcher',
+    description: '戴著眼鏡的學者，總是埋首在書堆和文件中。負責市場調研、競品分析、產業報告。追求真相，用數據說話。',
+    image: '/team/boar.jpg',
+    personality: ['市場調研', '競品分析', '數據洞察', '產業報告'],
+  },
 ];
 
 const Team: React.FC<TeamProps> = ({ onBack }) => {
