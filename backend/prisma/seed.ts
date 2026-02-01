@@ -1,6 +1,7 @@
 // prisma/seed.ts
 import { PrismaClient, UserRole, UserStatus } from '@prisma/client';
 import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
 
 const prisma = new PrismaClient();
 
@@ -10,7 +11,17 @@ async function main() {
   // ==========================================
   // 1. 建立管理員帳號
   // ==========================================
-  const passwordHash = await bcrypt.hash('123', 12);
+  // 安全性：從環境變數讀取初始密碼，若無則生成隨機密碼
+  const initialPassword = process.env.SEED_ADMIN_PASSWORD || crypto.randomUUID();
+  const passwordHash = await bcrypt.hash(initialPassword, 12);
+  
+  // 警告：顯示初始密碼（僅在 seed 時）
+  if (!process.env.SEED_ADMIN_PASSWORD) {
+    console.log('⚠️ ========================================');
+    console.log('⚠️ 自動生成的初始密碼:', initialPassword);
+    console.log('⚠️ 請立即登入並更改密碼！');
+    console.log('⚠️ ========================================');
+  }
   
   const masterUser = await prisma.user.upsert({
     where: { email: 'alexma@goldenraintree.tw' },
