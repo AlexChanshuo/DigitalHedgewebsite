@@ -35,7 +35,7 @@ const AdminUsers: React.FC = () => {
     // Edit Modal State
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [editingUser, setEditingUser] = useState<User | null>(null);
-    const [editForm, setEditForm] = useState({ name: '', email: '', avatar: '' });
+    const [editForm, setEditForm] = useState({ name: '', email: '', avatar: '', bio: '' });
     const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -92,7 +92,8 @@ const AdminUsers: React.FC = () => {
         setEditForm({
             name: user.name || '',
             email: user.email,
-            avatar: user.avatar || ''
+            avatar: user.avatar || '',
+            bio: user.bio || ''
         });
         setAvatarPreview(user.avatar || null);
         setIsEditModalOpen(true);
@@ -101,7 +102,7 @@ const AdminUsers: React.FC = () => {
     function closeEditModal() {
         setIsEditModalOpen(false);
         setEditingUser(null);
-        setEditForm({ name: '', email: '', avatar: '' });
+        setEditForm({ name: '', email: '', avatar: '', bio: '' });
         setAvatarPreview(null);
     }
 
@@ -134,7 +135,8 @@ const AdminUsers: React.FC = () => {
             const result = await updateUser(editingUser.id, {
                 name: editForm.name || undefined,
                 email: editForm.email,
-                avatar: editForm.avatar || undefined
+                avatar: editForm.avatar || undefined,
+                bio: editForm.bio || undefined
             });
             if (result.success) {
                 loadUsers();
@@ -668,6 +670,20 @@ const AdminUsers: React.FC = () => {
                                     onChange={(e) => setEditForm({ ...editForm, email: e.target.value })}
                                     className="w-full px-4 py-2 rounded-lg border border-[#E0E0E0] outline-none focus:border-[#D4A373]"
                                 />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-[#2C2420] mb-1">
+                                    簽名 / Bio
+                                </label>
+                                <textarea
+                                    value={editForm.bio}
+                                    onChange={(e) => setEditForm({ ...editForm, bio: e.target.value })}
+                                    placeholder="例如：用最美的方式，展示你最好的一面"
+                                    maxLength={200}
+                                    rows={2}
+                                    className="w-full px-4 py-2 rounded-lg border border-[#E0E0E0] outline-none focus:border-[#D4A373] resize-none"
+                                />
+                                <p className="text-xs text-gray-400 mt-1 text-right">{editForm.bio.length}/200</p>
                             </div>
 
                             <div className="flex justify-end space-x-3 pt-4">

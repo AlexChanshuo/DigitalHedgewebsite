@@ -38,6 +38,7 @@ export async function getAllUsers(req: Request, res: Response, next: NextFunctio
           email: true,
           name: true,
           avatar: true,
+              bio: true,
           role: true,
           status: true,
           createdAt: true,
@@ -85,6 +86,7 @@ export async function getUserById(req: Request, res: Response, next: NextFunctio
         email: true,
         name: true,
         avatar: true,
+              bio: true,
         role: true,
         status: true,
         createdAt: true,
@@ -178,7 +180,7 @@ export async function createUser(req: Request, res: Response, next: NextFunction
 export async function updateUser(req: Request, res: Response, next: NextFunction) {
   try {
     const { id } = req.params;
-    const { email, name, avatar } = req.body;
+    const { email, name, avatar, bio } = req.body;
     const currentUser = req.user!;
 
     // 檢查權限：只有本人或管理員可以修改
@@ -210,12 +212,14 @@ export async function updateUser(req: Request, res: Response, next: NextFunction
         ...(email && { email: email.toLowerCase() }),
         ...(name !== undefined && { name }),
         ...(avatar !== undefined && { avatar }),
+        ...(bio !== undefined && { bio }),
       },
       select: {
         id: true,
         email: true,
         name: true,
         avatar: true,
+              bio: true,
         role: true,
         status: true,
         updatedAt: true,

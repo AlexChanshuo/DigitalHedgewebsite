@@ -17,7 +17,8 @@ export const createUserSchema = z.object({
 export const updateUserSchema = z.object({
   email: z.string().email('請輸入有效的電子郵件').optional(),
   name: z.string().min(1, '請輸入名稱').optional(),
-  avatar: z.string().url('請輸入有效的圖片網址').optional().nullable(),
+  avatar: z.string().optional().nullable(), // 支援 URL 或 base64 data URL
+  bio: z.string().max(200, '簽名最多 200 字').optional().nullable(),
 });
 
 export const updateUserRoleSchema = z.object({

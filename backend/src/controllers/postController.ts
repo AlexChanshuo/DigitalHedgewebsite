@@ -105,6 +105,7 @@ export async function getAllPosts(req: Request, res: Response, next: NextFunctio
               id: true,
               name: true,
               avatar: true,
+              bio: true,
             },
           },
           category: {
@@ -174,6 +175,7 @@ export async function getPostBySlug(req: Request, res: Response, next: NextFunct
             id: true,
             name: true,
             avatar: true,
+              bio: true,
           },
         },
         category: {

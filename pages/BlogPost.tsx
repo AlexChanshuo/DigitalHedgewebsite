@@ -220,6 +220,9 @@ const BlogPost: React.FC<BlogPostProps> = ({
             )}
             <div>
               <p className="font-medium text-[#2C2420]">{post.author.name || 'Digital Hedge'}</p>
+              {post.author.bio && (
+                <p className="text-sm text-[#D4A373] italic mb-1">{post.author.bio}</p>
+              )}
               <p className="text-sm text-[#2C2420]/50">
                 {Math.ceil(post.content.length / 500)} 分鐘閱讀 · {post.viewCount} 次瀏覽
               </p>

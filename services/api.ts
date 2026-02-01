@@ -148,6 +148,7 @@ export interface User {
   email: string;
   name: string | null;
   avatar: string | null;
+  bio: string | null;
   role: 'MASTER' | 'ADMIN' | 'EDITOR' | 'USER';
   status: 'ACTIVE' | 'INACTIVE' | 'SUSPENDED' | 'PENDING_PASSWORD_CHANGE';
   createdAt: string;
@@ -188,7 +189,7 @@ export async function deleteUser(id: string): Promise<ApiResponse> {
   return request(`/users/${id}`, { method: 'DELETE' });
 }
 
-export async function updateUser(id: string, data: { name?: string; email?: string; avatar?: string }): Promise<ApiResponse<User>> {
+export async function updateUser(id: string, data: { name?: string; email?: string; avatar?: string; bio?: string }): Promise<ApiResponse<User>> {
   return request(`/users/${id}`, {
     method: 'PATCH',
     body: JSON.stringify(data),
@@ -215,6 +216,7 @@ export interface Post {
     id: string;
     name: string | null;
     avatar: string | null;
+    bio: string | null;
   };
   category: {
     id: string;

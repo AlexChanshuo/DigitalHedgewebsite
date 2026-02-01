@@ -34,6 +34,7 @@ model User {
   passwordHash String
   name         String?
   avatar       String?
+  bio          String?    // 作者簽名/簡介
   role         UserRole   @default(USER)
   status       UserStatus @default(ACTIVE)
 
