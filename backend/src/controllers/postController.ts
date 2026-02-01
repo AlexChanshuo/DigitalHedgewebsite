@@ -368,6 +368,7 @@ export async function updatePost(req: Request, res: Response, next: NextFunction
       metaTitle,
       metaDescription,
       metaKeywords,
+      authorId,
     } = req.body;
 
     const post = await prisma.post.findUnique({
@@ -414,6 +415,9 @@ export async function updatePost(req: Request, res: Response, next: NextFunction
       await prisma.postTag.deleteMany({ where: { postId: id } });
     }
 
+    // Only MASTER or ADMIN can change authorId
+    const canChangeAuthor = authorId && (req.user!.role === 'MASTER' || req.user!.role === 'ADMIN');
+
     const updated = await prisma.post.update({
       where: { id },
       data: {
@@ -426,6 +430,7 @@ export async function updatePost(req: Request, res: Response, next: NextFunction
         ...(finalPublishedAt !== post.publishedAt && { publishedAt: finalPublishedAt }),
         ...(scheduledAt !== undefined && { scheduledAt: scheduledAt ? new Date(scheduledAt) : null }),
         ...(categoryId && { categoryId }),
+        ...(canChangeAuthor && { authorId }),
         ...(metaTitle !== undefined && { metaTitle }),
         ...(metaDescription !== undefined && { metaDescription }),
         ...(metaKeywords !== undefined && { metaKeywords }),

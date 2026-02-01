@@ -32,6 +32,7 @@ export const updatePostSchema = z.object({
   metaTitle: z.string().max(70, 'Meta 標題最多 70 字').optional().nullable(),
   metaDescription: z.string().max(160, 'Meta 描述最多 160 字').optional().nullable(),
   metaKeywords: z.string().max(200, '關鍵字最多 200 字').optional().nullable(),
+  authorId: z.string().optional(), // Admin only - change post author
 });
 
 export const listPostsSchema = z.object({
