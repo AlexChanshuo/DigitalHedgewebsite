@@ -26,5 +26,8 @@ RUN npm run build
 # Expose port
 EXPOSE 8080
 
-# Start script: sync database schema then start server
-CMD npx prisma db push --skip-generate && node dist/app.js
+# Create startup script
+RUN echo '#!/bin/sh\necho "Running prisma db push..."\nnpx prisma db push --skip-generate\necho "Starting server..."\nnode dist/app.js' > /app/start.sh && chmod +x /app/start.sh
+
+# Start with shell script
+CMD ["/app/start.sh"]
