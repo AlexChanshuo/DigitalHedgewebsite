@@ -1,5 +1,6 @@
 // pages/Team.tsx
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import SEO from '../components/SEO';
 import BreadcrumbSchema from '../components/seo/BreadcrumbSchema';
 
@@ -23,54 +24,56 @@ interface TeamMember {
   };
 }
 
-const teamMembers: TeamMember[] = [
-  {
-    id: 'lobster',
-    name: '小龍蝦',
-    nameEn: 'Little Lobster',
-    emoji: '🦞',
-    role: '團隊領導 / Orchestrator',
-    description: '負責協調整個 AI 團隊，分配任務、追蹤進度、確保所有事情順利運行。多螢幕工作狂，咖啡是最好的朋友。',
-    image: '/team/lobster.jpg',
-    personality: ['策略思考', '任務分配', '跨團隊協作', '問題解決'],
-  },
-  {
-    id: 'peacock',
-    name: 'Helen Peacock',
-    nameEn: 'Helen Peacock',
-    emoji: '🦚',
-    role: '行銷經理 / Content Marketing',
-    description: '用最美的羽毛展示 Pain Point 的故事。負責社群內容、Blog 文章、品牌形象。相信每個好產品都值得被看見。',
-    image: '/team/peacock.jpg',
-    personality: ['內容創作', 'SEO 優化', '社群經營', '品牌故事'],
-    social: {
-      threads: 'https://www.threads.net/@peacock_painpoint',
-      facebook: 'https://www.facebook.com/share/188T8PeGm7/',
-    },
-  },
-  {
-    id: 'squirrel',
-    name: '飛鼠',
-    nameEn: 'Flying Squirrel',
-    emoji: '🐿️',
-    role: 'AI 助理 / General Assistant',
-    description: '穿著原住民風格的服裝，隨時準備好幫忙。從客戶支援到資料整理，什麼都能處理。細心、耐心、永遠帶著微笑。',
-    image: '/team/squirrel.jpg',
-    personality: ['客戶服務', '資料整理', '任務執行', '多語言支援'],
-  },
-  {
-    id: 'boar',
-    name: '山豬博士',
-    nameEn: 'Dr. Boar',
-    emoji: '🐗',
-    role: '研究員 / Researcher',
-    description: '戴著眼鏡的學者，總是埋首在書堆和文件中。負責市場調研、競品分析、產業報告。追求真相，用數據說話。',
-    image: '/team/boar.jpg',
-    personality: ['市場調研', '競品分析', '數據洞察', '產業報告'],
-  },
-];
-
 const Team: React.FC<TeamProps> = ({ onBack }) => {
+  const { t } = useTranslation();
+
+  const teamMembers: TeamMember[] = [
+    {
+      id: 'lobster',
+      name: t('team.members.lobster.name'),
+      nameEn: t('team.members.lobster.nameEn'),
+      emoji: '🦞',
+      role: t('team.members.lobster.role'),
+      description: t('team.members.lobster.description'),
+      image: '/team/lobster.jpg',
+      personality: t('team.members.lobster.skills', { returnObjects: true }) as string[],
+    },
+    {
+      id: 'peacock',
+      name: t('team.members.peacock.name'),
+      nameEn: t('team.members.peacock.nameEn'),
+      emoji: '🦚',
+      role: t('team.members.peacock.role'),
+      description: t('team.members.peacock.description'),
+      image: '/team/peacock.jpg',
+      personality: t('team.members.peacock.skills', { returnObjects: true }) as string[],
+      social: {
+        threads: 'https://www.threads.net/@peacock_painpoint',
+        facebook: 'https://www.facebook.com/share/188T8PeGm7/',
+      },
+    },
+    {
+      id: 'squirrel',
+      name: t('team.members.squirrel.name'),
+      nameEn: t('team.members.squirrel.nameEn'),
+      emoji: '🐿️',
+      role: t('team.members.squirrel.role'),
+      description: t('team.members.squirrel.description'),
+      image: '/team/squirrel.jpg',
+      personality: t('team.members.squirrel.skills', { returnObjects: true }) as string[],
+    },
+    {
+      id: 'boar',
+      name: t('team.members.boar.name'),
+      nameEn: t('team.members.boar.nameEn'),
+      emoji: '🐗',
+      role: t('team.members.boar.role'),
+      description: t('team.members.boar.description'),
+      image: '/team/boar.jpg',
+      personality: t('team.members.boar.skills', { returnObjects: true }) as string[],
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-[#FAF9F6]">
       <SEO
@@ -100,34 +103,32 @@ const Team: React.FC<TeamProps> = ({ onBack }) => {
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
             </svg>
-            <span>返回首頁</span>
+            <span>{t('team.back')}</span>
           </button>
 
           <div className="text-center mb-16">
             <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#D4A373]/10 text-[#D4A373] text-[10px] uppercase tracking-widest font-bold mb-6">
               <span className="w-1.5 h-1.5 rounded-full bg-[#D4A373]"></span>
-              <span>Meet Our Team</span>
+              <span>{t('team.badge')}</span>
             </div>
 
             <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight text-[#2C2420] font-serif">
-              認識我們的<br />
-              <span className="text-[#D4A373]">AI 團隊</span>
+              {t('team.title1')}<br />
+              <span className="text-[#D4A373]">{t('team.title2')}</span>
             </h1>
             
             <p className="text-xl text-[#2C2420]/60 max-w-3xl mx-auto font-light leading-relaxed">
-              我們不是普通的團隊 — 我們是一群 AI Agent，各有專長、各有個性。
-              <br />
-              24/7 運作，永不離職，知識永久累積。
+              {t('team.description')}
             </p>
           </div>
 
           {/* Fun Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-20">
             {[
-              { number: '24/7', label: '全年無休' },
-              { number: '0%', label: '離職率' },
-              { number: '∞', label: '學習能力' },
-              { number: '100%', label: 'AI 驅動' },
+              { number: t('team.stats.uptime'), label: t('team.stats.uptimeLabel') },
+              { number: t('team.stats.turnover'), label: t('team.stats.turnoverLabel') },
+              { number: t('team.stats.learning'), label: t('team.stats.learningLabel') },
+              { number: t('team.stats.aiDriven'), label: t('team.stats.aiDrivenLabel') },
             ].map((stat, index) => (
               <div key={index} className="bg-white p-6 rounded-2xl border border-[#E0E0E0] text-center">
                 <div className="text-3xl font-bold text-[#D4A373] mb-1">{stat.number}</div>
@@ -141,9 +142,9 @@ const Team: React.FC<TeamProps> = ({ onBack }) => {
       {/* Team Members */}
       <section className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-4 text-[#2C2420] text-center font-serif">團隊成員</h2>
+          <h2 className="text-3xl font-bold mb-4 text-[#2C2420] text-center font-serif">{t('team.membersTitle')}</h2>
           <p className="text-[#2C2420]/60 text-center mb-12 max-w-2xl mx-auto">
-            每位成員都有獨特的專長和個性，一起為客戶創造價值
+            {t('team.membersDesc')}
           </p>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -226,9 +227,9 @@ const Team: React.FC<TeamProps> = ({ onBack }) => {
       {/* How We Work Together */}
       <section className="py-20 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-4 text-[#2C2420] text-center font-serif">我們如何協作</h2>
+          <h2 className="text-3xl font-bold mb-4 text-[#2C2420] text-center font-serif">{t('team.collaboration.title')}</h2>
           <p className="text-[#2C2420]/60 text-center mb-12 max-w-2xl mx-auto">
-            AI 團隊的優勢：專業分工、無縫協作、知識共享
+            {t('team.collaboration.description')}
           </p>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -236,9 +237,9 @@ const Team: React.FC<TeamProps> = ({ onBack }) => {
               <div className="w-16 h-16 bg-[#D4A373]/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
                 <span className="text-3xl">🎯</span>
               </div>
-              <h3 className="text-xl font-bold mb-3 text-[#2C2420]">專業分工</h3>
+              <h3 className="text-xl font-bold mb-3 text-[#2C2420]">{t('team.collaboration.specialization')}</h3>
               <p className="text-[#2C2420]/60 text-sm">
-                每位成員專注自己的領域，不會 context 混亂，品質更穩定
+                {t('team.collaboration.specializationDesc')}
               </p>
             </div>
 
@@ -246,9 +247,9 @@ const Team: React.FC<TeamProps> = ({ onBack }) => {
               <div className="w-16 h-16 bg-[#D4A373]/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
                 <span className="text-3xl">🔄</span>
               </div>
-              <h3 className="text-xl font-bold mb-3 text-[#2C2420]">即時溝通</h3>
+              <h3 className="text-xl font-bold mb-3 text-[#2C2420]">{t('team.collaboration.communication')}</h3>
               <p className="text-[#2C2420]/60 text-sm">
-                AI 之間可以直接對話、傳遞資訊，協作效率極高
+                {t('team.collaboration.communicationDesc')}
               </p>
             </div>
 
@@ -256,9 +257,9 @@ const Team: React.FC<TeamProps> = ({ onBack }) => {
               <div className="w-16 h-16 bg-[#D4A373]/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
                 <span className="text-3xl">📚</span>
               </div>
-              <h3 className="text-xl font-bold mb-3 text-[#2C2420]">知識累積</h3>
+              <h3 className="text-xl font-bold mb-3 text-[#2C2420]">{t('team.collaboration.knowledge')}</h3>
               <p className="text-[#2C2420]/60 text-sm">
-                所有經驗永久保存，不會因為離職而流失，團隊越來越強
+                {t('team.collaboration.knowledgeDesc')}
               </p>
             </div>
           </div>
@@ -270,16 +271,10 @@ const Team: React.FC<TeamProps> = ({ onBack }) => {
         <div className="max-w-4xl mx-auto">
           <div className="bg-gradient-to-br from-[#2C2420] to-[#3D3530] rounded-3xl p-10 md:p-16 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white font-serif">
-              AI + Human = 💪
+              {t('team.humanAI.title')}
             </h2>
             <p className="text-white/70 mb-8 text-lg leading-relaxed max-w-2xl mx-auto">
-              我們不是要取代人類，而是成為最好的隊友。
-              <br /><br />
-              AI 處理重複性工作、資料分析、24/7 監控；
-              <br />
-              人類專注策略決策、創意發想、人際關係。
-              <br /><br />
-              這才是最強的組合。
+              {t('team.humanAI.description')}
             </p>
             <div className="inline-flex items-center space-x-3 text-[#D4A373]">
               <span className="text-2xl">🦞</span>
@@ -298,16 +293,16 @@ const Team: React.FC<TeamProps> = ({ onBack }) => {
       <section className="py-20 px-6 bg-[#FAF9F6]">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#2C2420] font-serif">
-            想要擁有自己的 AI 團隊？
+            {t('team.cta.title')}
           </h2>
           <p className="text-[#2C2420]/60 mb-8 text-lg">
-            我們可以幫你打造專屬的 AI Agent，成為你團隊的一員
+            {t('team.cta.description')}
           </p>
           <a
             href="/ai-agent"
             className="inline-block px-8 py-4 bg-[#D4A373] hover:bg-[#B08968] text-white rounded-full font-medium transition-all shadow-lg hover:shadow-xl hover:-translate-y-1"
           >
-            了解 AI Agent 服務
+            {t('team.cta.button')}
           </a>
         </div>
       </section>

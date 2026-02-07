@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { submitContactForm } from '../services/api';
 
 interface ContactProps {
@@ -6,6 +7,7 @@ interface ContactProps {
 }
 
 const Contact: React.FC<ContactProps> = ({ onOpenChat }) => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -21,7 +23,7 @@ const Contact: React.FC<ContactProps> = ({ onOpenChat }) => {
     e.preventDefault();
 
     if (!formData.name || !formData.email || !formData.message) {
-      setSubmitStatus({ type: 'error', message: '請填寫所有欄位' });
+      setSubmitStatus({ type: 'error', message: t('contact.fillAll') });
       return;
     }
 
@@ -32,13 +34,13 @@ const Contact: React.FC<ContactProps> = ({ onOpenChat }) => {
       const result = await submitContactForm(formData);
 
       if (result.success) {
-        setSubmitStatus({ type: 'success', message: result.message || '感謝您的訊息，我們會盡快與您聯繫！' });
+        setSubmitStatus({ type: 'success', message: result.message || t('contact.success') });
         setFormData({ name: '', email: '', message: '' });
       } else {
-        setSubmitStatus({ type: 'error', message: result.error || '提交失敗，請稍後再試' });
+        setSubmitStatus({ type: 'error', message: result.error || t('contact.error') });
       }
     } catch (error) {
-      setSubmitStatus({ type: 'error', message: '網路連線錯誤，請檢查網路狀態' });
+      setSubmitStatus({ type: 'error', message: t('contact.networkError') });
     } finally {
       setIsSubmitting(false);
     }
@@ -48,20 +50,19 @@ const Contact: React.FC<ContactProps> = ({ onOpenChat }) => {
     <section id="contact" className="py-32 relative bg-white">
       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
         <div>
-          <h2 className="text-xs tracking-[0.3em] text-[#D4A373] uppercase mb-6 font-bold">Deploy AI</h2>
+          <h2 className="text-xs tracking-[0.3em] text-[#D4A373] uppercase mb-6 font-bold">{t('contact.badge')}</h2>
           <h3 className="text-4xl md:text-6xl font-bold mb-8 leading-tight text-[#2C2420] font-serif">
-            啟動您的<br />數位萃取計劃
+            {t('contact.title1')}<br />{t('contact.title2')}
           </h3>
           <p className="text-xl text-[#2C2420]/60 mb-12 font-light leading-relaxed">
-            這不是一般的軟體採購，而是一場改變決策品質的 AI 革命。
-            立即與我們的戰略顧問進行模型校準。
+            {t('contact.description')}
           </p>
 
           <form className="space-y-6 max-w-md" onSubmit={handleSubmit}>
             <div className="grid grid-cols-2 gap-4">
               <input
                 type="text"
-                placeholder="您的姓名"
+                placeholder={t('contact.name')}
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 disabled={isSubmitting}
@@ -69,7 +70,7 @@ const Contact: React.FC<ContactProps> = ({ onOpenChat }) => {
               />
               <input
                 type="email"
-                placeholder="電子郵件"
+                placeholder={t('contact.email')}
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 disabled={isSubmitting}
@@ -77,7 +78,7 @@ const Contact: React.FC<ContactProps> = ({ onOpenChat }) => {
               />
             </div>
             <textarea
-              placeholder="戰略需求詳述"
+              placeholder={t('contact.message')}
               rows={4}
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -99,7 +100,7 @@ const Contact: React.FC<ContactProps> = ({ onOpenChat }) => {
               disabled={isSubmitting}
               className="w-full py-5 bg-[#2C2420] text-white font-bold uppercase tracking-widest rounded-xl hover:bg-[#D4A373] transition-all text-sm shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isSubmitting ? '發送中...' : '送出部署請求'}
+              {isSubmitting ? t('contact.submitting') : t('contact.submit')}
             </button>
           </form>
         </div>
@@ -111,13 +112,13 @@ const Contact: React.FC<ContactProps> = ({ onOpenChat }) => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
               </svg>
             </div>
-            <h4 className="text-2xl font-bold mb-4 text-[#2C2420] font-serif">預約語音 AI 戰略對談</h4>
+            <h4 className="text-2xl font-bold mb-4 text-[#2C2420] font-serif">{t('contact.voiceTitle')}</h4>
             <p className="text-[#2C2420]/60 font-light mb-8 max-w-xs mx-auto">
-              透過我們的聲線對沖系統進行初步諮詢，感受 24H 永不疲倦的 AI 智慧服務。
+              {t('contact.voiceDesc')}
             </p>
             <div className="flex flex-col items-center space-y-4">
               <button className="px-10 py-3 bg-[#FAF9F6] border border-[#D4A373]/30 text-[#D4A373] uppercase text-xs tracking-widest font-bold rounded-full hover:bg-[#D4A373] hover:text-white transition-all">
-                啟動語音對話系統
+                {t('contact.voiceCta')}
               </button>
             </div>
           </div>

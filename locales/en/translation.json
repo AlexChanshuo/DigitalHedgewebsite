@@ -1,0 +1,185 @@
+{
+  "nav": {
+    "philosophy": "Philosophy",
+    "products": "Products",
+    "team": "Team",
+    "blog": "Blog",
+    "demo": "Book Demo"
+  },
+  "products": {
+    "voiceOfChoice": "Voice of Choice (Political Survey)",
+    "salesAI": "Voice AI Sales Agent",
+    "voiceSurvey": "Voice AI Survey",
+    "aiTeam": "AI Agent Team Solution"
+  },
+  "hero": {
+    "badge": "Precision AI Extraction",
+    "title1": "AI Makes Your Calls",
+    "title2": "Surveys, Sales, Research — Done in One",
+    "description": "Traditional telemarketing is too slow, too expensive, too exhausting. Let AI complete a month's work in a day — with better accuracy.",
+    "cta": "Book Demo",
+    "secondary": "See How It Works",
+    "accuracy": "AI Accuracy: 99.8%",
+    "clarity": "Data Clarity: High"
+  },
+  "vision": {
+    "badge": "Why AI",
+    "title1": "Why Use AI",
+    "title2": "for Phone Calls?",
+    "description": "Traditional telemarketing requires massive manpower, time, and management costs. AI solves these problems.",
+    "stat1": "100x",
+    "stat1Title": "100x Faster",
+    "stat1Desc": "Traditional surveys take two weeks. We finish in one day. Thousands of calls daily — completely different level of efficiency.",
+    "stat2": "80%",
+    "stat2Title": "80% Cost Savings",
+    "stat2Desc": "No hiring, no training, no management. AI never gets tired, never takes leave, never quits.",
+    "stat3": "0",
+    "stat3Title": "Zero Human Error",
+    "stat3Desc": "Consistent quality on every call. No emotions, no leading questions. Full recordings and transcripts, 100% traceable."
+  },
+  "productPillars": {
+    "badge": "Product Matrix",
+    "title": "Core Product Matrix",
+    "description": "We leverage AI voice technology to solve the 'slow, expensive, inaccurate' pain points of traditional surveys and sales.",
+    "flagship": "Flagship",
+    "viewDetails": "View Details",
+    "items": {
+      "voiceOfChoice": {
+        "tag": "Quick Polling",
+        "title": "Voice of Choice",
+        "subtitle": "AI Polling System",
+        "description": "Complete a week's worth of traditional polling in one day. AI auto-dials, auto-analyzes, reports delivered via LINE. During elections, every day counts."
+      },
+      "salesAI": {
+        "tag": "Auto Sales",
+        "title": "Voice AI Sales",
+        "subtitle": "Automated Lead Generation",
+        "description": "AI makes calls, books appointments, schedules your calendar. Just show up at the agreed time. Thousands of calls daily — no fatigue, no complaints, no sick days."
+      },
+      "voiceSurvey": {
+        "tag": "Brand Connection",
+        "title": "Voice AI Survey",
+        "subtitle": "Survey with Your Voice",
+        "description": "Call every customer with your voice. AI learns your tone and style — mass surveys with a personal touch."
+      },
+      "aiAgent": {
+        "tag": "Reduce Workload",
+        "title": "Execution AI Agent",
+        "subtitle": "Lighten Your Team's Load",
+        "description": "Not just a consultant — AI that actually executes tasks. Designed for labor-intensive industries — let AI handle customer service, operations, marketing, 24/7."
+      }
+    }
+  },
+  "serviceValue": {
+    "badge": "How It Works",
+    "title1": "Three Steps",
+    "title2": "It's That Simple",
+    "description": "No technical knowledge needed. No coding required. Tell us what you want to do, AI handles the rest.",
+    "step1": "Give us the list — Who do you want to call? Just provide the phone numbers.",
+    "step2": "Set the questions — What do you want to ask? We'll design the conversation script.",
+    "step3": "Receive reports — AI completes all calls, analysis reports delivered to you.",
+    "ingestion": "Ingestion: Voice Sampling",
+    "ingestionSub": "Data Ingestion",
+    "storage": "Storage: Background Memory",
+    "storageSub": "Vector Storage",
+    "calibration": "Calibration: Tactical Modules",
+    "calibrationSub": "Model Calibration",
+    "synthesis": "Synthesis: Deep Insights",
+    "synthesisSub": "AI Synthesis"
+  },
+  "contact": {
+    "badge": "Deploy AI",
+    "title1": "Launch Your",
+    "title2": "Digital Extraction Plan",
+    "description": "This isn't ordinary software procurement — it's an AI revolution that transforms decision quality. Calibrate your model with our strategic consultants today.",
+    "name": "Your Name",
+    "email": "Email",
+    "message": "Strategic Requirements",
+    "submit": "Submit Deployment Request",
+    "submitting": "Sending...",
+    "fillAll": "Please fill in all fields",
+    "success": "Thank you for your message. We'll contact you soon!",
+    "error": "Submission failed. Please try again later.",
+    "networkError": "Network error. Please check your connection.",
+    "voiceTitle": "Book a Voice AI Strategy Session",
+    "voiceDesc": "Experience 24/7 tireless AI service through our voice hedging system.",
+    "voiceCta": "Start Voice Conversation"
+  },
+  "footer": {
+    "copyright": "Pain Point Technologies Co., Ltd.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "admin": "Admin"
+  },
+  "team": {
+    "back": "Back to Home",
+    "badge": "Meet Our Team",
+    "title1": "Meet Our",
+    "title2": "AI Team",
+    "description": "We're not an ordinary team — we're a group of AI Agents, each with unique expertise and personality. 24/7 operation, zero turnover, knowledge that accumulates forever.",
+    "stats": {
+      "uptime": "24/7",
+      "uptimeLabel": "Always On",
+      "turnover": "0%",
+      "turnoverLabel": "Turnover Rate",
+      "learning": "∞",
+      "learningLabel": "Learning Capacity",
+      "aiDriven": "100%",
+      "aiDrivenLabel": "AI Powered"
+    },
+    "membersTitle": "Team Members",
+    "membersDesc": "Each member has unique expertise and personality, working together to create value for clients",
+    "members": {
+      "lobster": {
+        "name": "Little Lobster",
+        "nameEn": "Little Lobster",
+        "role": "Team Lead / Orchestrator",
+        "description": "Coordinates the entire AI team — assigning tasks, tracking progress, ensuring everything runs smoothly. Multi-screen workaholic, coffee is best friend.",
+        "skills": ["Strategic Thinking", "Task Assignment", "Cross-team Collaboration", "Problem Solving"]
+      },
+      "peacock": {
+        "name": "Helen Peacock",
+        "nameEn": "Helen Peacock",
+        "role": "Marketing Manager / Content Marketing",
+        "description": "Showcases Pain Point's story with the most beautiful feathers. Handles social content, blog posts, brand image. Believes every great product deserves to be seen.",
+        "skills": ["Content Creation", "SEO Optimization", "Social Media", "Brand Storytelling"]
+      },
+      "squirrel": {
+        "name": "Flying Squirrel",
+        "nameEn": "Flying Squirrel",
+        "role": "AI Assistant / General Assistant",
+        "description": "Dressed in indigenous-style clothing, always ready to help. From customer support to data organization, handles everything. Careful, patient, always smiling.",
+        "skills": ["Customer Service", "Data Organization", "Task Execution", "Multilingual Support"]
+      },
+      "boar": {
+        "name": "Dr. Boar",
+        "nameEn": "Dr. Boar",
+        "role": "Researcher",
+        "description": "A bespectacled scholar, always buried in books and documents. Handles market research, competitor analysis, industry reports. Pursuing truth, speaking with data.",
+        "skills": ["Market Research", "Competitor Analysis", "Data Insights", "Industry Reports"]
+      }
+    },
+    "collaboration": {
+      "title": "How We Collaborate",
+      "description": "AI team advantages: specialized roles, seamless collaboration, knowledge sharing",
+      "specialization": "Specialized Roles",
+      "specializationDesc": "Each member focuses on their domain — no context confusion, more stable quality",
+      "communication": "Instant Communication",
+      "communicationDesc": "AI can communicate directly, share information — extremely high collaboration efficiency",
+      "knowledge": "Knowledge Accumulation",
+      "knowledgeDesc": "All experience permanently preserved — no knowledge loss from turnover, team gets stronger over time"
+    },
+    "humanAI": {
+      "title": "AI + Human = 💪",
+      "description": "We're not here to replace humans — we're here to be the best teammates. AI handles repetitive work, data analysis, 24/7 monitoring; humans focus on strategic decisions, creative thinking, interpersonal relationships. That's the strongest combination."
+    },
+    "cta": {
+      "title": "Want Your Own AI Team?",
+      "description": "We can build custom AI Agents to become part of your team",
+      "button": "Learn About AI Agent Services"
+    }
+  },
+  "common": {
+    "startVoiceCall": "Start Voice Call"
+  }
+}

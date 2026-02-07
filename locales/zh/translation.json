@@ -1,0 +1,185 @@
+{
+  "nav": {
+    "philosophy": "品牌哲學",
+    "products": "產品矩陣",
+    "team": "團隊介紹",
+    "blog": "部落格",
+    "demo": "預約演示"
+  },
+  "products": {
+    "voiceOfChoice": "民選之聲 (Political Survey)",
+    "salesAI": "語音 AI 業務 (Sales Agent)",
+    "voiceSurvey": "語音 AI 調查 (Voice Survey)",
+    "aiTeam": "AI Agent 團隊方案"
+  },
+  "hero": {
+    "badge": "Precision AI Extraction",
+    "title1": "AI 幫你打電話",
+    "title2": "民調、銷售、調查，一通搞定",
+    "description": "傳統電話行銷太慢、太貴、太累。讓 AI 一天打完你一個月的量，還更準確。",
+    "cta": "預約 Demo",
+    "secondary": "看看怎麼做",
+    "accuracy": "AI Accuracy: 99.8%",
+    "clarity": "Data Clarity: High"
+  },
+  "vision": {
+    "badge": "Why AI",
+    "title1": "為什麼用 AI",
+    "title2": "打電話？",
+    "description": "傳統電話行銷需要大量人力、時間和管理成本。AI 可以解決這些問題。",
+    "stat1": "100x",
+    "stat1Title": "快 100 倍",
+    "stat1Desc": "傳統民調要兩週，我們一天搞定。一天處理數千通電話，效率完全不同等級。",
+    "stat2": "80%",
+    "stat2Title": "省 80% 成本",
+    "stat2Desc": "不用請人、不用培訓、不用管理。AI 不會累、不會請假、不會離職。",
+    "stat3": "0",
+    "stat3Title": "0 人為誤差",
+    "stat3Desc": "每通電話品質一致，不會情緒化，不會誘導回答。全程錄音和文字紀錄，100% 可追溯。"
+  },
+  "productPillars": {
+    "badge": "Product Matrix",
+    "title": "核心產品矩陣",
+    "description": "我們利用 AI 語音技術解決傳統調查與業務開發的「慢、貴、不準」三大痛點。",
+    "flagship": "Flagship",
+    "viewDetails": "查看功能詳情",
+    "items": {
+      "voiceOfChoice": {
+        "tag": "快速民調",
+        "title": "民選之聲",
+        "subtitle": "AI 民調系統",
+        "description": "一天完成傳統民調一週的工作。AI 自動撥打、自動分析、報告直送 LINE。選戰期間，每一天都是關鍵。"
+      },
+      "salesAI": {
+        "tag": "自動銷售",
+        "title": "語音 AI 業務",
+        "subtitle": "自動開發客戶",
+        "description": "AI 幫你打電話、約客戶、排進行事曆。你只需要在約好的時間出現就好。一天處理千通電話，不累、不抱怨、不請假。"
+      },
+      "voiceSurvey": {
+        "tag": "品牌連結",
+        "title": "語音 AI 調查",
+        "subtitle": "用你的聲音調查",
+        "description": "用你的聲音打給每一位客戶。AI 學習你的聲音與語氣，大規模調查但保持一對一的溫度。"
+      },
+      "aiAgent": {
+        "tag": "減輕人力",
+        "title": "執行型 AI Agent",
+        "subtitle": "減輕人力負擔",
+        "description": "不只是顧問，是真正能執行任務的 AI。專為重人力產業設計——讓 AI 接手客服、營運、行銷等重複性工作，24/7 不間斷。"
+      }
+    }
+  },
+  "serviceValue": {
+    "badge": "How It Works",
+    "title1": "三步驟",
+    "title2": "就這麼簡單",
+    "description": "不需要懂技術，不需要寫程式。告訴我們你要做什麼，剩下的交給 AI。",
+    "step1": "給我們名單 — 你要打給誰？電話號碼給我們就好。",
+    "step2": "設定問題 — 你想問什麼？我們幫你設計對話腳本。",
+    "step3": "收報告 — AI 自動打完，分析報告直接送到你手上。",
+    "ingestion": "攝取：聲線採樣",
+    "ingestionSub": "Data Ingestion",
+    "storage": "封存：背景記憶",
+    "storageSub": "Vector Storage",
+    "calibration": "校準：戰術模組",
+    "calibrationSub": "Model Calibration",
+    "synthesis": "合成：深度洞察",
+    "synthesisSub": "AI Synthesis"
+  },
+  "contact": {
+    "badge": "Deploy AI",
+    "title1": "啟動您的",
+    "title2": "數位萃取計劃",
+    "description": "這不是一般的軟體採購，而是一場改變決策品質的 AI 革命。立即與我們的戰略顧問進行模型校準。",
+    "name": "您的姓名",
+    "email": "電子郵件",
+    "message": "戰略需求詳述",
+    "submit": "送出部署請求",
+    "submitting": "發送中...",
+    "fillAll": "請填寫所有欄位",
+    "success": "感謝您的訊息，我們會盡快與您聯繫！",
+    "error": "提交失敗，請稍後再試",
+    "networkError": "網路連線錯誤，請檢查網路狀態",
+    "voiceTitle": "預約語音 AI 戰略對談",
+    "voiceDesc": "透過我們的聲線對沖系統進行初步諮詢，感受 24H 永不疲倦的 AI 智慧服務。",
+    "voiceCta": "啟動語音對話系統"
+  },
+  "footer": {
+    "copyright": "Pain Point Technologies Co., Ltd. 痛點科技",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "admin": "Admin"
+  },
+  "team": {
+    "back": "返回首頁",
+    "badge": "Meet Our Team",
+    "title1": "認識我們的",
+    "title2": "AI 團隊",
+    "description": "我們不是普通的團隊 — 我們是一群 AI Agent，各有專長、各有個性。24/7 運作，永不離職，知識永久累積。",
+    "stats": {
+      "uptime": "24/7",
+      "uptimeLabel": "全年無休",
+      "turnover": "0%",
+      "turnoverLabel": "離職率",
+      "learning": "∞",
+      "learningLabel": "學習能力",
+      "aiDriven": "100%",
+      "aiDrivenLabel": "AI 驅動"
+    },
+    "membersTitle": "團隊成員",
+    "membersDesc": "每位成員都有獨特的專長和個性，一起為客戶創造價值",
+    "members": {
+      "lobster": {
+        "name": "小龍蝦",
+        "nameEn": "Little Lobster",
+        "role": "團隊領導 / Orchestrator",
+        "description": "負責協調整個 AI 團隊，分配任務、追蹤進度、確保所有事情順利運行。多螢幕工作狂，咖啡是最好的朋友。",
+        "skills": ["策略思考", "任務分配", "跨團隊協作", "問題解決"]
+      },
+      "peacock": {
+        "name": "Helen Peacock",
+        "nameEn": "Helen Peacock",
+        "role": "行銷經理 / Content Marketing",
+        "description": "用最美的羽毛展示 Pain Point 的故事。負責社群內容、Blog 文章、品牌形象。相信每個好產品都值得被看見。",
+        "skills": ["內容創作", "SEO 優化", "社群經營", "品牌故事"]
+      },
+      "squirrel": {
+        "name": "飛鼠",
+        "nameEn": "Flying Squirrel",
+        "role": "AI 助理 / General Assistant",
+        "description": "穿著原住民風格的服裝，隨時準備好幫忙。從客戶支援到資料整理，什麼都能處理。細心、耐心、永遠帶著微笑。",
+        "skills": ["客戶服務", "資料整理", "任務執行", "多語言支援"]
+      },
+      "boar": {
+        "name": "山豬博士",
+        "nameEn": "Dr. Boar",
+        "role": "研究員 / Researcher",
+        "description": "戴著眼鏡的學者，總是埋首在書堆和文件中。負責市場調研、競品分析、產業報告。追求真相，用數據說話。",
+        "skills": ["市場調研", "競品分析", "數據洞察", "產業報告"]
+      }
+    },
+    "collaboration": {
+      "title": "我們如何協作",
+      "description": "AI 團隊的優勢：專業分工、無縫協作、知識共享",
+      "specialization": "專業分工",
+      "specializationDesc": "每位成員專注自己的領域，不會 context 混亂，品質更穩定",
+      "communication": "即時溝通",
+      "communicationDesc": "AI 之間可以直接對話、傳遞資訊，協作效率極高",
+      "knowledge": "知識累積",
+      "knowledgeDesc": "所有經驗永久保存，不會因為離職而流失，團隊越來越強"
+    },
+    "humanAI": {
+      "title": "AI + Human = 💪",
+      "description": "我們不是要取代人類，而是成為最好的隊友。AI 處理重複性工作、資料分析、24/7 監控；人類專注策略決策、創意發想、人際關係。這才是最強的組合。"
+    },
+    "cta": {
+      "title": "想要擁有自己的 AI 團隊？",
+      "description": "我們可以幫你打造專屬的 AI Agent，成為你團隊的一員",
+      "button": "了解 AI Agent 服務"
+    }
+  },
+  "common": {
+    "startVoiceCall": "開始語音通話"
+  }
+}

@@ -1,10 +1,13 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface FooterProps {
   onAdminLogin?: () => void;
 }
 
 const Footer: React.FC<FooterProps> = ({ onAdminLogin }) => {
+  const { t } = useTranslation();
+  
   return (
     <footer className="py-16 bg-[#2C2420] text-[#FAF9F6]">
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
@@ -14,17 +17,17 @@ const Footer: React.FC<FooterProps> = ({ onAdminLogin }) => {
         </div>
         
         <div className="text-xs text-[#FAF9F6]/50 tracking-widest uppercase">
-          © {new Date().getFullYear()} Pain Point Technologies Co., Ltd. 痛點科技
+          © {new Date().getFullYear()} {t('footer.copyright')}
         </div>
 
         <div className="flex space-x-8 text-xs text-[#FAF9F6]/60 uppercase tracking-widest font-medium">
-          <a href="#" className="hover:text-[#D4A373] transition-colors">Privacy Policy</a>
-          <a href="#" className="hover:text-[#D4A373] transition-colors">Terms of Service</a>
+          <a href="#" className="hover:text-[#D4A373] transition-colors">{t('footer.privacy')}</a>
+          <a href="#" className="hover:text-[#D4A373] transition-colors">{t('footer.terms')}</a>
           <button 
             onClick={() => window.location.href = '/login'}
             className="hover:text-[#D4A373] transition-colors"
           >
-            Admin
+            {t('footer.admin')}
           </button>
         </div>
       </div>

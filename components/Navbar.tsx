@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Page } from '../App';
+import LanguageSwitcher from './LanguageSwitcher';
 
 interface NavbarProps {
   isScrolled: boolean;
@@ -9,14 +11,15 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ isScrolled, currentPage, onNavigate, onOpenConsulting }) => {
+  const { t } = useTranslation();
   const [showDropdown, setShowDropdown] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const products = [
-    { id: 'voice-of-choice', name: '民選之聲 (Political Survey)' },
-    { id: 'sales-ai', name: '語音 AI 業務 (Sales Agent)' },
-    { id: 'voice-survey', name: '語音 AI 調查 (Voice Survey)' },
-    { id: 'ai-team', name: 'AI Agent 團隊方案' },
+    { id: 'voice-of-choice', name: t('products.voiceOfChoice') },
+    { id: 'sales-ai', name: t('products.salesAI') },
+    { id: 'voice-survey', name: t('products.voiceSurvey') },
+    { id: 'ai-team', name: t('products.aiTeam') },
   ];
 
   const handleMobileNavigate = (page: Page) => {
@@ -37,7 +40,7 @@ const Navbar: React.FC<NavbarProps> = ({ isScrolled, currentPage, onNavigate, on
         
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-10 text-sm font-medium items-center text-[#2C2420]/70">
-          <button onClick={() => onNavigate('home')} className={`hover:text-[#D4A373] transition-colors ${currentPage === 'home' ? 'text-[#D4A373]' : ''}`}>品牌哲學</button>
+          <button onClick={() => onNavigate('home')} className={`hover:text-[#D4A373] transition-colors ${currentPage === 'home' ? 'text-[#D4A373]' : ''}`}>{t('nav.philosophy')}</button>
           
           <div 
             className="relative"
@@ -45,7 +48,7 @@ const Navbar: React.FC<NavbarProps> = ({ isScrolled, currentPage, onNavigate, on
             onMouseLeave={() => setShowDropdown(false)}
           >
             <button className={`hover:text-[#D4A373] transition-colors flex items-center space-x-1 h-full py-2 ${['voice-of-choice', 'sales-ai', 'voice-survey', 'ai-team'].includes(currentPage) ? 'text-[#D4A373]' : ''}`}>
-              <span>產品矩陣</span>
+              <span>{t('nav.products')}</span>
               <svg className={`w-3 h-3 transition-transform duration-300 ${showDropdown ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
               </svg>
@@ -75,14 +78,14 @@ const Navbar: React.FC<NavbarProps> = ({ isScrolled, currentPage, onNavigate, on
             onClick={() => onNavigate('team')} 
             className={`hover:text-[#D4A373] transition-colors ${currentPage === 'team' ? 'text-[#D4A373]' : ''}`}
           >
-            團隊介紹
+            {t('nav.team')}
           </button>
 
           <button 
             onClick={() => onNavigate('blog')} 
             className={`hover:text-[#D4A373] transition-colors ${currentPage === 'blog' || currentPage === 'blog-post' ? 'text-[#D4A373]' : ''}`}
           >
-            部落格
+            {t('nav.blog')}
           </button>
 
         </div>
@@ -106,12 +109,17 @@ const Navbar: React.FC<NavbarProps> = ({ isScrolled, currentPage, onNavigate, on
             )}
           </button>
 
+          {/* Language Switcher */}
+          <div className="hidden md:block">
+            <LanguageSwitcher />
+          </div>
+
           {/* CTA Button */}
           <button 
             onClick={onOpenConsulting}
             className="px-6 py-2.5 bg-[#2C2420] hover:bg-[#D4A373] text-[#FAF9F6] transition-all rounded-full text-sm font-medium shadow-lg hover:shadow-[#D4A373]/30"
           >
-            預約演示
+            {t('nav.demo')}
           </button>
         </div>
       </div>
@@ -125,12 +133,12 @@ const Navbar: React.FC<NavbarProps> = ({ isScrolled, currentPage, onNavigate, on
             onClick={() => handleMobileNavigate('home')}
             className={`block w-full text-left px-4 py-3 rounded-lg transition-colors ${currentPage === 'home' ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-[#2C2420] hover:bg-[#D4A373]/10'}`}
           >
-            品牌哲學
+            {t('nav.philosophy')}
           </button>
 
           {/* Products Section */}
           <div className="px-4 py-2">
-            <div className="text-xs uppercase tracking-wider text-[#2C2420]/50 mb-2">產品矩陣</div>
+            <div className="text-xs uppercase tracking-wider text-[#2C2420]/50 mb-2">{t('nav.products')}</div>
             {products.map(p => (
               <button 
                 key={p.id}
@@ -146,15 +154,20 @@ const Navbar: React.FC<NavbarProps> = ({ isScrolled, currentPage, onNavigate, on
             onClick={() => handleMobileNavigate('team')}
             className={`block w-full text-left px-4 py-3 rounded-lg transition-colors ${currentPage === 'team' ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-[#2C2420] hover:bg-[#D4A373]/10'}`}
           >
-            團隊介紹
+            {t('nav.team')}
           </button>
 
           <button 
             onClick={() => handleMobileNavigate('blog')}
             className={`block w-full text-left px-4 py-3 rounded-lg transition-colors ${currentPage === 'blog' || currentPage === 'blog-post' ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-[#2C2420] hover:bg-[#D4A373]/10'}`}
           >
-            部落格
+            {t('nav.blog')}
           </button>
+
+          {/* Mobile Language Switcher */}
+          <div className="px-4 py-3">
+            <LanguageSwitcher />
+          </div>
         </div>
       </div>
     </nav>

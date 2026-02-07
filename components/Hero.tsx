@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import AIGeneratedImage from './AIGeneratedImage';
 
 interface HeroProps {
@@ -6,6 +7,8 @@ interface HeroProps {
 }
 
 const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
+  const { t } = useTranslation();
+  
   return (
     <section className="relative min-h-[90vh] flex items-center pt-20 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-20 items-center">
@@ -14,17 +17,16 @@ const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
         <div className="relative z-10 animate-in slide-in-from-left duration-1000">
           <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#E0E0E0]/30 text-[#2C2420] text-[10px] uppercase tracking-widest font-bold mb-8 border border-[#D4A373]/30">
             <span className="w-1.5 h-1.5 rounded-full bg-[#D4A373]"></span>
-            <span>Precision AI Extraction</span>
+            <span>{t('hero.badge')}</span>
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-[1.1] text-[#2C2420] tracking-tight">
-            AI 幫你打電話 <br />
-            <span className="text-[#D4A373]">民調、銷售、調查，一通搞定</span>
+            {t('hero.title1')} <br />
+            <span className="text-[#D4A373]">{t('hero.title2')}</span>
           </h1>
 
           <p className="text-xl text-[#2C2420]/60 mb-10 leading-relaxed font-light max-w-lg">
-            傳統電話行銷太慢、太貴、太累。
-            讓 AI 一天打完你一個月的量，還更準確。
+            {t('hero.description')}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4">
@@ -32,21 +34,21 @@ const Hero: React.FC<HeroProps> = ({ onOpenDemo }) => {
               onClick={onOpenDemo}
               className="px-8 py-4 bg-[#D4A373] hover:bg-[#B08968] text-white rounded-full font-medium transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 flex items-center justify-center space-x-2"
             >
-              <span>預約 Demo</span>
+              <span>{t('hero.cta')}</span>
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
             </button>
             <button
               onClick={onOpenDemo}
               className="px-8 py-4 bg-transparent border border-[#2C2420]/20 hover:border-[#D4A373] text-[#2C2420] hover:text-[#D4A373] rounded-full font-medium transition-all flex items-center justify-center"
             >
-              看看怎麼做
+              {t('hero.secondary')}
             </button>
           </div>
 
           <div className="mt-12 border-t border-[#2C2420]/10 pt-6 flex items-center space-x-6 text-xs text-[#2C2420]/40 uppercase tracking-widest font-medium">
-            <span>AI Accuracy: 99.8%</span>
+            <span>{t('hero.accuracy')}</span>
             <span className="w-1 h-1 bg-[#D4A373] rounded-full"></span>
-            <span>Data Clarity: High</span>
+            <span>{t('hero.clarity')}</span>
           </div>
         </div>
 

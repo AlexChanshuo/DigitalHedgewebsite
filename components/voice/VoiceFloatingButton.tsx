@@ -1,5 +1,6 @@
 // components/voice/VoiceFloatingButton.tsx
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface VoiceFloatingButtonProps {
   onClick: () => void;
@@ -20,6 +21,8 @@ const VoiceFloatingButton: React.FC<VoiceFloatingButtonProps> = ({
   isActive,
   disabled = false
 }) => {
+  const { t } = useTranslation();
+  
   return (
     <button
       onClick={onClick}
@@ -36,7 +39,7 @@ const VoiceFloatingButton: React.FC<VoiceFloatingButtonProps> = ({
             : 'bg-[#2C2420] hover:bg-[#D4A373] hover:scale-105'
         }
       `}
-      aria-label={isActive ? '語音通話進行中' : '開始語音通話'}
+      aria-label={t('common.startVoiceCall')}
     >
       {/* Microphone Icon */}
       <svg
