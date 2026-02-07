@@ -180,6 +180,243 @@
     }
   },
   "common": {
-    "startVoiceCall": "Start Voice Call"
+    "backToProducts": "Back to Products",
+    "backToHome": "Back to Home",
+    "startVoiceCall": "Start Voice Call",
+    "learnMore": "Learn More",
+    "bookDemo": "Book Free Consultation"
+  },
+  "pages": {
+    "voiceOfChoice": {
+      "badge": "Political Survey System",
+      "title1": "Voice of Choice",
+      "title2": "AI Political Survey",
+      "description": "AI-powered automated phone survey system designed for elections. We solve the traditional polling pain points of slow speed, high costs, and human errors. The system can make mass calls to designated regions, conduct standardized questionnaires via AI, transcribe all conversations verbatim, and deliver analysis reports instantly via LINE.",
+      "features": {
+        "transcripts": "Verbatim Transcripts",
+        "targeting": "Precise Regional Targeting",
+        "lineReport": "Instant LINE Reports"
+      },
+      "whyAI": "Why Choose AI Polling?",
+      "painPoints": {
+        "title": "Traditional Polling Pain Points",
+        "slow": "Too Slow:",
+        "slowDesc": "Completing a valid sample report often takes weeks, unable to reflect real-time public sentiment.",
+        "error": "Human Errors & Costs:",
+        "errorDesc": "High training costs for interviewers, prone to emotional bias and leading questions.",
+        "opaque": "Opaque Data:",
+        "opaqueDesc": "Lack of transcripts makes it hard to verify interview details, analysis remains superficial."
+      },
+      "advantages": {
+        "title": "Voice of Choice AI Advantages",
+        "fast": "Lightning Fast:",
+        "fastDesc": "Complete thousands of valid sample calls within hours, full report within a day.",
+        "transcript": "Complete Transcripts:",
+        "transcriptDesc": "AI automatically transcribes every call, tags keywords and emotions, precise and traceable data.",
+        "line": "LINE Integration:",
+        "lineDesc": "Analysis results pushed directly to your LINE, monitor latest campaign dynamics from your phone."
+      },
+      "process": {
+        "title": "AI Polling Workflow",
+        "step1": "List & Region Setup",
+        "step1Desc": "Import designated cities or phone segments",
+        "step2": "AI Auto-Dialing",
+        "step2Desc": "High-concurrency calls, standardized questions",
+        "step3": "Full Transcription",
+        "step3Desc": "Speech-to-text, emotion tagging",
+        "step4": "LINE Report Output",
+        "step4Desc": "Receive PDFs and charts instantly"
+      }
+    },
+    "salesAI": {
+      "badge": "Voice AI Sales Agent",
+      "title1": "Voice AI Sales",
+      "title2": "& Customer Service System",
+      "description": "A super salesperson designed for customer reactivation and product recommendations. Tireless, emotionless, and can automatically book interested customers directly into your calendar.",
+      "tags": ["Auto-dial Lead Gen", "Calendar Integration", "Zero Emotional Burnout"],
+      "features": {
+        "calendar": {
+          "title": "Auto-Booking & Calendar Integration",
+          "desc": "More than just calling. When customers express interest, AI can verify times directly with them and instantly write meetings or trial sessions to your Google/Outlook calendar. Sales reps just need to show up at the scheduled time."
+        },
+        "emotion": {
+          "title": "Eliminate 'Emotional Labor' & Burnout",
+          "desc": "Human salespeople get exhausted after 50 daily calls and fear rejection. AI can make thousands of calls daily, maintaining perfect courtesy and enthusiasm despite rejection, drastically reducing turnover and management costs."
+        }
+      },
+      "useCases": {
+        "title": "Use Cases",
+        "recall": {
+          "title": "Customer Reactivation",
+          "desc": "Push new product announcements or promotions to dormant customer lists — wake-up rates far exceed SMS."
+        },
+        "booking": {
+          "title": "Trial Class Booking",
+          "desc": "Education, gyms, or medical aesthetics — automatically invite customers to book trial sessions with confirmed times."
+        },
+        "satisfaction": {
+          "title": "Satisfaction Surveys",
+          "desc": "Automatic post-sale follow-up, collect real feedback, and instantly notify managers when negative reviews are detected."
+        }
+      }
+    },
+    "voiceSurvey": {
+      "badge": "Voice AI Survey",
+      "title1": "Voice AI Survey System",
+      "title2": "CEO Insight Cloning",
+      "description": "Market research shouldn't be cold questionnaires. We combine AI voice cloning technology to let your voice personally call each customer, collecting first-hand authentic feedback while strengthening your personal brand influence.",
+      "tags": ["AI Voice Cloning", "Emotion Data Analysis", "Mass Outbound Calls"],
+      "features": {
+        "clone": {
+          "title": "CEO Brand AI Avatar",
+          "desc": "Traditional student callers get hung up on. But when customers hear the familiar voice and sincere tone of 'the boss calling personally,' answer rates and engagement willingness surge. AI can perfectly replicate your voice, tone, and even pause habits."
+        },
+        "emotion": {
+          "title": "Capture First-Hand Emotional Data",
+          "desc": "Written surveys are cold, but voice holds the truth. AI can analyze customers' tones, hesitations, and emotional fluctuations during conversations. We provide not just 'satisfied/dissatisfied' options, but deep insights into customers' true feelings."
+        }
+      },
+      "useCases": {
+        "title": "Deep Application Scenarios",
+        "validation": {
+          "title": "Pre-Launch Market Validation",
+          "desc": "Before large-scale product launches, rapidly call thousands of potential audiences via AI to collect direct market reactions and adjust marketing strategies."
+        },
+        "founder": {
+          "title": "Founder's Call",
+          "desc": "During holidays or anniversaries, personally call VIP customers with the founder's voice to express gratitude. This is not just a survey, but a powerful brand PR campaign."
+        },
+        "crisis": {
+          "title": "Crisis Management",
+          "desc": "During PR crises, AI can rapidly conduct mass apologies or explanations, and collect the public's true level of forgiveness as a basis for decisions."
+        }
+      }
+    },
+    "aiAgent": {
+      "badge": "Execution Agent",
+      "title1": "Execution AI Agent",
+      "title2": "Lighten Your Workload",
+      "description": "Not just a consultant — AI that actually executes tasks. Designed for labor-intensive industries — customer service, operations, marketing, admin — let AI take over repetitive, time-consuming work.",
+      "alwaysOn": "24/7 Year-Round Operation",
+      "cta": "Learn How to Reduce Workload",
+      "painPoints": {
+        "title": "Labor-Intensive Industry Pain Points",
+        "subtitle": "The more service-oriented the industry, the higher the labor costs, harder to hire, easier to make mistakes",
+        "repetitive": "Time spent on repetitive work",
+        "response": "Customers expect instant response",
+        "cost": "Labor costs rising annually"
+      },
+      "comparison": {
+        "title": "Execution vs Consultant",
+        "subtitle": "Most AI can only give advice, but what you need is AI that can do the work",
+        "consultant": {
+          "label": "Consultant AI",
+          "title": "Can Only Advise",
+          "points": ["'You should do this...' then what?", "Still need humans to execute", "No reduction in workload"]
+        },
+        "execution": {
+          "label": "Execution AI",
+          "title": "Actually Does It",
+          "points": ["Auto-reply to customer messages", "Auto-process orders and scheduling", "Actually reduces workload"]
+        }
+      },
+      "industries": {
+        "title": "For Labor-Intensive Industries",
+        "subtitle": "The more labor-intensive the industry, the greater the benefits from AI execution",
+        "hotel": { "title": "Hotels & Lodging", "desc": "Booking confirmations, customer service, check-in guides" },
+        "restaurant": { "title": "Food & Beverage", "desc": "Reservation management, delivery coordination, customer feedback" },
+        "medical": { "title": "Medical Clinics", "desc": "Appointment scheduling, patient reminders, initial consultations" },
+        "ecommerce": { "title": "E-commerce Retail", "desc": "Order processing, logistics tracking, after-sales service" }
+      },
+      "howItWorks": {
+        "title": "How the AI Team Works",
+        "subtitle": "One commander + multiple specialized Agents, each with their role",
+        "commander": { "title": "Commander Agent", "desc": "Coordinates and dispatches tasks" },
+        "agents": {
+          "customer": { "title": "Customer Agent", "desc": "Auto-reply to customer questions" },
+          "ops": { "title": "Operations Agent", "desc": "Process orders and scheduling" },
+          "marketing": { "title": "Marketing Agent", "desc": "Content creation and publishing" },
+          "admin": { "title": "Admin Agent", "desc": "Data organization and reports" }
+        },
+        "benefits": {
+          "specialization": { "title": "Specialization", "desc": "Each Agent masters one domain" },
+          "isolation": { "title": "Risk Isolation", "desc": "One issue doesn't affect others" },
+          "memory": { "title": "Permanent Memory", "desc": "Knowledge doesn't leave with turnover" }
+        }
+      },
+      "finalCta": {
+        "title": "Let AI Take Over the Time-Consuming Work",
+        "subtitle": "Start with one Execution AI Agent and see how much manpower you can save.",
+        "button": "Book Free Assessment"
+      }
+    },
+    "aiTeam": {
+      "badge": "AI Agent Teams",
+      "title1": "Choose Your",
+      "title2": "AI Squad",
+      "description": "Not just one AI, but an entire team. Specialized roles, 24/7 operation, knowledge that accumulates forever.",
+      "stats": {
+        "agents": "Agents / Team",
+        "uptime": "Always On",
+        "knowledge": "Knowledge Accumulation",
+        "interface": "Unified Interface"
+      },
+      "chooseTeam": {
+        "title": "Choose Your Team",
+        "subtitle": "Each team is carefully designed with multiple AI Agents working in specialized roles"
+      },
+      "teams": {
+        "customerService": {
+          "name": "Customer Service Squad",
+          "nameEn": "Customer Service Squad",
+          "description": "24/7 customer support, from instant response to issue tracking, skyrocket customer satisfaction.",
+          "agents": ["Reception Bot", "Tech Support Bot", "Satisfaction Survey Bot", "Escalation Bot"],
+          "industries": ["E-commerce", "SaaS", "Service Industry"]
+        },
+        "marketing": {
+          "name": "Marketing Strike Force",
+          "nameEn": "Marketing Strike Force",
+          "description": "Content creation, SEO optimization, data analysis — end-to-end, keep your brand voice growing.",
+          "agents": ["Content Creator Bot", "SEO Analyzer Bot", "Scheduler Bot", "Analytics Bot"],
+          "industries": ["Brands", "E-commerce", "Media"]
+        },
+        "sales": {
+          "name": "Sales Development Team",
+          "nameEn": "Sales Development Team",
+          "description": "From lead mining to meeting booking, automate your sales funnel so salespeople can focus on closing.",
+          "agents": ["Lead Mining Bot", "Outreach Bot", "Follow-up Bot", "Booking Bot"],
+          "industries": ["B2B Sales", "Consulting", "Real Estate"]
+        },
+        "research": {
+          "name": "Research & Analysis Unit",
+          "nameEn": "Research & Analysis Unit",
+          "description": "Market research, competitor monitoring, trend analysis — drive your business decisions with data.",
+          "agents": ["Data Collection Bot", "Analysis Bot", "Monitoring Bot"],
+          "industries": ["Investment", "Market Research", "Strategy Consulting"]
+        }
+      },
+      "teamMembers": "Team Members",
+      "suitableFor": "Suitable Industries",
+      "custom": {
+        "title": "Custom Team",
+        "description": "Have other team combinations in mind? Tell us! We can build a custom AI Agent team based on your needs. Whether it's special industries, unique workflows, or cross-department collaboration, we can tailor it for you.",
+        "button": "Book Consultation"
+      },
+      "howItWorks": {
+        "title": "How It Works",
+        "subtitle": "From selection to launch, we're with you every step",
+        "steps": {
+          "choose": { "title": "Choose Plan", "desc": "Select your team plan or customize" },
+          "interview": { "title": "Requirements Interview", "desc": "Deep dive into your business processes and pain points" },
+          "training": { "title": "Team Training", "desc": "Train the AI team based on your data and needs" },
+          "launch": { "title": "Go Live", "desc": "Team starts working 24/7 for you" }
+        }
+      },
+      "finalCta": {
+        "title": "Ready to Build Your AI Team?",
+        "subtitle": "Book a free consultation and let us help you find the best fit",
+        "button": "Book Free Consultation"
+      }
+    }
   }
 }

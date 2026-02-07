@@ -180,6 +180,243 @@
     }
   },
   "common": {
-    "startVoiceCall": "開始語音通話"
+    "backToProducts": "Back to Products",
+    "backToHome": "返回首頁",
+    "startVoiceCall": "開始語音通話",
+    "learnMore": "了解更多",
+    "bookDemo": "預約免費諮詢"
+  },
+  "pages": {
+    "voiceOfChoice": {
+      "badge": "Political Survey System",
+      "title1": "民選之聲",
+      "title2": "Voice of Choice",
+      "description": "專為選戰設計的 AI 自動化電話民調系統。我們解決了傳統民調「速度慢、成本高、人為誤差大」的痛點。系統可針對指定縣市區域進行大量撥號，透過 AI 進行標準化問卷調查，並將所有對話轉為逐字稿，最後透過 LINE 即時傳送分析報告。",
+      "features": {
+        "transcripts": "全字稿紀錄 (Verbatim Transcripts)",
+        "targeting": "指定區域精準撥號",
+        "lineReport": "LINE 即時報告傳送"
+      },
+      "whyAI": "為什麼選擇 AI 民調？",
+      "painPoints": {
+        "title": "傳統人工民調的痛點",
+        "slow": "耗時過長：",
+        "slowDesc": "完成一份有效樣本報告往往需要數週，無法反應即時輿情。",
+        "error": "人為誤差與成本：",
+        "errorDesc": "電訪員訓練成本高，且容易受情緒影響導致紀錄偏差或誘導回答。",
+        "opaque": "數據不透明：",
+        "opaqueDesc": "缺乏逐字稿，難以驗證訪談細節，分析往往流於表面數據。"
+      },
+      "advantages": {
+        "title": "民選之聲 AI 優勢",
+        "fast": "極速完成：",
+        "fastDesc": "數小時內即可完成數千通有效樣本撥打，一天內產出完整報告。",
+        "transcript": "逐字稿全紀錄：",
+        "transcriptDesc": "AI 自動將每通電話轉為文字，並標記關鍵字與情緒，數據精準可回溯。",
+        "line": "LINE 報告整合：",
+        "lineDesc": "分析結果直接推送到您的 LINE，手機即可掌握最新選情動態。"
+      },
+      "process": {
+        "title": "AI 民調執行流程",
+        "step1": "名單與區域設定",
+        "step1Desc": "匯入指定縣市或電話區段",
+        "step2": "AI 自動撥號",
+        "step2Desc": "高併發撥打，標準化提問",
+        "step3": "全字稿轉錄",
+        "step3Desc": "語音轉文字，情緒標籤",
+        "step4": "LINE 報告輸出",
+        "step4Desc": "即時接收 PDF 與圖表"
+      }
+    },
+    "salesAI": {
+      "badge": "Voice AI Sales Agent",
+      "title1": "語音 AI 業務",
+      "title2": "& 客戶服務系統",
+      "description": "專為「舊客激活」與「產品推薦」設計的超級業務員。它不知疲倦、沒有情緒，能自動將有興趣的客戶直接預約到您的行事曆上。",
+      "tags": ["自動撥號開發", "行事曆串接", "零情緒耗損"],
+      "features": {
+        "calendar": {
+          "title": "自動預約與行事曆整合",
+          "desc": "不只是打電話。當客戶表示有興趣時，AI 能直接與客戶核對時間，並即時將會議或體驗時段寫入您的 Google/Outlook 行事曆。業務人員只需在預約好的時間出現即可。"
+        },
+        "emotion": {
+          "title": "消除「情緒勞動」與耗損",
+          "desc": "真人業務每天打 50 通電話就會疲憊、害怕被拒絕。AI 可以每天撥打數千通，面對拒絕依然保持完美禮貌與熱情，大幅降低人員流動率與管理成本。"
+        }
+      },
+      "useCases": {
+        "title": "適用場景",
+        "recall": {
+          "title": "舊客激活 (Recall)",
+          "desc": "針對沈睡客戶名單進行新品通知或優惠推播，喚醒率遠高於簡訊。"
+        },
+        "booking": {
+          "title": "體驗課預約",
+          "desc": "補教業、健身房或醫美診所，自動邀請客戶預約體驗課程並壓好時間。"
+        },
+        "satisfaction": {
+          "title": "滿意度調查",
+          "desc": "售後自動關懷，收集真實反饋，並在發現負評時即時通知主管介入。"
+        }
+      }
+    },
+    "voiceSurvey": {
+      "badge": "Voice AI Survey",
+      "title1": "語音 AI 調查系統",
+      "title2": "CEO Insight Cloning",
+      "description": "市場調查不應只是冰冷的問卷。我們結合 AI 聲線克隆技術，讓老闆的聲音親自致電給每一位客戶，在收集第一手真實反饋的同時，強化您的個人品牌影響力。",
+      "tags": ["AI 聲線克隆", "情緒數據分析", "大規模外撥"],
+      "features": {
+        "clone": {
+          "title": "CEO 品牌 AI 分身",
+          "desc": "傳統工讀生電訪容易被掛斷。但當客戶聽到的是「老闆親自致電」的熟悉聲音與誠懇語氣，接聽率與互動意願將大幅提升。AI 能完美複製您的聲線、語氣甚至停頓習慣。"
+        },
+        "emotion": {
+          "title": "獲取真實的一手情緒數據",
+          "desc": "文字問卷是冰冷的，語音卻藏著真相。AI 能在對話中分析客戶的語氣、遲疑與情緒起伏。我們提供的不只是「滿意/不滿意」的選項，而是客戶對產品真實感受的深度洞察。"
+        }
+      },
+      "useCases": {
+        "title": "深度應用場景",
+        "validation": {
+          "title": "新品上市前測 (Market Validation)",
+          "desc": "在產品大規模上市前，透過 AI 快速撥打數千通電話給潛在受眾，收集最直接的市場反應，修正行銷策略。"
+        },
+        "founder": {
+          "title": "品牌創始人關懷 (Founder's Call)",
+          "desc": "在節慶或週年慶時，用創始人的聲音親自致電 VIP 客戶表達感謝。這不僅是調查，更是一次強大的品牌公關活動。"
+        },
+        "crisis": {
+          "title": "危機處理與反饋 (Crisis Management)",
+          "desc": "當發生公關危機時，AI 能迅速進行大規模致歉或說明，並收集大眾真實的諒解程度，作為決策依據。"
+        }
+      }
+    },
+    "aiAgent": {
+      "badge": "Execution Agent",
+      "title1": "執行型 AI Agent",
+      "title2": "減輕你的人力負擔",
+      "description": "不只是顧問，是真正能執行任務的 AI。專為重人力產業設計——客服、營運、行銷、行政，讓 AI 接手那些重複性高、耗時費力的工作。",
+      "alwaysOn": "全年無休運作",
+      "cta": "了解如何減輕人力負擔",
+      "painPoints": {
+        "title": "重人力產業的痛點",
+        "subtitle": "越是需要服務的產業，人力成本越高、越難招人、越容易出錯",
+        "repetitive": "時間花在重複性工作",
+        "response": "客戶期待即時回應",
+        "cost": "人力成本逐年上漲"
+      },
+      "comparison": {
+        "title": "執行型 vs 顧問型",
+        "subtitle": "大多數 AI 只能給建議，但你需要的是能動手做事的 AI",
+        "consultant": {
+          "label": "顧問型 AI",
+          "title": "只能給建議",
+          "points": ["「你應該這樣做...」然後呢？", "還是需要人去執行", "人力負擔沒有減少"]
+        },
+        "execution": {
+          "label": "執行型 AI",
+          "title": "直接幫你做",
+          "points": ["自動回覆客戶訊息", "自動處理訂單和排程", "真正減輕人力負擔"]
+        }
+      },
+      "industries": {
+        "title": "適合重人力產業",
+        "subtitle": "越是人力密集的產業，AI 執行能帶來的效益越大",
+        "hotel": { "title": "飯店旅宿", "desc": "訂房確認、客服回覆、入住指引" },
+        "restaurant": { "title": "餐飲服務", "desc": "訂位管理、外送協調、顧客回饋" },
+        "medical": { "title": "醫療診所", "desc": "預約排程、病患提醒、初步諮詢" },
+        "ecommerce": { "title": "電商零售", "desc": "訂單處理、物流追蹤、售後服務" }
+      },
+      "howItWorks": {
+        "title": "AI 團隊如何運作",
+        "subtitle": "一個指揮官 + 多個專職 Agent，各司其職",
+        "commander": { "title": "指揮官 Agent", "desc": "統籌調度，分派任務" },
+        "agents": {
+          "customer": { "title": "客服 Agent", "desc": "自動回覆客戶問題" },
+          "ops": { "title": "營運 Agent", "desc": "處理訂單和排程" },
+          "marketing": { "title": "行銷 Agent", "desc": "內容創作和發布" },
+          "admin": { "title": "行政 Agent", "desc": "資料整理和報表" }
+        },
+        "benefits": {
+          "specialization": { "title": "專業分工", "desc": "每個 Agent 專精一個領域" },
+          "isolation": { "title": "風險隔離", "desc": "一個出問題不影響其他" },
+          "memory": { "title": "永久記憶", "desc": "知識累積不會離職帶走" }
+        }
+      },
+      "finalCta": {
+        "title": "讓 AI 接手那些耗時的工作",
+        "subtitle": "從一個執行型 AI Agent 開始，看看能省下多少人力。",
+        "button": "預約免費評估"
+      }
+    },
+    "aiTeam": {
+      "badge": "AI Agent Teams",
+      "title1": "選擇你的",
+      "title2": "AI 戰隊",
+      "description": "不是一個 AI，是一整個團隊。專業分工、24/7 運作、知識永久累積。",
+      "stats": {
+        "agents": "個 Agent / 團隊",
+        "uptime": "全年無休",
+        "knowledge": "知識累積",
+        "interface": "整合介面"
+      },
+      "chooseTeam": {
+        "title": "選擇你的團隊",
+        "subtitle": "每個團隊都經過精心設計，多個 AI Agent 各司其職、協同運作"
+      },
+      "teams": {
+        "customerService": {
+          "name": "客服戰隊",
+          "nameEn": "Customer Service Squad",
+          "description": "24/7 全天候客服支援，從即時回應到問題追蹤，讓客戶滿意度飆升。",
+          "agents": ["接待機器人", "技術支援機器人", "滿意度調查機器人", "升級處理機器人"],
+          "industries": ["電商", "SaaS", "服務業"]
+        },
+        "marketing": {
+          "name": "行銷突擊隊",
+          "nameEn": "Marketing Strike Force",
+          "description": "內容創作、SEO 優化、數據分析一條龍，讓你的品牌聲量持續成長。",
+          "agents": ["內容創作機器人", "SEO 分析機器人", "排程發布機器人", "數據分析機器人"],
+          "industries": ["品牌", "電商", "媒體"]
+        },
+        "sales": {
+          "name": "業務開發隊",
+          "nameEn": "Sales Development Team",
+          "description": "從名單挖掘到會議預約，自動化你的銷售漏斗，讓業務專注在成交。",
+          "agents": ["名單挖掘機器人", "外展機器人", "跟進機器人", "預約機器人"],
+          "industries": ["B2B 銷售", "顧問公司", "房仲"]
+        },
+        "research": {
+          "name": "研究分析組",
+          "nameEn": "Research & Analysis Unit",
+          "description": "市場調研、競品監控、趨勢分析，用數據驅動你的商業決策。",
+          "agents": ["資料收集機器人", "分析機器人", "監控機器人"],
+          "industries": ["投資", "市調", "策略顧問"]
+        }
+      },
+      "teamMembers": "團隊成員",
+      "suitableFor": "適合產業",
+      "custom": {
+        "title": "客製化團隊",
+        "description": "有其他團隊組合想法嗎？跟我們說吧！我們可以根據你的需求，打造專屬的 AI Agent 團隊。無論是特殊產業、獨特流程，還是跨部門協作，我們都能為你量身訂製。",
+        "button": "預約諮詢"
+      },
+      "howItWorks": {
+        "title": "如何運作",
+        "subtitle": "從選擇到上線，我們全程陪伴",
+        "steps": {
+          "choose": { "title": "選擇方案", "desc": "選擇適合你的團隊方案，或客製化組合" },
+          "interview": { "title": "需求訪談", "desc": "深入了解你的業務流程和痛點" },
+          "training": { "title": "團隊訓練", "desc": "根據你的資料和需求訓練 AI 團隊" },
+          "launch": { "title": "上線運作", "desc": "團隊開始 24/7 為你工作" }
+        }
+      },
+      "finalCta": {
+        "title": "準備好組建你的 AI 團隊了嗎？",
+        "subtitle": "預約免費諮詢，讓我們幫你找到最適合的方案",
+        "button": "預約免費諮詢"
+      }
+    }
   }
 }

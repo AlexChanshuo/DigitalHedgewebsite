@@ -1,5 +1,6 @@
 // pages/AITeam.tsx
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import SEO from '../components/SEO';
 import BreadcrumbSchema from '../components/seo/BreadcrumbSchema';
 
@@ -63,6 +64,8 @@ const teamPackages: TeamPackage[] = [
 ];
 
 const AITeam: React.FC<AITeamProps> = ({ onBack, onOpenDemo }) => {
+  const { t } = useTranslation();
+  
   return (
     <div className="min-h-screen bg-[#FAF9F6]">
       <SEO
@@ -92,24 +95,22 @@ const AITeam: React.FC<AITeamProps> = ({ onBack, onOpenDemo }) => {
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
             </svg>
-            <span>返回首頁</span>
+            <span>{t('common.backToHome')}</span>
           </button>
 
           <div className="text-center mb-16">
             <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#D4A373]/10 text-[#D4A373] text-[10px] uppercase tracking-widest font-bold mb-6">
               <span className="w-1.5 h-1.5 rounded-full bg-[#D4A373]"></span>
-              <span>AI Agent Teams</span>
+              <span>{t('pages.aiTeam.badge')}</span>
             </div>
 
             <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight text-[#2C2420] font-serif">
-              選擇你的<br />
-              <span className="text-[#D4A373]">AI 戰隊</span>
+              {t('pages.aiTeam.title1')}<br />
+              <span className="text-[#D4A373]">{t('pages.aiTeam.title2')}</span>
             </h1>
             
             <p className="text-xl text-[#2C2420]/60 max-w-3xl mx-auto font-light leading-relaxed">
-              不是一個 AI，是一整個團隊。
-              <br />
-              專業分工、24/7 運作、知識永久累積。
+              {t('pages.aiTeam.description')}
             </p>
           </div>
 

@@ -1,5 +1,6 @@
 // pages/AIAgent.tsx
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import SEO from '../components/SEO';
 import BreadcrumbSchema from '../components/seo/BreadcrumbSchema';
 import AIGeneratedImage from '../components/AIGeneratedImage';
@@ -10,6 +11,8 @@ interface AIAgentProps {
 }
 
 const AIAgent: React.FC<AIAgentProps> = ({ onBack, onOpenDemo }) => {
+  const { t } = useTranslation();
+  
   return (
     <div className="min-h-screen bg-[#FAF9F6]">
       <SEO
@@ -37,24 +40,22 @@ const AIAgent: React.FC<AIAgentProps> = ({ onBack, onOpenDemo }) => {
             className="flex items-center space-x-2 text-[#2C2420]/60 hover:text-[#D4A373] transition-colors mb-12"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" /></svg>
-            <span>返回首頁</span>
+            <span>{t('common.backToHome')}</span>
           </button>
 
           <div className="grid lg:grid-cols-2 gap-20 mb-20">
             <div>
               <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#D4A373]/10 text-[#D4A373] text-[10px] uppercase tracking-widest font-bold mb-6">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#D4A373]"></span>
-                <span>Execution Agent</span>
+                <span>{t('pages.aiAgent.badge')}</span>
               </div>
 
               <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight text-[#2C2420] font-serif">
-                執行型 AI Agent<br />
-                <span className="text-[#D4A373]">減輕你的人力負擔</span>
+                {t('pages.aiAgent.title1')}<br />
+                <span className="text-[#D4A373]">{t('pages.aiAgent.title2')}</span>
               </h1>
               <p className="text-xl text-[#2C2420]/60 mb-8 font-light leading-relaxed">
-                不只是顧問，是<strong className="text-[#2C2420]">真正能執行任務</strong>的 AI。
-                <br /><br />
-                專為<strong className="text-[#2C2420]">重人力產業</strong>設計——客服、營運、行銷、行政，讓 AI 接手那些重複性高、耗時費力的工作。
+                {t('pages.aiAgent.description')}
               </p>
 
               <div className="flex items-center space-x-4 mb-8">

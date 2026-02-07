@@ -1,10 +1,13 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import AIGeneratedImage from '../components/AIGeneratedImage';
 import SEO from '../components/SEO';
 import BreadcrumbSchema from '../components/seo/BreadcrumbSchema';
 import FAQSchema from '../components/seo/FAQSchema';
 
 const SalesAI: React.FC<{ onBack: () => void }> = ({ onBack }) => {
+  const { t } = useTranslation();
+  
   return (
     <>
       <SEO
@@ -38,20 +41,20 @@ const SalesAI: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       <div className="max-w-7xl mx-auto px-6">
         <button onClick={onBack} className="text-[#2C2420]/50 hover:text-[#D4A373] transition-colors flex items-center space-x-2 mb-12 uppercase tracking-widest text-xs font-bold bg-white border border-[#E0E0E0] px-4 py-2 rounded-full w-fit">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" /></svg>
-          <span>Back to Products</span>
+          <span>{t('common.backToProducts')}</span>
         </button>
 
         <div className="flex flex-col lg:flex-row gap-12 mb-16 items-center">
           <div className="flex-1">
             <div className="inline-block px-4 py-1 rounded-full bg-[#D4A373]/10 text-[#D4A373] text-[10px] tracking-[0.2em] uppercase mb-6 font-bold border border-[#D4A373]/20">
-              Voice AI Sales Agent
+              {t('pages.salesAI.badge')}
             </div>
             <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight text-[#2C2420] font-serif">
-              語音 AI 業務<br />
-              <span className="text-[#D4A373]">& 客戶服務系統</span>
+              {t('pages.salesAI.title1')}<br />
+              <span className="text-[#D4A373]">{t('pages.salesAI.title2')}</span>
             </h1>
             <p className="text-[#2C2420]/60 text-lg font-light max-w-xl mb-8">
-              專為「舊客激活」與「產品推薦」設計的超級業務員。它不知疲倦、沒有情緒，能自動將有興趣的客戶直接預約到您的行事曆上。
+              {t('pages.salesAI.description')}
             </p>
 
             <div className="flex space-x-4">
