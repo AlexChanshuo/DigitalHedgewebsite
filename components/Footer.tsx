@@ -21,8 +21,8 @@ const Footer: React.FC<FooterProps> = ({ onAdminLogin }) => {
         </div>
 
         <div className="flex space-x-8 text-xs text-[#FAF9F6]/60 uppercase tracking-widest font-medium">
-          <a href="#" className="hover:text-[#D4A373] transition-colors">{t('footer.privacy')}</a>
-          <a href="#" className="hover:text-[#D4A373] transition-colors">{t('footer.terms')}</a>
+          <a href="/privacy" className="hover:text-[#D4A373] transition-colors">{t('footer.privacy')}</a>
+          <a href="/terms" className="hover:text-[#D4A373] transition-colors">{t('footer.terms')}</a>
           <button 
             onClick={() => window.location.href = '/login'}
             className="hover:text-[#D4A373] transition-colors"
