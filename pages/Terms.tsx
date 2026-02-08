@@ -122,6 +122,8 @@ const Terms: React.FC<TermsProps> = ({ onBack }) => {
               <p>如有任何問題，請聯絡：</p>
               <div className="bg-[#FAF9F6] p-6 rounded-xl mt-4">
                 <p className="font-bold">Pain Point Technologies Co., Ltd. 痛點科技</p>
+                <p>地址：台北市中山區長安西路45-1號五樓-3</p>
+                <p>電話：<a href="tel:+886225566810" className="text-[#D4A373] hover:underline">+886 2 2556-6810</a></p>
                 <p>電子郵件：<a href="mailto:support@painpoint-ai.com" className="text-[#D4A373] hover:underline">support@painpoint-ai.com</a></p>
                 <p>網站：<a href="https://painpoint-ai.com" className="text-[#D4A373] hover:underline">https://painpoint-ai.com</a></p>
               </div>
