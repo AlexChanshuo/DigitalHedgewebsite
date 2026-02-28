@@ -19,7 +19,7 @@ const Navbar: React.FC<NavbarProps> = ({ isScrolled, currentPage, onNavigate, on
     { id: 'voice-of-choice', name: t('products.voiceOfChoice') },
     { id: 'sales-ai', name: t('products.salesAI') },
     { id: 'voice-survey', name: t('products.voiceSurvey') },
-    { id: 'ai-team', name: t('products.aiTeam') },
+    { id: 'agentic-workforce', name: t('products.agenticWorkforce') },
   ];
 
   const handleMobileNavigate = (page: Page) => {
@@ -47,7 +47,7 @@ const Navbar: React.FC<NavbarProps> = ({ isScrolled, currentPage, onNavigate, on
             onMouseEnter={() => setShowDropdown(true)}
             onMouseLeave={() => setShowDropdown(false)}
           >
-            <button className={`hover:text-[#D4A373] transition-colors flex items-center space-x-1 h-full py-2 ${['voice-of-choice', 'sales-ai', 'voice-survey', 'ai-team'].includes(currentPage) ? 'text-[#D4A373]' : ''}`}>
+            <button className={`hover:text-[#D4A373] transition-colors flex items-center space-x-1 h-full py-2 ${['voice-of-choice', 'sales-ai', 'voice-survey', 'agentic-workforce'].includes(currentPage) ? 'text-[#D4A373]' : ''}`}>
               <span>{t('nav.products')}</span>
               <svg className={`w-3 h-3 transition-transform duration-300 ${showDropdown ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />

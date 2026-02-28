@@ -299,7 +299,7 @@ const Team: React.FC<TeamProps> = ({ onBack }) => {
             {t('team.cta.description')}
           </p>
           <a
-            href="/ai-agent"
+            href="/agentic-workforce"
             className="inline-block px-8 py-4 bg-[#D4A373] hover:bg-[#B08968] text-white rounded-full font-medium transition-all shadow-lg hover:shadow-xl hover:-translate-y-1"
           >
             {t('team.cta.button')}

@@ -10,7 +10,7 @@
     "voiceOfChoice": "民選之聲 (Political Survey)",
     "salesAI": "語音 AI 業務 (Sales Agent)",
     "voiceSurvey": "語音 AI 調查 (Voice Survey)",
-    "aiTeam": "AI Agent 團隊方案"
+    "agenticWorkforce": "Agentic Workforce"
   },
   "hero": {
     "badge": "Precision AI Extraction",
@@ -62,11 +62,11 @@
         "subtitle": "用你的聲音調查",
         "description": "用你的聲音打給每一位客戶。AI 學習你的聲音與語氣，大規模調查但保持一對一的溫度。"
       },
-      "aiAgent": {
-        "tag": "減輕人力",
-        "title": "執行型 AI Agent",
-        "subtitle": "減輕人力負擔",
-        "description": "不只是顧問，是真正能執行任務的 AI。專為重人力產業設計——讓 AI 接手客服、營運、行銷等重複性工作，24/7 不間斷。"
+      "agenticWorkforce": {
+        "tag": "AI 員工團隊",
+        "title": "Agentic Workforce",
+        "subtitle": "你的 AI 員工團隊",
+        "description": "不只是一個 AI 助手，而是完整的 AI 員工團隊。特助、行銷、業務、客服、美編——每位 Agent 各司其職，24/7 協同運作。"
       }
     }
   },

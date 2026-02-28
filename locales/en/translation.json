@@ -10,7 +10,7 @@
     "voiceOfChoice": "Voice of Choice (Political Survey)",
     "salesAI": "Voice AI Sales Agent",
     "voiceSurvey": "Voice AI Survey",
-    "aiTeam": "AI Agent Team Solution"
+    "agenticWorkforce": "Agentic Workforce"
   },
   "hero": {
     "badge": "Precision AI Extraction",
@@ -62,11 +62,11 @@
         "subtitle": "Survey with Your Voice",
         "description": "Call every customer with your voice. AI learns your tone and style — mass surveys with a personal touch."
       },
-      "aiAgent": {
-        "tag": "Reduce Workload",
-        "title": "Execution AI Agent",
-        "subtitle": "Lighten Your Team's Load",
-        "description": "Not just a consultant — AI that actually executes tasks. Designed for labor-intensive industries — let AI handle customer service, operations, marketing, 24/7."
+      "agenticWorkforce": {
+        "tag": "AI Workforce",
+        "title": "Agentic Workforce",
+        "subtitle": "Your AI Employee Team",
+        "description": "Not just an AI assistant — a complete AI employee team. Personal assistant, marketing, sales, customer service, design — each Agent specialized, working 24/7 in coordination."
       }
     }
   },
