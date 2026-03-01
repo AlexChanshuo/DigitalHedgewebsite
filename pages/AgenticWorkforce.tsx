@@ -23,6 +23,8 @@ interface Plan {
   salaryEquivalent: string;
   efficiencyBoost: string;
   performanceHighlights: string[];
+  monthlyFee: string;
+  roi: string;
 }
 
 interface FunctionalTeam {
@@ -57,6 +59,8 @@ const plans: Plan[] = [
       '📅 行程管理：零衝突',
       '🤝 人脈追蹤：零遺漏',
     ],
+    monthlyFee: 'NT$ 3 萬',
+    roi: '3-4 倍',
   },
   {
     id: 'solo-marketing',
@@ -80,6 +84,8 @@ const plans: Plan[] = [
       '💬 留言回覆：24/7 即時',
       '📊 數據分析：每日自動報告',
     ],
+    monthlyFee: 'NT$ 3 萬',
+    roi: '3-5 倍',
   },
   {
     id: 'crew-standard',
@@ -104,6 +110,8 @@ const plans: Plan[] = [
       '🕐 回應時間：秒級',
       '📈 產出量：倍數成長',
     ],
+    monthlyFee: '敬請期待',
+    roi: '4-6 倍',
   },
   {
     id: 'crew-plus',
@@ -128,6 +136,8 @@ const plans: Plan[] = [
       '🕐 全通路回覆：即時',
       '📈 市場研究：自動化',
     ],
+    monthlyFee: '敬請期待',
+    roi: '5-7 倍',
   },
   {
     id: 'crew-business',
@@ -152,6 +162,8 @@ const plans: Plan[] = [
       '🕐 SLA 保證：99% uptime',
       '📈 規模化營運：無上限',
     ],
+    monthlyFee: '敬請期待',
+    roi: '5-8 倍',
   },
 ];
 
@@ -382,13 +394,23 @@ const AgenticWorkforce: React.FC<AgenticWorkforceProps> = ({ onBack, onOpenDemo 
                     </div>
                   </div>
                   <div className="p-6">
-                    {/* 薪水產值 */}
+                    {/* 價格與產值對比 */}
                     <div className="mb-4 p-4 bg-gradient-to-r from-[#FAF9F6] to-[#F5F0EB] rounded-xl border border-[#D4A373]/20">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs uppercase tracking-wider text-[#2C2420]/40">💰 相當於人類薪水產值</span>
-                        <span className="text-xs font-bold text-[#D4A373]">{plan.efficiencyBoost} 效能</span>
+                      {/* 方案月費 */}
+                      <div className="mb-3 pb-3 border-b border-[#D4A373]/10">
+                        <span className="text-xs uppercase tracking-wider text-[#2C2420]/40">💳 方案月費</span>
+                        <p className="text-2xl font-bold text-[#2C2420]">{plan.monthlyFee}<span className="text-sm font-normal text-[#2C2420]/60">/月</span></p>
                       </div>
-                      <p className="text-2xl font-bold text-[#2C2420]">{plan.salaryEquivalent}<span className="text-sm font-normal text-[#2C2420]/60">/月</span></p>
+                      {/* 相當於產值 */}
+                      <div className="mb-3">
+                        <span className="text-xs uppercase tracking-wider text-[#2C2420]/40">💰 相當於人類薪水產值</span>
+                        <p className="text-xl font-bold text-[#D4A373]">{plan.salaryEquivalent}<span className="text-sm font-normal text-[#2C2420]/60">/月</span></p>
+                      </div>
+                      {/* 投資報酬 */}
+                      <div className="flex items-center justify-between bg-[#D4A373]/10 rounded-lg p-2">
+                        <span className="text-xs text-[#2C2420]/60">🚀 投資報酬</span>
+                        <span className="text-lg font-bold text-[#D4A373]">{plan.roi}</span>
+                      </div>
                     </div>
 
                     {/* 效能亮點 */}
@@ -440,13 +462,23 @@ const AgenticWorkforce: React.FC<AgenticWorkforceProps> = ({ onBack, onOpenDemo 
                     </div>
                   </div>
                   <div className="p-6">
-                    {/* 薪水產值 */}
+                    {/* 價格與產值對比 */}
                     <div className="mb-4 p-3 bg-gradient-to-r from-[#FAF9F6] to-[#F5F0EB] rounded-xl border border-[#D4A373]/20">
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-[10px] uppercase tracking-wider text-[#2C2420]/40">💰 相當於人類薪水產值</span>
-                        <span className="text-[10px] font-bold text-[#D4A373]">{plan.efficiencyBoost} 效能</span>
+                      {/* 方案月費 */}
+                      <div className="mb-2 pb-2 border-b border-[#D4A373]/10">
+                        <span className="text-[10px] uppercase tracking-wider text-[#2C2420]/40">💳 方案月費</span>
+                        <p className="text-lg font-bold text-[#2C2420]/60 italic">{plan.monthlyFee}</p>
                       </div>
-                      <p className="text-xl font-bold text-[#2C2420]">{plan.salaryEquivalent}<span className="text-xs font-normal text-[#2C2420]/60">/月</span></p>
+                      {/* 相當於產值 */}
+                      <div className="mb-2">
+                        <span className="text-[10px] uppercase tracking-wider text-[#2C2420]/40">💰 相當於人類薪水產值</span>
+                        <p className="text-lg font-bold text-[#D4A373]">{plan.salaryEquivalent}<span className="text-[10px] font-normal text-[#2C2420]/60">/月</span></p>
+                      </div>
+                      {/* 投資報酬 */}
+                      <div className="flex items-center justify-between bg-[#D4A373]/10 rounded-lg p-1.5">
+                        <span className="text-[10px] text-[#2C2420]/60">🚀 預估投資報酬</span>
+                        <span className="text-sm font-bold text-[#D4A373]">{plan.roi}</span>
+                      </div>
                     </div>
 
                     {/* 效能亮點 */}
