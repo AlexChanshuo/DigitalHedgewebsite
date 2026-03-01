@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import VoiceAI from './pages/VoiceAI';
 import AgenticWorkforce from './pages/AgenticWorkforce';
+import AgenticImpact from './pages/AgenticImpact';
 import Team from './pages/Team';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
@@ -17,7 +18,7 @@ import BackgroundEffects from './components/BackgroundEffects';
 import ConstructionOverlay from './components/ConstructionOverlay';
 import RetellVoiceAgent, { RetellVoiceAgentHandle } from './components/voice/RetellVoiceAgent';
 
-export type Page = 'home' | 'voice-ai' | 'agentic-workforce' | 'team' | 'privacy' | 'terms' | 'blog' | 'blog-post' | 'login' | 'admin';
+export type Page = 'home' | 'voice-ai' | 'agentic-workforce' | 'agentic-impact' | 'team' | 'privacy' | 'terms' | 'blog' | 'blog-post' | 'login' | 'admin';
 
 const AppContent: React.FC = () => {
   const { isAuthenticated, isLoading, logout } = useAuth();
@@ -54,6 +55,8 @@ const AppContent: React.FC = () => {
       setCurrentPage('voice-ai');
     } else if (path === '/agentic-workforce') {
       setCurrentPage('agentic-workforce');
+    } else if (path === '/agentic-impact') {
+      setCurrentPage('agentic-impact');
     } else if (path === '/team') {
       setCurrentPage('team');
     } else if (path === '/privacy') {
@@ -81,6 +84,7 @@ const AppContent: React.FC = () => {
     else if (currentPage === 'blog-post') path = `/blog/${currentBlogSlug}`;
     else if (currentPage === 'voice-ai') path = '/voice-ai';
     else if (currentPage === 'agentic-workforce') path = '/agentic-workforce';
+    else if (currentPage === 'agentic-impact') path = '/agentic-impact';
     else if (currentPage === 'team') path = '/team';
     else if (currentPage === 'privacy') path = '/privacy';
     else if (currentPage === 'terms') path = '/terms';
@@ -110,6 +114,7 @@ const AppContent: React.FC = () => {
       }
       else if (path === '/voice-ai') setCurrentPage('voice-ai');
       else if (path === '/agentic-workforce') setCurrentPage('agentic-workforce');
+      else if (path === '/agentic-impact') setCurrentPage('agentic-impact');
       else if (path === '/team') setCurrentPage('team');
       else if (path === '/privacy') setCurrentPage('privacy');
       else if (path === '/terms') setCurrentPage('terms');
@@ -257,6 +262,7 @@ const AppContent: React.FC = () => {
     switch (currentPage) {
       case 'voice-ai': return <VoiceAI onBack={() => setCurrentPage('home')} onOpenDemo={openVoiceChat} />;
       case 'agentic-workforce': return <AgenticWorkforce onBack={() => setCurrentPage('home')} onOpenDemo={openVoiceChat} />;
+      case 'agentic-impact': return <AgenticImpact onBack={() => setCurrentPage('home')} onOpenDemo={openVoiceChat} />;
       case 'team': return <Team onBack={() => setCurrentPage('home')} />;
       case 'privacy': return <Privacy onBack={() => setCurrentPage('home')} />;
       case 'terms': return <Terms onBack={() => setCurrentPage('home')} />;

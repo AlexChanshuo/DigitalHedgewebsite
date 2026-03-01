@@ -8,7 +8,8 @@
   },
   "products": {
     "voiceAI": "語音AI代理人",
-    "agenticWorkforce": "AI代理人勞動力"
+    "agenticWorkforce": "AI代理人勞動力",
+    "agenticImpact": "AI 共利計畫"
   },
   "hero": {
     "badge": "Precision AI Extraction",
@@ -53,6 +54,12 @@
         "title": "AI代理人勞動力",
         "subtitle": "你的 AI 員工團隊",
         "description": "不只是一個 AI 助手，而是完整的 AI 員工團隊。特助、行銷、業務、客服、美編——每位 Agent 各司其職，24/7 協同運作。"
+      },
+      "agenticImpact": {
+        "tag": "AI 共利計畫",
+        "title": "AI 共利計畫",
+        "subtitle": "你賺，我們才賺",
+        "description": "先做診斷、確定適合、按創造的價值分潤。低風險導入 AI，我們的利益跟你完全一致。"
       }
     }
   },
