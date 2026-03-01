@@ -413,8 +413,21 @@ const AgenticWorkforce: React.FC<AgenticWorkforceProps> = ({ onBack, onOpenDemo 
                       </div>
                     </div>
 
-                    {/* 效能亮點 */}
+                    {/* 核心功能 */}
                     <div className="mb-4">
+                      <span className="text-xs uppercase tracking-wider text-[#2C2420]/40">🎯 核心功能</span>
+                      <ul className="mt-2 space-y-2">
+                        {plan.highlights.map((highlight, i) => (
+                          <li key={i} className="flex items-start gap-2 text-sm text-[#2C2420]/80">
+                            <span className="text-[#D4A373] mt-0.5">✓</span>
+                            <span>{highlight}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* 效能亮點 */}
+                    <div className="mb-4 p-3 bg-[#FAF9F6] rounded-xl">
                       <span className="text-xs uppercase tracking-wider text-[#2C2420]/40">⚡ 營運效能提升</span>
                       <ul className="mt-2 space-y-1">
                         {plan.performanceHighlights.map((highlight, i) => (
@@ -423,9 +436,19 @@ const AgenticWorkforce: React.FC<AgenticWorkforceProps> = ({ onBack, onOpenDemo 
                       </ul>
                     </div>
 
+                    <div className="mb-4 pb-4 border-b border-[#E0E0E0]">
+                      <span className="text-xs uppercase tracking-wider text-[#2C2420]/40">👤 適合對象</span>
+                      <p className="text-[#2C2420] font-medium text-sm mt-1">{plan.targetAudience}</p>
+                    </div>
+
+                    {/* 包含團隊 */}
                     <div className="mb-4">
-                      <span className="text-xs uppercase tracking-wider text-[#2C2420]/40">適合對象</span>
-                      <p className="text-[#2C2420] font-medium text-sm">{plan.targetAudience}</p>
+                      <span className="text-xs uppercase tracking-wider text-[#2C2420]/40">🤖 包含團隊</span>
+                      <div className="flex flex-wrap gap-1 mt-2">
+                        {plan.fixedTeams.map((team, i) => (
+                          <span key={i} className="px-3 py-1 bg-gradient-to-r from-[#D4A373]/20 to-[#D4A373]/10 text-[#2C2420] text-xs rounded-full font-medium">{team}</span>
+                        ))}
+                      </div>
                     </div>
                     
                     <button
@@ -481,8 +504,21 @@ const AgenticWorkforce: React.FC<AgenticWorkforceProps> = ({ onBack, onOpenDemo 
                       </div>
                     </div>
 
-                    {/* 效能亮點 */}
+                    {/* 核心功能 */}
                     <div className="mb-3">
+                      <span className="text-[10px] uppercase tracking-wider text-[#2C2420]/40">🎯 方案特色</span>
+                      <ul className="mt-1 space-y-1">
+                        {plan.highlights.map((highlight, i) => (
+                          <li key={i} className="flex items-start gap-1.5 text-xs text-[#2C2420]/80">
+                            <span className="text-[#D4A373]">✓</span>
+                            <span>{highlight}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* 效能亮點 */}
+                    <div className="mb-3 p-2 bg-[#FAF9F6] rounded-lg">
                       <span className="text-[10px] uppercase tracking-wider text-[#2C2420]/40">⚡ 營運效能</span>
                       <ul className="mt-1 space-y-0.5">
                         {plan.performanceHighlights.map((highlight, i) => (
@@ -492,17 +528,23 @@ const AgenticWorkforce: React.FC<AgenticWorkforceProps> = ({ onBack, onOpenDemo 
                     </div>
 
                     <div className="mb-3">
-                      <span className="text-[10px] uppercase tracking-wider text-[#2C2420]/40">固定配置</span>
+                      <span className="text-[10px] uppercase tracking-wider text-[#2C2420]/40">👤 適合對象</span>
+                      <p className="text-[#2C2420]/80 text-xs mt-1">{plan.targetAudience}</p>
+                    </div>
+
+                    <div className="mb-3 pb-3 border-b border-[#E0E0E0]">
+                      <span className="text-[10px] uppercase tracking-wider text-[#2C2420]/40">🤖 固定配置</span>
                       <div className="flex flex-wrap gap-1 mt-1">
                         {plan.fixedTeams.map((team, i) => (
-                          <span key={i} className="px-2 py-0.5 bg-[#FAF9F6] text-[#2C2420]/70 text-[10px] rounded-full">{team}</span>
+                          <span key={i} className="px-2 py-0.5 bg-gradient-to-r from-[#D4A373]/20 to-[#D4A373]/10 text-[#2C2420] text-[10px] rounded-full font-medium">{team}</span>
                         ))}
                       </div>
                     </div>
                     {plan.selectableTeams && (
                       <div className="mb-3">
-                        <span className="text-[10px] uppercase tracking-wider text-[#2C2420]/40">自選團隊</span>
-                        <p className="text-[#D4A373] font-bold text-sm">可選擇 {plan.selectableTeams} 個功能團隊</p>
+                        <span className="text-[10px] uppercase tracking-wider text-[#2C2420]/40">🎨 自選團隊</span>
+                        <p className="text-[#D4A373] font-bold text-sm mt-1">可選擇 {plan.selectableTeams} 個功能團隊</p>
+                        <p className="text-[10px] text-[#2C2420]/50 mt-0.5">從 6 種功能團隊中自由搭配</p>
                       </div>
                     )}
                     <button
