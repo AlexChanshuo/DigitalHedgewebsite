@@ -93,7 +93,7 @@ const plans: Plan[] = [
     tagline: '打造你的 AI 部門',
     emoji: '🏢',
     targetAudience: '10-30 人公司、單一部門強化',
-    agentCount: '10-16 位 Agent',
+    agentCount: '12 位 Agent',
     fixedTeams: ['協調員'],
     selectableTeams: 2,
     highlights: [
@@ -110,7 +110,7 @@ const plans: Plan[] = [
       '🕐 回應時間：秒級',
       '📈 產出量：倍數成長',
     ],
-    monthlyFee: '敬請期待',
+    monthlyFee: '依需求報價',
     roi: '4-6 倍',
   },
   {
@@ -119,7 +119,7 @@ const plans: Plan[] = [
     tagline: '跨部門協作的 AI 團隊',
     emoji: '🚀',
     targetAudience: '30-50 人公司、跨部門協作',
-    agentCount: '15-22 位 Agent',
+    agentCount: '18 位 Agent',
     fixedTeams: ['協調員', '研究員團隊'],
     selectableTeams: 3,
     highlights: [
@@ -136,7 +136,7 @@ const plans: Plan[] = [
       '🕐 全通路回覆：即時',
       '📈 市場研究：自動化',
     ],
-    monthlyFee: '敬請期待',
+    monthlyFee: '依需求報價',
     roi: '5-7 倍',
   },
   {
@@ -145,7 +145,7 @@ const plans: Plan[] = [
     tagline: '企業級 AI 勞動力',
     emoji: '🏛️',
     targetAudience: '50-200 人公司、多部門整合',
-    agentCount: '20-26 位 Agent',
+    agentCount: '24 位 Agent',
     fixedTeams: ['協調員', '研究員團隊'],
     selectableTeams: 4,
     highlights: [
@@ -411,6 +411,7 @@ const AgenticWorkforce: React.FC<AgenticWorkforceProps> = ({ onBack, onOpenDemo 
                         <span className="text-xs text-[#2C2420]/60">🚀 投資報酬</span>
                         <span className="text-lg font-bold text-[#D4A373]">{plan.roi}</span>
                       </div>
+                      <p className="text-[9px] text-[#2C2420]/40 mt-1 text-center">*ROI = 薪資產值 ÷ 方案月費</p>
                     </div>
 
                     {/* 核心功能 */}
@@ -470,7 +471,11 @@ const AgenticWorkforce: React.FC<AgenticWorkforceProps> = ({ onBack, onOpenDemo 
               <span className="px-4 text-sm font-bold text-[#2C2420]/40 uppercase tracking-widest">CREW 系列</span>
               <div className="h-px bg-[#E0E0E0] flex-1 max-w-[100px]"></div>
             </div>
-            <p className="text-center text-[#2C2420]/60 mb-8">適合中型到大型企業，可自由組合功能團隊</p>
+            <p className="text-center text-[#2C2420]/60 mb-4">適合中型到大型企業，可自由組合功能團隊</p>
+            <p className="text-center text-sm mb-8">
+              <span className="text-[#2C2420]/40">想看實際成效？</span>
+              <a href="/agentic-impact" className="text-[#D4A373] hover:underline ml-1">查看客戶案例 →</a>
+            </p>
             
             <div className="grid md:grid-cols-3 gap-6">
               {plans.filter(p => p.id.startsWith('crew')).map((plan) => (
@@ -502,6 +507,7 @@ const AgenticWorkforce: React.FC<AgenticWorkforceProps> = ({ onBack, onOpenDemo 
                         <span className="text-[10px] text-[#2C2420]/60">🚀 預估投資報酬</span>
                         <span className="text-sm font-bold text-[#D4A373]">{plan.roi}</span>
                       </div>
+                      <p className="text-[8px] text-[#2C2420]/40 mt-1 text-center">*ROI = 薪資產值 ÷ 方案月費</p>
                     </div>
 
                     {/* 核心功能 */}
@@ -616,6 +622,24 @@ const AgenticWorkforce: React.FC<AgenticWorkforceProps> = ({ onBack, onOpenDemo 
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Mid-page CTA */}
+      <section className="py-12 px-6 bg-gradient-to-r from-[#D4A373] to-[#B08968]">
+        <div className="max-w-4xl mx-auto text-center">
+          <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 font-serif">
+            不確定哪個方案適合你？
+          </h3>
+          <p className="text-white/80 mb-6">
+            預約 15 分鐘免費諮詢，我們幫你找到最適合的 AI 團隊配置
+          </p>
+          <button
+            onClick={onOpenDemo}
+            className="px-8 py-4 bg-white text-[#2C2420] hover:bg-[#FAF9F6] rounded-full font-medium transition-all shadow-lg hover:shadow-xl"
+          >
+            預約免費諮詢
+          </button>
         </div>
       </section>
 
