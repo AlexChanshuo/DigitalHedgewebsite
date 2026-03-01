@@ -42,23 +42,11 @@
     "flagship": "Flagship",
     "viewDetails": "查看功能詳情",
     "items": {
-      "voiceOfChoice": {
-        "tag": "快速民調",
-        "title": "民選之聲",
-        "subtitle": "AI 民調系統",
-        "description": "一天完成傳統民調一週的工作。AI 自動撥打、自動分析、報告直送 LINE。選戰期間，每一天都是關鍵。"
-      },
-      "salesAI": {
-        "tag": "自動銷售",
-        "title": "語音 AI 業務",
-        "subtitle": "自動開發客戶",
-        "description": "AI 幫你打電話、約客戶、排進行事曆。你只需要在約好的時間出現就好。一天處理千通電話，不累、不抱怨、不請假。"
-      },
-      "voiceSurvey": {
-        "tag": "品牌連結",
-        "title": "語音 AI 調查",
-        "subtitle": "用你的聲音調查",
-        "description": "用你的聲音打給每一位客戶。AI 學習你的聲音與語氣，大規模調查但保持一對一的溫度。"
+      "voiceAI": {
+        "tag": "語音 AI",
+        "title": "語音 AI 解決方案",
+        "subtitle": "商機特工 & 客服特工",
+        "description": "AI 幫你打電話、接電話。民調、銷售、回訪、客服，一套系統搞定。成本省 60-70%，執行力提升 10 倍。"
       },
       "agenticWorkforce": {
         "tag": "AI 員工團隊",

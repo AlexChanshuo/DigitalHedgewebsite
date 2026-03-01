@@ -42,23 +42,11 @@
     "flagship": "Flagship",
     "viewDetails": "View Details",
     "items": {
-      "voiceOfChoice": {
-        "tag": "Quick Polling",
-        "title": "Voice of Choice",
-        "subtitle": "AI Polling System",
-        "description": "Complete a week's worth of traditional polling in one day. AI auto-dials, auto-analyzes, reports delivered via LINE. During elections, every day counts."
-      },
-      "salesAI": {
-        "tag": "Auto Sales",
-        "title": "Voice AI Sales",
-        "subtitle": "Automated Lead Generation",
-        "description": "AI makes calls, books appointments, schedules your calendar. Just show up at the agreed time. Thousands of calls daily — no fatigue, no complaints, no sick days."
-      },
-      "voiceSurvey": {
-        "tag": "Brand Connection",
-        "title": "Voice AI Survey",
-        "subtitle": "Survey with Your Voice",
-        "description": "Call every customer with your voice. AI learns your tone and style — mass surveys with a personal touch."
+      "voiceAI": {
+        "tag": "Voice AI",
+        "title": "Voice AI Solutions",
+        "subtitle": "Pipeline Agent & Service Agent",
+        "description": "AI makes calls and answers calls for you. Polling, sales, callbacks, customer service — one system handles it all. Save 60-70% costs, 10x execution power."
       },
       "agenticWorkforce": {
         "tag": "AI Workforce",

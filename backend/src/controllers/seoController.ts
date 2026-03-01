@@ -25,17 +25,12 @@ export async function generateSitemap(req: Request, res: Response) {
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>${SITE_URL}/voice-of-choice</loc>
+    <loc>${SITE_URL}/voice-ai</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>${SITE_URL}/voice-survey</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>${SITE_URL}/sales-ai</loc>
+    <loc>${SITE_URL}/agentic-workforce</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
