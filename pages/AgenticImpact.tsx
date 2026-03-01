@@ -225,7 +225,7 @@ const AgenticImpact: React.FC<AgenticImpactProps> = ({ onBack, onOpenDemo }) => 
 
       {/* 4. 成功案例 */}
       <section className="py-20 px-6 bg-[#FAF9F6]">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <div className="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-emerald-500/10 text-emerald-600 text-xs uppercase tracking-widest font-bold mb-4">
               <span>成功案例</span>
@@ -235,69 +235,93 @@ const AgenticImpact: React.FC<AgenticImpactProps> = ({ onBack, onOpenDemo }) => 
             </h2>
           </div>
 
-          <div className="bg-white rounded-3xl p-8 md:p-12 shadow-xl">
-            <div className="flex flex-col md:flex-row gap-8">
-              {/* Left: Company Info */}
-              <div className="md:w-1/3">
-                <div className="inline-block px-3 py-1 bg-[#D4A373]/10 text-[#D4A373] text-xs rounded-full mb-4">
-                  房仲顧問業
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                industry: '房仲顧問業',
+                company: '某北部知名房仲顧問公司',
+                scale: '18 位業務｜年營業額 8,000 萬',
+                color: 'from-amber-500 to-orange-500',
+                stats: [
+                  { label: '首次回覆', value: '8 分鐘', change: '↓ 97%' },
+                  { label: '月營業額', value: '+72%', change: '670→1,150萬' },
+                ],
+                quote: '以前追著客戶跑，現在 Agent 把客戶捧到面前。',
+                roi: '20 天回本',
+              },
+              {
+                industry: '飯店旅宿',
+                company: '某台中精品商旅',
+                scale: '120 間客房｜年營業額 4,800 萬',
+                color: 'from-blue-500 to-indigo-500',
+                stats: [
+                  { label: '訊息回覆', value: '28 秒', change: '↓ 99%' },
+                  { label: 'OTA 佣金', value: '年省 168 萬', change: '直訂↑82%' },
+                ],
+                quote: '省下的 OTA 佣金一年快 170 萬，拿來提升服務品質。',
+                roi: '20 天回本',
+              },
+              {
+                industry: '豪華露營',
+                company: '某新竹豪華露營區',
+                scale: '32 頂帳篷｜年營業額 2,800 萬',
+                color: 'from-green-500 to-emerald-500',
+                stats: [
+                  { label: '諮詢轉換率', value: '38%', change: '↑ 111%' },
+                  { label: '加購滲透率', value: '51%', change: '↑ 132%' },
+                ],
+                quote: '週五晚上訊息爆量，現在我睡醒，訂單都排好了。',
+                roi: '32 天回本',
+              },
+              {
+                industry: '美妝電商',
+                company: '某美妝電商品牌',
+                scale: '4,800+ SKU｜年營業額 1.8 億',
+                color: 'from-pink-500 to-rose-500',
+                stats: [
+                  { label: '月營業額', value: '+43%', change: '1,500→2,150萬' },
+                  { label: '回購率', value: '41%', change: '↑ 86%' },
+                ],
+                quote: '客服成本砍一半，客單價還拉高兩成。',
+                roi: '20 天回本',
+              },
+              {
+                industry: '醫美診所',
+                company: '某北部醫美診所',
+                scale: '2 據點｜年營業額 1.2 億',
+                color: 'from-purple-500 to-violet-500',
+                stats: [
+                  { label: '月營收', value: '+38%', change: '1,000→1,380萬' },
+                  { label: 'VIP 續約率', value: '81%', change: '↑ 56%' },
+                ],
+                quote: '諮詢師不用再花時間解釋基本療程，專心服務到店客人。',
+                roi: '19 天回本',
+              },
+            ].map((cs, index) => (
+              <div key={index} className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all">
+                <div className={`bg-gradient-to-r ${cs.color} p-4 text-white`}>
+                  <span className="text-xs font-bold uppercase tracking-wider opacity-80">{cs.industry}</span>
+                  <h3 className="text-lg font-bold mt-1">{cs.company}</h3>
+                  <p className="text-xs opacity-80">{cs.scale}</p>
                 </div>
-                <h3 className="text-2xl font-bold text-[#2C2420] mb-2">某北部知名房仲顧問公司</h3>
-                <p className="text-[#2C2420]/60 text-sm mb-4">
-                  成立 12 年｜18 位業務｜年營業額約 8,000 萬
-                </p>
-                
-                <div className="space-y-3">
-                  <h4 className="font-bold text-[#2C2420]">導入前痛點：</h4>
-                  <ul className="text-sm text-[#2C2420]/70 space-y-2">
-                    <li>• 首次回覆時間 4.2 小時</li>
-                    <li>• 38% 客戶因跟進不及時流失</li>
-                    <li>• 業務每週花 12 小時協調帶看</li>
-                  </ul>
+                <div className="p-5">
+                  <div className="grid grid-cols-2 gap-3 mb-4">
+                    {cs.stats.map((stat, i) => (
+                      <div key={i} className="bg-[#FAF9F6] p-3 rounded-lg text-center">
+                        <p className="text-xs text-[#2C2420]/50">{stat.label}</p>
+                        <p className="text-lg font-bold text-emerald-600">{stat.value}</p>
+                        <p className="text-xs text-emerald-500">{stat.change}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="text-sm text-[#2C2420]/70 italic mb-3">「{cs.quote}」</p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-[#2C2420]/50">投資回報</span>
+                    <span className="text-sm font-bold text-emerald-600">{cs.roi}</span>
+                  </div>
                 </div>
               </div>
-
-              {/* Right: Results */}
-              <div className="md:w-2/3">
-                <h4 className="font-bold text-[#2C2420] mb-4">導入的 AI Agent 團隊：</h4>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-8">
-                  {[
-                    '即時應答 Agent',
-                    '智慧跟進 Agent',
-                    '帶看排程 Agent',
-                    '客戶分析 Agent',
-                    '商機預警 Agent',
-                  ].map((agent, i) => (
-                    <div key={i} className="bg-emerald-50 px-3 py-2 rounded-lg text-sm text-emerald-700">
-                      🤖 {agent}
-                    </div>
-                  ))}
-                </div>
-
-                <h4 className="font-bold text-[#2C2420] mb-4">導入 6 個月後：</h4>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                  {[
-                    { label: '首次回覆', before: '4.2 小時', after: '8 分鐘', change: '↓ 97%' },
-                    { label: '客戶流失率', before: '38%', after: '12%', change: '↓ 26%' },
-                    { label: '月成交', before: '14 件', after: '23 件', change: '↑ 64%' },
-                    { label: '月營業額', before: '670 萬', after: '1,150 萬', change: '↑ 72%' },
-                  ].map((stat, i) => (
-                    <div key={i} className="bg-[#FAF9F6] p-4 rounded-xl text-center">
-                      <p className="text-xs text-[#2C2420]/50 mb-1">{stat.label}</p>
-                      <p className="text-lg font-bold text-emerald-600">{stat.after}</p>
-                      <p className="text-xs text-emerald-500">{stat.change}</p>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="bg-[#2C2420] rounded-2xl p-6 text-white">
-                  <p className="italic mb-2">
-                    「以前我們追著客戶跑，現在是 Agent 幫我們把客戶捧到面前。業務終於可以專心做他們最擅長的事——成交。」
-                  </p>
-                  <p className="text-white/60 text-sm">—— 營運總監</p>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
