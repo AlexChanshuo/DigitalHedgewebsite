@@ -20,6 +20,9 @@ interface Plan {
   selectableTeams?: number;
   highlights: string[];
   color: string;
+  salaryEquivalent: string;
+  efficiencyBoost: string;
+  performanceHighlights: string[];
 }
 
 interface FunctionalTeam {
@@ -47,6 +50,13 @@ const plans: Plan[] = [
       'Follow-up 追蹤 — 主動追蹤待辦事項，確保不漏接',
     ],
     color: 'from-blue-500 to-indigo-600',
+    salaryEquivalent: 'NT$ 10-12 萬',
+    efficiencyBoost: '+150%',
+    performanceHighlights: [
+      '📬 訊息回覆：即時',
+      '📅 行程管理：零衝突',
+      '🤝 人脈追蹤：零遺漏',
+    ],
   },
   {
     id: 'solo-marketing',
@@ -63,6 +73,13 @@ const plans: Plan[] = [
       '社群互動與數據分析',
     ],
     color: 'from-pink-500 to-rose-600',
+    salaryEquivalent: 'NT$ 10-15 萬',
+    efficiencyBoost: '+200%',
+    performanceHighlights: [
+      '📱 發文產能：提升 5-10 倍',
+      '💬 留言回覆：24/7 即時',
+      '📊 數據分析：每日自動報告',
+    ],
   },
   {
     id: 'crew-standard',
@@ -80,6 +97,13 @@ const plans: Plan[] = [
       '季度策略檢討',
     ],
     color: 'from-emerald-500 to-teal-600',
+    salaryEquivalent: 'NT$ 25-35 萬',
+    efficiencyBoost: '+200%',
+    performanceHighlights: [
+      '⚡ 跨部門協作：無縫整合',
+      '🕐 回應時間：秒級',
+      '📈 產出量：倍數成長',
+    ],
   },
   {
     id: 'crew-plus',
@@ -97,6 +121,13 @@ const plans: Plan[] = [
       '客製化訓練',
     ],
     color: 'from-violet-500 to-purple-600',
+    salaryEquivalent: 'NT$ 45-55 萬',
+    efficiencyBoost: '+300%',
+    performanceHighlights: [
+      '⚡ 營運效能：大幅提升',
+      '🕐 全通路回覆：即時',
+      '📈 市場研究：自動化',
+    ],
   },
   {
     id: 'crew-business',
@@ -114,6 +145,13 @@ const plans: Plan[] = [
       'SLA 保證 99% uptime',
     ],
     color: 'from-amber-500 to-orange-600',
+    salaryEquivalent: 'NT$ 60-80 萬',
+    efficiencyBoost: '+400%',
+    performanceHighlights: [
+      '⚡ 企業級效能：全面提升',
+      '🕐 SLA 保證：99% uptime',
+      '📈 規模化營運：無上限',
+    ],
   },
 ];
 
@@ -344,23 +382,30 @@ const AgenticWorkforce: React.FC<AgenticWorkforceProps> = ({ onBack, onOpenDemo 
                     </div>
                   </div>
                   <div className="p-6">
-                    <div className="mb-4">
-                      <span className="text-xs uppercase tracking-wider text-[#2C2420]/40">適合對象</span>
-                      <p className="text-[#2C2420] font-medium">{plan.targetAudience}</p>
+                    {/* 薪水產值 */}
+                    <div className="mb-4 p-4 bg-gradient-to-r from-[#FAF9F6] to-[#F5F0EB] rounded-xl border border-[#D4A373]/20">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-xs uppercase tracking-wider text-[#2C2420]/40">💰 相當於人類薪水產值</span>
+                        <span className="text-xs font-bold text-[#D4A373]">{plan.efficiencyBoost} 效能</span>
+                      </div>
+                      <p className="text-2xl font-bold text-[#2C2420]">{plan.salaryEquivalent}<span className="text-sm font-normal text-[#2C2420]/60">/月</span></p>
                     </div>
+
+                    {/* 效能亮點 */}
                     <div className="mb-4">
-                      <span className="text-xs uppercase tracking-wider text-[#2C2420]/40">核心能力</span>
-                      <ul className="mt-2 space-y-2">
-                        {plan.highlights.map((highlight, i) => (
-                          <li key={i} className="flex items-start text-sm text-[#2C2420]/70">
-                            <svg className="w-4 h-4 text-[#D4A373] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                            {highlight}
-                          </li>
+                      <span className="text-xs uppercase tracking-wider text-[#2C2420]/40">⚡ 營運效能提升</span>
+                      <ul className="mt-2 space-y-1">
+                        {plan.performanceHighlights.map((highlight, i) => (
+                          <li key={i} className="text-sm text-[#2C2420]/70">{highlight}</li>
                         ))}
                       </ul>
                     </div>
+
+                    <div className="mb-4">
+                      <span className="text-xs uppercase tracking-wider text-[#2C2420]/40">適合對象</span>
+                      <p className="text-[#2C2420] font-medium text-sm">{plan.targetAudience}</p>
+                    </div>
+                    
                     <button
                       onClick={onOpenDemo}
                       className="w-full py-3 bg-[#2C2420] hover:bg-[#D4A373] text-white rounded-full font-medium transition-all"
@@ -395,37 +440,39 @@ const AgenticWorkforce: React.FC<AgenticWorkforceProps> = ({ onBack, onOpenDemo 
                     </div>
                   </div>
                   <div className="p-6">
-                    <div className="mb-4">
-                      <span className="text-xs uppercase tracking-wider text-[#2C2420]/40">適合對象</span>
-                      <p className="text-[#2C2420] font-medium text-sm">{plan.targetAudience}</p>
+                    {/* 薪水產值 */}
+                    <div className="mb-4 p-3 bg-gradient-to-r from-[#FAF9F6] to-[#F5F0EB] rounded-xl border border-[#D4A373]/20">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-[10px] uppercase tracking-wider text-[#2C2420]/40">💰 相當於人類薪水產值</span>
+                        <span className="text-[10px] font-bold text-[#D4A373]">{plan.efficiencyBoost} 效能</span>
+                      </div>
+                      <p className="text-xl font-bold text-[#2C2420]">{plan.salaryEquivalent}<span className="text-xs font-normal text-[#2C2420]/60">/月</span></p>
                     </div>
-                    <div className="mb-4">
-                      <span className="text-xs uppercase tracking-wider text-[#2C2420]/40">固定配置</span>
+
+                    {/* 效能亮點 */}
+                    <div className="mb-3">
+                      <span className="text-[10px] uppercase tracking-wider text-[#2C2420]/40">⚡ 營運效能</span>
+                      <ul className="mt-1 space-y-0.5">
+                        {plan.performanceHighlights.map((highlight, i) => (
+                          <li key={i} className="text-xs text-[#2C2420]/70">{highlight}</li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="mb-3">
+                      <span className="text-[10px] uppercase tracking-wider text-[#2C2420]/40">固定配置</span>
                       <div className="flex flex-wrap gap-1 mt-1">
                         {plan.fixedTeams.map((team, i) => (
-                          <span key={i} className="px-2 py-1 bg-[#FAF9F6] text-[#2C2420]/70 text-xs rounded-full">{team}</span>
+                          <span key={i} className="px-2 py-0.5 bg-[#FAF9F6] text-[#2C2420]/70 text-[10px] rounded-full">{team}</span>
                         ))}
                       </div>
                     </div>
                     {plan.selectableTeams && (
-                      <div className="mb-4">
-                        <span className="text-xs uppercase tracking-wider text-[#2C2420]/40">自選團隊</span>
-                        <p className="text-[#D4A373] font-bold">可選擇 {plan.selectableTeams} 個功能團隊</p>
+                      <div className="mb-3">
+                        <span className="text-[10px] uppercase tracking-wider text-[#2C2420]/40">自選團隊</span>
+                        <p className="text-[#D4A373] font-bold text-sm">可選擇 {plan.selectableTeams} 個功能團隊</p>
                       </div>
                     )}
-                    <div className="mb-4">
-                      <span className="text-xs uppercase tracking-wider text-[#2C2420]/40">服務內容</span>
-                      <ul className="mt-2 space-y-1">
-                        {plan.highlights.slice(0, 3).map((highlight, i) => (
-                          <li key={i} className="flex items-start text-xs text-[#2C2420]/70">
-                            <svg className="w-3 h-3 text-[#D4A373] mr-1 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                            {highlight}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
                     <button
                       onClick={onOpenDemo}
                       className="w-full py-3 bg-[#2C2420] hover:bg-[#D4A373] text-white rounded-full font-medium transition-all text-sm"
