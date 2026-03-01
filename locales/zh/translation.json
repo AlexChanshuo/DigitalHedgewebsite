@@ -10,7 +10,7 @@
     "voiceOfChoice": "民選之聲 (Political Survey)",
     "salesAI": "語音 AI 業務 (Sales Agent)",
     "voiceSurvey": "語音 AI 調查 (Voice Survey)",
-    "agenticWorkforce": "Agentic Workforce"
+    "agenticWorkforce": "AI代理人勞動力"
   },
   "hero": {
     "badge": "Precision AI Extraction",
@@ -64,7 +64,7 @@
       },
       "agenticWorkforce": {
         "tag": "AI 員工團隊",
-        "title": "Agentic Workforce",
+        "title": "AI代理人勞動力",
         "subtitle": "你的 AI 員工團隊",
         "description": "不只是一個 AI 助手，而是完整的 AI 員工團隊。特助、行銷、業務、客服、美編——每位 Agent 各司其職，24/7 協同運作。"
       }

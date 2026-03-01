@@ -256,14 +256,14 @@ const AgenticWorkforce: React.FC<AgenticWorkforceProps> = ({ onBack, onOpenDemo 
   return (
     <div className="min-h-screen bg-[#FAF9F6]">
       <SEO
-        title="Agentic Workforce | AI 員工團隊 | Pain Point"
+        title="AI代理人勞動力 | AI 員工團隊 | Pain Point"
         description="打造你的專屬 AI 員工團隊。從個人特助到企業級部門，選擇適合你的方案，讓 AI 處理瑣事，你專注重要的事。"
         url="/agentic-workforce"
       />
       <BreadcrumbSchema
         items={[
           { name: '首頁', url: '/' },
-          { name: 'Agentic Workforce' }
+          { name: 'AI代理人勞動力' }
         ]}
       />
 
@@ -288,7 +288,7 @@ const AgenticWorkforce: React.FC<AgenticWorkforceProps> = ({ onBack, onOpenDemo 
           <div className="text-center mb-16">
             <div className="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#D4A373]/20 to-[#D4A373]/10 text-[#D4A373] text-xs uppercase tracking-widest font-bold mb-6">
               <span className="w-2 h-2 rounded-full bg-[#D4A373] animate-pulse"></span>
-              <span>Agentic Workforce</span>
+              <span>AI代理人勞動力</span>
             </div>
 
             <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight text-[#2C2420] font-serif">
@@ -335,11 +335,11 @@ const AgenticWorkforce: React.FC<AgenticWorkforceProps> = ({ onBack, onOpenDemo 
         </div>
       </section>
 
-      {/* Why Agentic Workforce */}
+      {/* Why AI代理人勞動力 */}
       <section className="py-20 px-6 bg-[#2C2420] text-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center font-serif">為什麼需要 AI 員工團隊？</h2>
-          <p className="text-white/60 text-center mb-12 max-w-2xl mx-auto">傳統 AI 助手只能一對一，而 Agentic Workforce 是一整個團隊</p>
+          <p className="text-white/60 text-center mb-12 max-w-2xl mx-auto">傳統 AI 助手只能一對一，而 AI代理人勞動力 是一整個團隊</p>
           
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white/5 backdrop-blur-sm p-8 rounded-3xl border border-white/10">
