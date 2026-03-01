@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
@@ -16,7 +16,6 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import BackgroundEffects from './components/BackgroundEffects';
 import ConstructionOverlay from './components/ConstructionOverlay';
-import RetellVoiceAgent, { RetellVoiceAgentHandle } from './components/voice/RetellVoiceAgent';
 
 export type Page = 'home' | 'voice-ai' | 'agentic-workforce' | 'agentic-impact' | 'team' | 'privacy' | 'terms' | 'blog' | 'blog-post' | 'login' | 'admin';
 
@@ -27,13 +26,8 @@ const AppContent: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showConstruction, setShowConstruction] = useState(false);
 
-  // Ref to RetellVoiceAgent for programmatic triggering
-  const voiceAgentRef = useRef<RetellVoiceAgentHandle>(null);
-
-  // Handler to open voice chat from anywhere in the app
-  const openVoiceChat = useCallback(() => {
-    voiceAgentRef.current?.openVoiceChat();
-  }, []);
+  // Handler to show construction overlay (demo booking)
+  const openDemoOverlay = () => setShowConstruction(true);
 
   // Check URL on mount for direct navigation
   useEffect(() => {
@@ -172,13 +166,10 @@ const AppContent: React.FC = () => {
   // Login page
   if (currentPage === 'login') {
     return (
-      <>
-        <Login
-          onSuccess={() => setCurrentPage('admin')}
-          onBack={() => setCurrentPage('home')}
-        />
-        <RetellVoiceAgent ref={voiceAgentRef} />
-      </>
+      <Login
+        onSuccess={() => setCurrentPage('admin')}
+        onBack={() => setCurrentPage('home')}
+      />
     );
   }
 
@@ -189,16 +180,13 @@ const AppContent: React.FC = () => {
       return null;
     }
     return (
-      <>
-        <Admin
-          onLogout={async () => {
-            await logout();
-            setCurrentPage('home');
-          }}
-          onBackToSite={() => setCurrentPage('home')}
-        />
-        <RetellVoiceAgent ref={voiceAgentRef} />
-      </>
+      <Admin
+        onLogout={async () => {
+          await logout();
+          setCurrentPage('home');
+        }}
+        onBackToSite={() => setCurrentPage('home')}
+      />
     );
   }
 
@@ -211,7 +199,7 @@ const AppContent: React.FC = () => {
           isScrolled={isScrolled}
           currentPage={currentPage}
           onNavigate={setCurrentPage}
-          onOpenConsulting={openVoiceChat}
+          onOpenConsulting={openDemoOverlay}
         />
         <main className="transition-opacity duration-500">
           <BlogPost
@@ -226,7 +214,6 @@ const AppContent: React.FC = () => {
         {showConstruction && (
           <ConstructionOverlay onClose={() => setShowConstruction(false)} />
         )}
-        <RetellVoiceAgent ref={voiceAgentRef} />
       </div>
     );
   }
@@ -240,7 +227,7 @@ const AppContent: React.FC = () => {
           isScrolled={isScrolled}
           currentPage={currentPage}
           onNavigate={setCurrentPage}
-          onOpenConsulting={openVoiceChat}
+          onOpenConsulting={openDemoOverlay}
         />
         <main className="transition-opacity duration-500">
           <Blog
@@ -252,7 +239,6 @@ const AppContent: React.FC = () => {
         {showConstruction && (
           <ConstructionOverlay onClose={() => setShowConstruction(false)} />
         )}
-        <RetellVoiceAgent ref={voiceAgentRef} />
       </div>
     );
   }
@@ -260,13 +246,13 @@ const AppContent: React.FC = () => {
   // Public pages
   const renderPage = () => {
     switch (currentPage) {
-      case 'voice-ai': return <VoiceAI onBack={() => setCurrentPage('home')} onOpenDemo={openVoiceChat} />;
-      case 'agentic-workforce': return <AgenticWorkforce onBack={() => setCurrentPage('home')} onOpenDemo={openVoiceChat} />;
-      case 'agentic-impact': return <AgenticImpact onBack={() => setCurrentPage('home')} onOpenDemo={openVoiceChat} />;
+      case 'voice-ai': return <VoiceAI onBack={() => setCurrentPage('home')} onOpenDemo={openDemoOverlay} />;
+      case 'agentic-workforce': return <AgenticWorkforce onBack={() => setCurrentPage('home')} onOpenDemo={openDemoOverlay} />;
+      case 'agentic-impact': return <AgenticImpact onBack={() => setCurrentPage('home')} onOpenDemo={openDemoOverlay} />;
       case 'team': return <Team onBack={() => setCurrentPage('home')} />;
       case 'privacy': return <Privacy onBack={() => setCurrentPage('home')} />;
       case 'terms': return <Terms onBack={() => setCurrentPage('home')} />;
-      default: return <Home onNavigate={setCurrentPage} onOpenDemo={() => setShowConstruction(true)} />;
+      default: return <Home onNavigate={setCurrentPage} onOpenDemo={openDemoOverlay} />;
     }
   };
 
@@ -277,12 +263,12 @@ const AppContent: React.FC = () => {
         isScrolled={isScrolled}
         currentPage={currentPage}
         onNavigate={setCurrentPage}
-        onOpenConsulting={openVoiceChat}
+        onOpenConsulting={openDemoOverlay}
       />
 
       <main className="transition-opacity duration-500 pt-20">
         {renderPage()}
-        {currentPage === 'home' && <Contact onOpenChat={openVoiceChat} />}
+        {currentPage === 'home' && <Contact />}
       </main>
 
       <Footer />
@@ -290,9 +276,6 @@ const AppContent: React.FC = () => {
       {showConstruction && (
         <ConstructionOverlay onClose={() => setShowConstruction(false)} />
       )}
-
-      {/* Voice Agent - site-wide */}
-      <RetellVoiceAgent ref={voiceAgentRef} />
     </div>
   );
 };
