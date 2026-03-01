@@ -7,9 +7,7 @@
     "demo": "Book Demo"
   },
   "products": {
-    "voiceOfChoice": "Voice of Choice (Political Survey)",
-    "salesAI": "Voice AI Sales Agent",
-    "voiceSurvey": "Voice AI Survey",
+    "voiceAI": "Voice AI Solutions",
     "agenticWorkforce": "Agentic Workforce"
   },
   "hero": {

@@ -7,9 +7,7 @@
     "demo": "預約演示"
   },
   "products": {
-    "voiceOfChoice": "民選之聲 (Political Survey)",
-    "salesAI": "語音 AI 業務 (Sales Agent)",
-    "voiceSurvey": "語音 AI 調查 (Voice Survey)",
+    "voiceAI": "語音 AI 解決方案",
     "agenticWorkforce": "AI代理人勞動力"
   },
   "hero": {
