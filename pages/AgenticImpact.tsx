@@ -96,7 +96,7 @@ const AgenticImpact: React.FC<AgenticImpactProps> = ({ onBack, onOpenDemo }) => 
             </div>
 
             <p className="text-sm text-[#2C2420]/50">
-              NT$ 80,000 - 160,000｜2-3 週交付｜可 100% 折抵啟動費
+              NT$ 100,000 - 200,000｜2-3 週交付｜可 100% 折抵啟動費
             </p>
           </div>
         </div>
@@ -175,7 +175,7 @@ const AgenticImpact: React.FC<AgenticImpactProps> = ({ onBack, onOpenDemo }) => 
                 title: '診斷報告',
                 subtitle: '先做健檢',
                 desc: '花 1-2 小時聊公司現況，我們評估你適不適合導入 AI Agent，給你一份看得懂的報告。',
-                fee: '報告費 8-16 萬',
+                fee: '報告費 10-20 萬',
                 note: '可 100% 折抵啟動費',
                 color: 'from-emerald-400 to-emerald-500',
               },
@@ -390,7 +390,7 @@ const AgenticImpact: React.FC<AgenticImpactProps> = ({ onBack, onOpenDemo }) => 
             {[
               {
                 phase: '診斷報告',
-                price: 'NT$ 8-16 萬',
+                price: 'NT$ 10-20 萬',
                 desc: '評估公司是否適合導入 AI Agent',
                 details: ['2-3 週交付', '可 100% 折抵啟動費', '包含完整營運診斷'],
                 highlight: true,
