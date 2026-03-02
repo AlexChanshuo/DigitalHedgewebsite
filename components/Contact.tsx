@@ -100,6 +100,20 @@ const Contact: React.FC = () => {
             {isSubmitting ? t('contact.submitting') : t('contact.submit')}
           </button>
         </form>
+
+        {/* Contact Info */}
+        <div className="mt-12 pt-8 border-t border-[#E0E0E0] text-center">
+          <p className="text-sm text-[#2C2420]/60 mb-3">或直接聯繫我們</p>
+          <a 
+            href="tel:+886903502479" 
+            className="inline-flex items-center gap-2 text-[#2C2420] hover:text-[#D4A373] transition-colors font-medium"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            <span>+886 903 502 479</span>
+          </a>
+        </div>
       </div>
     </section>
   );
