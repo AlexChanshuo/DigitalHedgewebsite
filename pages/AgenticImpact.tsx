@@ -247,7 +247,7 @@ const AgenticImpact: React.FC<AgenticImpactProps> = ({ onBack, onOpenDemo }) => 
                   { label: '月營業額', value: '+72%', change: '670→1,150萬' },
                 ],
                 quote: '以前追著客戶跑，現在 Agent 把客戶捧到面前。',
-                roi: '20 天回本',
+                roi: '70 天回本',
               },
               {
                 industry: '飯店旅宿',
@@ -259,7 +259,7 @@ const AgenticImpact: React.FC<AgenticImpactProps> = ({ onBack, onOpenDemo }) => 
                   { label: 'OTA 佣金', value: '年省 168 萬', change: '直訂↑82%' },
                 ],
                 quote: '省下的 OTA 佣金一年快 170 萬，拿來提升服務品質。',
-                roi: '20 天回本',
+                roi: '70 天回本',
               },
               {
                 industry: '豪華露營',
@@ -271,7 +271,7 @@ const AgenticImpact: React.FC<AgenticImpactProps> = ({ onBack, onOpenDemo }) => 
                   { label: '加購滲透率', value: '51%', change: '↑ 132%' },
                 ],
                 quote: '週五晚上訊息爆量，現在我睡醒，訂單都排好了。',
-                roi: '32 天回本',
+                roi: '110 天回本',
               },
               {
                 industry: '美妝電商',
@@ -283,7 +283,7 @@ const AgenticImpact: React.FC<AgenticImpactProps> = ({ onBack, onOpenDemo }) => 
                   { label: '回購率', value: '41%', change: '↑ 86%' },
                 ],
                 quote: '客服成本砍一半，客單價還拉高兩成。',
-                roi: '20 天回本',
+                roi: '70 天回本',
               },
               {
                 industry: '醫美診所',
@@ -295,7 +295,7 @@ const AgenticImpact: React.FC<AgenticImpactProps> = ({ onBack, onOpenDemo }) => 
                   { label: 'VIP 續約率', value: '81%', change: '↑ 56%' },
                 ],
                 quote: '諮詢師不用再花時間解釋基本療程，專心服務到店客人。',
-                roi: '19 天回本',
+                roi: '65 天回本',
               },
             ].map((cs, index) => (
               <div key={index} className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all">
