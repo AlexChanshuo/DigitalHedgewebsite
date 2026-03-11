@@ -1,5 +1,5 @@
 // src/services/telegramService.ts
-import config from '../config';
+import { config } from '../config';
 
 /**
  * Send a message to Telegram
