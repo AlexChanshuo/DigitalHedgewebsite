@@ -58,4 +58,8 @@ export const config = {
     apiKey: process.env.RETELL_API_KEY || '',
     agentId: process.env.RETELL_AGENT_ID || '',
   },
+
+  // Telegram Notification
+  telegramBotToken: process.env.TELEGRAM_BOT_TOKEN || '',
+  telegramChatId: process.env.TELEGRAM_CHAT_ID || '',
 };

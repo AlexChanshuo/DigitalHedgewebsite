@@ -26,8 +26,23 @@ const AppContent: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showConstruction, setShowConstruction] = useState(false);
 
-  // Handler to show construction overlay (demo booking)
-  const openDemoOverlay = () => setShowConstruction(true);
+  // Handler to scroll to contact section (demo booking)
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // If not on home page, navigate to home first then scroll
+      setCurrentPage('home');
+      setTimeout(() => {
+        const el = document.getElementById('contact');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+  };
+  
+  // Legacy handler for construction overlay (kept for reference)
+  const openDemoOverlay = () => scrollToContact();
 
   // Check URL on mount for direct navigation
   useEffect(() => {

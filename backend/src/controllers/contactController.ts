@@ -1,6 +1,7 @@
 // src/controllers/contactController.ts
 import { Request, Response, NextFunction } from 'express';
 import { sendContactNotification } from '../services/emailService';
+import { sendTelegramNotification, formatContactNotification } from '../services/telegramService';
 import { contactSchema } from '../validators/contact.schema';
 
 export async function submitContact(
@@ -19,6 +20,10 @@ export async function submitContact(
             email,
             message,
         });
+
+        // Also send Telegram notification (non-blocking)
+        sendTelegramNotification(formatContactNotification({ name, email, message }))
+            .catch(err => console.error('[Telegram] Notification failed:', err));
 
         if (!emailSent) {
             return res.status(500).json({
