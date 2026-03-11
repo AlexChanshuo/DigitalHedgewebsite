@@ -59,7 +59,7 @@ const plans: Plan[] = [
       '📅 行程管理：零衝突',
       '🤝 人脈追蹤：零遺漏',
     ],
-    monthlyFee: 'NT$ 3 萬',
+    monthlyFee: '請洽詢',
     roi: '3-4 倍',
   },
   {
@@ -84,7 +84,7 @@ const plans: Plan[] = [
       '💬 留言回覆：24/7 即時',
       '📊 數據分析：每日自動報告',
     ],
-    monthlyFee: 'NT$ 3 萬',
+    monthlyFee: '請洽詢',
     roi: '3-5 倍',
   },
   {
